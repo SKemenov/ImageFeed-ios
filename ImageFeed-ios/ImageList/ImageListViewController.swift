@@ -36,14 +36,7 @@ class ImagesListViewController: UIViewController {
     tableView.dataSource = self
     tableView.delegate = self
     tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
-    //    print(photosName)
   }
-  // MARK: - Actions
-
-  // MARK: - Methods
-
-  // MARK: - Private methods
-
 }
 
 extension ImagesListViewController: UITableViewDelegate {
@@ -77,9 +70,12 @@ extension ImagesListViewController: UITableViewDataSource {
       return UITableViewCell()
     }
 
+    // prepare data for ImagesListCell. TO-DO: extract it into structure next sprint
     let image = UIImage(named: photosName[indexPath.row])
     let date = dateFormatter.string(from: Date())
     let isLiked = indexPath.row % 2 != 0
+
+    // Best practics: Denis showed how to extract this method into ImagesListCell class and used from there
     cell.config(image: image, date: date, isLiked: isLiked)
 
     return cell
