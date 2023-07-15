@@ -7,12 +7,12 @@
 
 import UIKit
 
-class ImagesListViewController: UIViewController {
+final class ImagesListViewController: UIViewController {
   // MARK: - Outlets
 
   @IBOutlet private var tableView: UITableView!
 
-  // MARK: - Properties
+  // MARK: - Private properties
 
   private let photosName: [String] = Array(0..<20).map { "\($0)" }
 
@@ -33,17 +33,29 @@ class ImagesListViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    setupTableView()
+  }
+}
+
+// MARK: - private methods
+
+private extension ImagesListViewController {
+  func setupTableView() {
     tableView.dataSource = self
     tableView.delegate = self
     tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
   }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ImagesListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
   }
 }
+
+// MARK: - UITableViewDataSource
 
 extension ImagesListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -73,7 +85,7 @@ extension ImagesListViewController: UITableViewDataSource {
     // prepare data for ImagesListCell. TO-DO: extract it into structure next sprint
     let image = UIImage(named: photosName[indexPath.row])
     let date = dateFormatter.string(from: Date())
-    let isLiked = indexPath.row % 2 != 0
+    let isLiked = indexPath.row % 2 == 0
 
     // Best practics: Denis showed how to extract this method into ImagesListCell class and used from there
     cell.config(image: image, date: date, isLiked: isLiked)
