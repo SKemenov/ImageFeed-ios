@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E9292ADA2A664AEA004D9234 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9292AD92A664AEA004D9234 /* ProfileViewController.swift */; };
 		E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE712A5F4200005BDB6A /* AppDelegate.swift */; };
 		E99EFE742A5F4200005BDB6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */; };
 		E99EFE762A5F4200005BDB6A /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E9292AD92A664AEA004D9234 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		E99EFE6E2A5F4200005BDB6A /* ImageFeed-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageFeed-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99EFE712A5F4200005BDB6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,6 +76,7 @@
 			children = (
 				E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */,
 				E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */,
+				E9292AD92A664AEA004D9234 /* ProfileViewController.swift */,
 			);
 			path = ImageList;
 			sourceTree = "<group>";
@@ -173,6 +176,7 @@
 			files = (
 				E99EFE762A5F4200005BDB6A /* ImageListViewController.swift in Sources */,
 				E99EFE872A5F4B4C005BDB6A /* ImageListCell.swift in Sources */,
+				E9292ADA2A664AEA004D9234 /* ProfileViewController.swift in Sources */,
 				E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */,
 				E99EFE742A5F4200005BDB6A /* SceneDelegate.swift in Sources */,
 			);
