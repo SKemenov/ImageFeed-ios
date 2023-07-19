@@ -9,7 +9,7 @@ import UIKit
 
 final  class ProfileViewController: UIViewController {
   // MARK: - Outlets
-  
+
   @IBOutlet private weak var profilePhotoImage: UIImageView!
   @IBOutlet private weak var profileFullNameLabel: UILabel!
   @IBOutlet private weak var profileLoginNameLabel: UILabel!
