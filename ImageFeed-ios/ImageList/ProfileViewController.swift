@@ -8,7 +8,8 @@
 import UIKit
 
 final  class ProfileViewController: UIViewController {
-  // MARK: - IBOutlets
+  // MARK: - Outlets
+  
   @IBOutlet private weak var profilePhotoImage: UIImageView!
   @IBOutlet private weak var profileFullNameLabel: UILabel!
   @IBOutlet private weak var profileLoginNameLabel: UILabel!
@@ -25,13 +26,23 @@ final  class ProfileViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+
+    mockDataForProfileView()
+  }
+
+  // MARK: - Actions
+
+  @IBAction func exitButtonClicked() {
+  }
+}
+
+// MARK: - Private methods
+
+private extension ProfileViewController {
+  func mockDataForProfileView() {
     profilePhotoImage?.image = UIImage(named: "Photo")
     profileFullNameLabel.text = "Константин Константинопольский"
     profileLoginNameLabel.text = "@konstantin_kon"
     profileBioLabel.text = "Hello, swift!"
-  }
-
-  // MARK: - Actions
-  @IBAction func exitButtonClicked() {
   }
 }
