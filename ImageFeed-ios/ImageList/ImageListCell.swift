@@ -8,12 +8,18 @@
 import UIKit
 
 final class ImagesListCell: UITableViewCell {
-  static let reuseIdentifier = "ImagesListCell"
+  // MARK: - Outlets
 
   @IBOutlet private weak var imageCell: UIImageView!
   @IBOutlet private weak var dateLabel: UILabel!
   @IBOutlet private weak var likeButton: UIButton!
+
+  // MARK: - Methods
+
+  static let reuseIdentifier = "ImagesListCell"
 }
+
+// MARK: - Methods
 
 extension ImagesListCell {
   func config(image: UIImage?, date: String, isLiked: Bool) {
