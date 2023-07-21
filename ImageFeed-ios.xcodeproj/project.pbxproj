@@ -84,6 +84,7 @@
 				E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */,
 				E9292ADD2A6978DD004D9234 /* ProfileView */,
 				E99EFE882A5F4B54005BDB6A /* ImageList */,
+				E9C8E9262A6AAF91008F418B /* SingleImageView */,
 				E99EFE772A5F4200005BDB6A /* Main.storyboard */,
 				E9292ADE2A69792A004D9234 /* Resources */,
 			);
@@ -95,9 +96,16 @@
 			children = (
 				E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */,
 				E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */,
-				E9292ADB2A683650004D9234 /* SingleImageViewController.swift */,
 			);
 			path = ImageList;
+			sourceTree = "<group>";
+		};
+		E9C8E9262A6AAF91008F418B /* SingleImageView */ = {
+			isa = PBXGroup;
+			children = (
+				E9292ADB2A683650004D9234 /* SingleImageViewController.swift */,
+			);
+			path = SingleImageView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
