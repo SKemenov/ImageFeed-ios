@@ -209,7 +209,6 @@
                                             <outlet property="dateLabel" destination="2vj-yV-W0t" id="ICu-uS-6OK"/>
                                             <outlet property="imageCell" destination="eOz-qA-Vtd" id="KZg-ry-8Mw"/>
                                             <outlet property="likeButton" destination="Q4A-cl-6Wo" id="rMD-Vs-wNr"/>
-                                            <segue destination="ENJ-oZ-wCg" kind="show" id="SuT-jh-8Ka"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -227,36 +226,37 @@
                     <navigationItem key="navigationItem" id="CUP-gr-TfM"/>
                     <connections>
                         <outlet property="tableView" destination="AqL-sv-sOf" id="7GE-4g-J51"/>
+                        <segue destination="ENJ-oZ-wCg" kind="presentation" identifier="ShowSingleImage" id="HHP-dK-0Xa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1060.3053435114502" y="-2.1126760563380285"/>
+            <point key="canvasLocation" x="1058.7786259541983" y="-2.1126760563380285"/>
         </scene>
         <!--SingleImageView-->
         <scene sceneID="ctm-fy-5sh">
             <objects>
-                <viewController id="ENJ-oZ-wCg" userLabel="SingleImageView" customClass="SingleImageViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="ENJ-oZ-wCg" userLabel="SingleImageView" customClass="SingleImageViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7W9-1K-tm0">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="AAh-e4-3Lo" userLabel="Single Image">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Qbj-fm-AgX"/>
                         <color key="backgroundColor" name="YP Background"/>
                         <constraints>
-                            <constraint firstItem="AAh-e4-3Lo" firstAttribute="leading" secondItem="Qbj-fm-AgX" secondAttribute="leading" id="3jl-vt-DFr"/>
-                            <constraint firstItem="AAh-e4-3Lo" firstAttribute="top" secondItem="Qbj-fm-AgX" secondAttribute="top" id="9BK-s8-UXl"/>
-                            <constraint firstItem="Qbj-fm-AgX" firstAttribute="trailing" secondItem="AAh-e4-3Lo" secondAttribute="trailing" id="dze-qa-DWF"/>
-                            <constraint firstItem="Qbj-fm-AgX" firstAttribute="bottom" secondItem="AAh-e4-3Lo" secondAttribute="bottom" id="fYs-KO-RQI"/>
+                            <constraint firstItem="AAh-e4-3Lo" firstAttribute="leading" secondItem="7W9-1K-tm0" secondAttribute="leading" id="3jl-vt-DFr"/>
+                            <constraint firstItem="AAh-e4-3Lo" firstAttribute="top" secondItem="7W9-1K-tm0" secondAttribute="top" id="9BK-s8-UXl"/>
+                            <constraint firstAttribute="trailing" secondItem="AAh-e4-3Lo" secondAttribute="trailing" id="dze-qa-DWF"/>
+                            <constraint firstAttribute="bottom" secondItem="AAh-e4-3Lo" secondAttribute="bottom" id="fYs-KO-RQI"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="y5z-vk-GHr"/>
                     <connections>
-                        <outlet property="singleImageView" destination="AAh-e4-3Lo" id="wlC-9q-JXj"/>
+                        <outlet property="imageView" destination="AAh-e4-3Lo" id="wlC-9q-JXj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84E-Yu-9ZS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
