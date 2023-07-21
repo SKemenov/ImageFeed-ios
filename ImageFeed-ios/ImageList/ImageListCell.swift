@@ -14,7 +14,7 @@ final class ImagesListCell: UITableViewCell {
   @IBOutlet private weak var dateLabel: UILabel!
   @IBOutlet private weak var likeButton: UIButton!
 
-  // MARK: - Methods
+  // MARK: - Public properties
 
   static let reuseIdentifier = "ImagesListCell"
 }
