@@ -43,6 +43,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E9292ADD2A6978DD004D9234 /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				E9292AD92A664AEA004D9234 /* ProfileViewController.swift */,
+			);
+			path = ProfileView;
+			sourceTree = "<group>";
+		};
+		E9292ADE2A69792A004D9234 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E99EFE7A2A5F4202005BDB6A /* Assets.xcassets */,
+				E99EFE7C2A5F4202005BDB6A /* LaunchScreen.storyboard */,
+				E99EFE7F2A5F4202005BDB6A /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E99EFE652A5F4200005BDB6A = {
 			isa = PBXGroup;
 			children = (
@@ -64,11 +82,10 @@
 			children = (
 				E99EFE712A5F4200005BDB6A /* AppDelegate.swift */,
 				E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */,
+				E9292ADD2A6978DD004D9234 /* ProfileView */,
 				E99EFE882A5F4B54005BDB6A /* ImageList */,
 				E99EFE772A5F4200005BDB6A /* Main.storyboard */,
-				E99EFE7A2A5F4202005BDB6A /* Assets.xcassets */,
-				E99EFE7C2A5F4202005BDB6A /* LaunchScreen.storyboard */,
-				E99EFE7F2A5F4202005BDB6A /* Info.plist */,
+				E9292ADE2A69792A004D9234 /* Resources */,
 			);
 			path = "ImageFeed-ios";
 			sourceTree = "<group>";
@@ -78,7 +95,6 @@
 			children = (
 				E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */,
 				E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */,
-				E9292AD92A664AEA004D9234 /* ProfileViewController.swift */,
 				E9292ADB2A683650004D9234 /* SingleImageViewController.swift */,
 			);
 			path = ImageList;
@@ -331,7 +347,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3LKWW87KA9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "ImageFeed-ios/Info.plist";
+				INFOPLIST_FILE = "ImageFeed-ios/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Image Feed";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
@@ -365,7 +381,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3LKWW87KA9;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = "ImageFeed-ios/Info.plist";
+				INFOPLIST_FILE = "ImageFeed-ios/Resources/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Image Feed";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
