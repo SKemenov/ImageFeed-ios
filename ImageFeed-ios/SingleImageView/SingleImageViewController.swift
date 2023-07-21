@@ -10,7 +10,8 @@ import UIKit
 final class SingleImageViewController: UIViewController {
   // MARK: - Outlets
 
-  @IBOutlet private var imageView: UIImageView!
+  @IBOutlet private weak var imageView: UIImageView!
+  @IBOutlet private weak var backButton: UIButton!
 
   // MARK: - Public properties
 
@@ -22,10 +23,18 @@ final class SingleImageViewController: UIViewController {
     }
   }
 
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
+
   // MARK: - Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
     imageView.image = image
+  }
+
+  @IBAction private func clickedBackButton() {
+    dismiss(animated: true)
   }
 }
