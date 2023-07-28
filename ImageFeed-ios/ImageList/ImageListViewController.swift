@@ -81,6 +81,24 @@ extension ImagesListViewController: UITableViewDataSource {
     photosName.count
   }
 
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: ImagesListCell.reuseIdentifier,
+      for: indexPath
+    ) as? ImagesListCell else {
+      return UITableViewCell()
+    }
+
+    // TODO: prepare data for ImagesListCell. extract it into structure next sprint
+    let image = UIImage(named: photosName[indexPath.row])
+    let date = dateFormatter.string(from: Date())
+    let isLiked = indexPath.row % 2 == 0
+
+    cell.config(image: image, date: date, isLiked: isLiked)
+
+    return cell
+  }
+
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
     guard let image = UIImage(named: photosName[indexPath.row]) else {
       return 0
@@ -91,24 +109,5 @@ extension ImagesListViewController: UITableViewDataSource {
     let scale = imageViewWidth / imageWidth
     let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
     return cellHeight
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-      withIdentifier: ImagesListCell.reuseIdentifier,
-      for: indexPath
-    ) as? ImagesListCell else {
-      return UITableViewCell()
-    }
-
-    // prepare data for ImagesListCell. TO-DO: extract it into structure next sprint
-    let image = UIImage(named: photosName[indexPath.row])
-    let date = dateFormatter.string(from: Date())
-    let isLiked = indexPath.row % 2 == 0
-
-    // Best practics: Denis showed how to extract this method into ImagesListCell class and used from there
-    cell.config(image: image, date: date, isLiked: isLiked)
-
-    return cell
   }
 }
