@@ -222,10 +222,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LIo-UM-j0X">
-                                <rect key="frame" x="16" y="68" width="44" height="44"/>
+                                <rect key="frame" x="8" y="53" width="24" height="24"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="8QM-Ku-l2z"/>
-                                    <constraint firstAttribute="width" constant="44" id="es8-7G-v7R"/>
+                                    <constraint firstAttribute="height" constant="24" id="8QM-Ku-l2z"/>
+                                    <constraint firstAttribute="width" constant="24" id="es8-7G-v7R"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Backward"/>
@@ -234,10 +234,10 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3tt-ag-IBl">
-                                <rect key="frame" x="169.66666666666666" y="738" width="54" height="54"/>
+                                <rect key="frame" x="171.66666666666666" y="751" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="54" id="bZ4-3V-AYt"/>
-                                    <constraint firstAttribute="height" constant="54" id="sLN-cM-cE4"/>
+                                    <constraint firstAttribute="width" constant="50" id="bZ4-3V-AYt"/>
+                                    <constraint firstAttribute="height" constant="50" id="sLN-cM-cE4"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="Sharing"/>
@@ -250,13 +250,13 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="nKR-Uy-gHQ" firstAttribute="top" secondItem="htG-ds-jw8" secondAttribute="top" id="8V6-dO-uic"/>
-                            <constraint firstItem="LIo-UM-j0X" firstAttribute="leading" secondItem="htG-ds-jw8" secondAttribute="leading" constant="16" id="OLJ-JY-dUk"/>
+                            <constraint firstItem="LIo-UM-j0X" firstAttribute="leading" secondItem="htG-ds-jw8" secondAttribute="leading" constant="8" id="OLJ-JY-dUk"/>
                             <constraint firstItem="nKR-Uy-gHQ" firstAttribute="bottom" secondItem="htG-ds-jw8" secondAttribute="bottom" id="Sp5-Ee-u0x"/>
                             <constraint firstItem="3tt-ag-IBl" firstAttribute="centerX" secondItem="htG-ds-jw8" secondAttribute="centerX" id="Tq8-TR-A2y"/>
                             <constraint firstItem="nKR-Uy-gHQ" firstAttribute="leading" secondItem="htG-ds-jw8" secondAttribute="leading" id="ebV-6o-XXz"/>
-                            <constraint firstItem="LIo-UM-j0X" firstAttribute="top" secondItem="htG-ds-jw8" secondAttribute="top" constant="68" id="hbX-FQ-3hK"/>
+                            <constraint firstItem="LIo-UM-j0X" firstAttribute="top" secondItem="htG-ds-jw8" secondAttribute="top" constant="53" id="hbX-FQ-3hK"/>
                             <constraint firstItem="nKR-Uy-gHQ" firstAttribute="trailing" secondItem="htG-ds-jw8" secondAttribute="trailing" id="o1L-DK-r10"/>
-                            <constraint firstItem="3tt-ag-IBl" firstAttribute="bottom" secondItem="htG-ds-jw8" secondAttribute="bottom" constant="-60" id="rga-gC-11p"/>
+                            <constraint firstAttribute="bottom" secondItem="3tt-ag-IBl" secondAttribute="bottom" constant="51" id="rga-gC-11p"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gUU-I7-wcE"/>
