@@ -36,7 +36,7 @@ final class SingleImageViewController: UIViewController {
     super.viewDidLoad()
     imageView.image = image
 //    setupScrollView()
-    //    rescaleAndCenterImageInScrollView(image: image)
+//    rescaleAndCenterImageInScrollView(image: image)
   }
 
   // MARK: - Actions
