@@ -41,7 +41,7 @@ final class SingleImageViewController: UIViewController {
 
   // MARK: - Actions
 
-  @IBAction private func clickedBackButton() {
+  @IBAction private func didTapBackButton() {
     dismiss(animated: true)
   }
   @IBAction private func didTapShareButton() {
