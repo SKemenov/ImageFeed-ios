@@ -44,8 +44,12 @@ final class SingleImageViewController: UIViewController {
   @IBAction private func clickedBackButton() {
     dismiss(animated: true)
   }
-  @IBAction private func clickedShareButton() {
-    dismiss(animated: true)
+  @IBAction private func didTapShareButton() {
+    guard let image else { return }
+    let imageToShare = [ image ]
+    let shareViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+    shareViewController.popoverPresentationController?.sourceView = self.view
+    self.present(shareViewController, animated: true)
   }
 }
 
