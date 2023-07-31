@@ -32,7 +32,7 @@ final  class ProfileViewController: UIViewController {
 
   // MARK: - Actions
 
-  @IBAction func exitButtonClicked() {
+  @IBAction func didTapExitButton() {
   }
 }
 
