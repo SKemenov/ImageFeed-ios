@@ -90,14 +90,14 @@
 		E99EFE702A5F4200005BDB6A /* ImageFeed-ios */ = {
 			isa = PBXGroup;
 			children = (
-				E90EA1672A78DBB000EC34FD /* Helpers */,
 				E99EFE712A5F4200005BDB6A /* AppDelegate.swift */,
 				E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */,
+				E90EA1672A78DBB000EC34FD /* Helpers */,
 				E9292ADD2A6978DD004D9234 /* ProfileView */,
 				E99EFE882A5F4B54005BDB6A /* ImageList */,
 				E9C8E9262A6AAF91008F418B /* SingleImageView */,
-				E99EFE772A5F4200005BDB6A /* Main.storyboard */,
 				E9292ADE2A69792A004D9234 /* Resources */,
+				E99EFE772A5F4200005BDB6A /* Main.storyboard */,
 			);
 			path = "ImageFeed-ios";
 			sourceTree = "<group>";
