@@ -16,10 +16,10 @@ final  class ProfileViewController: UIViewController {
   private var exitButton = UIButton()
 
   // MARK: - Mock data
-  let profilePhoto = "photo_mock"
-  let profileUserName = "Константин Константинопольский"
-  let profileLoginName = "@konstantin_kon"
-  let profileDescription = "Hello, swift!"
+  private let profilePhoto = "photo_mock"
+  private let profileUserName = "Константин Константинопольский"
+  private let profileLoginName = "@konstantin_kon"
+  private let profileDescription = "Hello, swift!"
 
   // MARK: - Public properties
 
