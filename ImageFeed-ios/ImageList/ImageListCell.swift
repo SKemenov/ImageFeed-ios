@@ -23,7 +23,7 @@ final class ImagesListCell: UITableViewCell {
 
 extension ImagesListCell {
   func config(image: UIImage?, date: String, isLiked: Bool) {
-    let likedImage = isLiked ? UIImage(named: "likeActive") : UIImage(named: "likeNoActive")
+    let likedImage = isLiked ? UIImage(named: "like_active_on") : UIImage(named: "like_active_off")
 
     imageCell.image = image
     dateLabel.text = date

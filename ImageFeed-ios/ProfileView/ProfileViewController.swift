@@ -27,7 +27,11 @@ final  class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    mockDataForProfileView()
+    makeProfilePhotoImage()
+    makeProfileFullNameLabel()
+    makeProfileLoginNameLabel()
+    makeProfileBioLabel()
+    makeProfileExitButton()
   }
 
   // MARK: - Actions
@@ -39,10 +43,21 @@ final  class ProfileViewController: UIViewController {
 // MARK: - Private methods
 
 private extension ProfileViewController {
-  func mockDataForProfileView() {
-    profilePhotoImage?.image = UIImage(named: "Photo")
+  func makeProfilePhotoImage() {
+    profilePhotoImage?.image = UIImage(named: "photo")
+  }
+
+  func makeProfileFullNameLabel() {
     profileFullNameLabel.text = "Константин Константинопольский"
+  }
+
+  func makeProfileLoginNameLabel() {
     profileLoginNameLabel.text = "@konstantin_kon"
+  }
+
+  func makeProfileBioLabel() {
     profileBioLabel.text = "Hello, swift!"
   }
+
+  func makeProfileExitButton() { }
 }

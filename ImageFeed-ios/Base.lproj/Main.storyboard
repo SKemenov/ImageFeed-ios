@@ -51,7 +51,7 @@
                                 <rect key="frame" x="333" y="104" width="44" height="44"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="44" id="Egm-2c-Ndc"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="44" id="NIm-YQ-XB3"/>
+                                    <constraint firstAttribute="width" constant="44" id="NIm-YQ-XB3"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" image="ipad.and.arrow.forward"/>
@@ -155,7 +155,7 @@
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="likeActive"/>
+                                                    <state key="normal" image="like_active_on"/>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26 декабря 2022 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2vj-yV-W0t" userLabel="Date Label">
                                                     <rect key="frame" x="24" y="200" width="361" height="16"/>
@@ -202,7 +202,7 @@
                     <navigationItem key="navigationItem" id="CUP-gr-TfM"/>
                     <connections>
                         <outlet property="tableView" destination="AqL-sv-sOf" id="7GE-4g-J51"/>
-                        <segue destination="XAz-yl-lP1" kind="presentation" identifier="ShowSingleImage" id="LnK-gB-0fe"/>
+                        <segue destination="XAz-yl-lP1" kind="presentation" identifier="showSingleImage" id="LnK-gB-0fe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -243,7 +243,7 @@
                                     <constraint firstAttribute="width" constant="44" id="es8-7G-v7R"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Backward"/>
+                                <state key="normal" image="backward"/>
                                 <connections>
                                     <action selector="didTapBackButton" destination="XAz-yl-lP1" eventType="touchUpInside" id="dfF-Sh-K6U"/>
                                 </connections>
@@ -255,7 +255,7 @@
                                     <constraint firstAttribute="height" constant="50" id="sLN-cM-cE4"/>
                                 </constraints>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" image="Sharing"/>
+                                <state key="normal" image="sharing"/>
                                 <connections>
                                     <action selector="didTapShareButton" destination="XAz-yl-lP1" eventType="touchUpInside" id="T5y-gh-cFD"/>
                                 </connections>
@@ -289,11 +289,11 @@
     </scenes>
     <resources>
         <image name="0" width="200" height="132"/>
-        <image name="Backward" width="24" height="24"/>
-        <image name="Sharing" width="50.333332061767578" height="50"/>
+        <image name="backward" width="24" height="24"/>
         <image name="ipad.and.arrow.forward" width="20" height="22"/>
-        <image name="likeActive" width="30" height="27.333333969116211"/>
+        <image name="like_active_on" width="30" height="27.333333969116211"/>
         <image name="person.crop.circle.fill" width="70" height="70"/>
+        <image name="sharing" width="50.333332061767578" height="50"/>
         <image name="tab_editorial_active" width="30" height="30"/>
         <image name="tab_profile_active" width="75" height="49"/>
         <namedColor name="YP Background">
