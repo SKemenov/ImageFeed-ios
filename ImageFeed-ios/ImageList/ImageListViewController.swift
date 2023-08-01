@@ -88,7 +88,7 @@ extension ImagesListViewController: UITableViewDataSource {
     ) as? ImagesListCell else {
       return UITableViewCell()
     }
-    
+
     let image = UIImage(named: photosName[indexPath.row])
     let date = dateFormatter.string(from: Date())
     let isLiked = indexPath.row % 2 == 0

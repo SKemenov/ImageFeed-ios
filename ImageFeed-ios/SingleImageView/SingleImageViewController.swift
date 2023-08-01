@@ -17,11 +17,11 @@ final class SingleImageViewController: UIViewController {
 
   // MARK: - Public properties
 
-  // swiftlint:disable:next implicitly_unwrapped_optional
-  var image: UIImage! {
+  var image: UIImage? {
     didSet {
       guard isViewLoaded else { return }
       imageView.image = image
+      guard let image else { return }
       rescaleAndCenterImageInScrollView(image: image)
     }
   }
@@ -36,6 +36,7 @@ final class SingleImageViewController: UIViewController {
     super.viewDidLoad()
     imageView.image = image
     setupScrollView()
+    guard let image else { return }
     rescaleAndCenterImageInScrollView(image: image)
   }
 
@@ -44,6 +45,7 @@ final class SingleImageViewController: UIViewController {
   @IBAction private func didTapBackButton() {
     dismiss(animated: true)
   }
+
   @IBAction private func didTapShareButton() {
     guard let image else { return }
     let imageToShare = [ image ]
@@ -63,7 +65,6 @@ private extension SingleImageViewController {
   }
 
   func rescaleAndCenterImageInScrollView(image: UIImage) {
-    // TODO: rewrite it from the workbook
     let scaleImageMin = scrollView.minimumZoomScale
     let scaleImageMax = scrollView.maximumZoomScale
 
