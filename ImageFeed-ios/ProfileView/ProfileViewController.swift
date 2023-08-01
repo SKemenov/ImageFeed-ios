@@ -12,14 +12,14 @@ final  class ProfileViewController: UIViewController {
   private var profilePhotoImage = UIImageView()
   private var profileFullNameLabel = UILabel()
   private var profileLoginNameLabel = UILabel()
-  private var profileBioLabel = UILabel()
+  private var profileDescLabel = UILabel()
   private var exitButton = UIButton()
 
   // MARK: - Mock data
   let profilePhoto = "photo"
   let profileUserName = "Константин Константинопольский"
   let profileLoginName = "@konstantin_kon"
-  let profileBio = "Hello, swift!"
+  let profileDescription = "Hello, swift!"
 
   // MARK: - Public properties
 
@@ -37,7 +37,6 @@ final  class ProfileViewController: UIViewController {
     makeProfileLoginNameLabel()
     makeProfileBioLabel()
     makeProfileExitButton()
-
   }
 }
 
@@ -74,7 +73,7 @@ private extension ProfileViewController {
     NSLayoutConstraint.activate([
       profileFullNameLabel.topAnchor.constraint(equalTo: profilePhotoImage.bottomAnchor, constant: 8),
       profileFullNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-      profileFullNameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 16)
+      profileFullNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
     ])
   }
 
@@ -89,25 +88,43 @@ private extension ProfileViewController {
     NSLayoutConstraint.activate([
       profileLoginNameLabel.topAnchor.constraint(equalTo: profileFullNameLabel.bottomAnchor, constant: 8),
       profileLoginNameLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-      profileLoginNameLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 16)
+      profileLoginNameLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
     ])
   }
 
   func makeProfileBioLabel() {
-    profileBioLabel.text = profileBio
-    profileBioLabel.textColor = .ypWhite
-    profileBioLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+    profileDescLabel.text = profileDescription
+    profileDescLabel.textColor = .ypWhite
+    profileDescLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
 
-    profileBioLabel.translatesAutoresizingMaskIntoConstraints = false
-    view.addSubview(profileBioLabel)
+    profileDescLabel.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(profileDescLabel)
 
     NSLayoutConstraint.activate([
-      profileBioLabel.topAnchor.constraint(equalTo: profileLoginNameLabel.bottomAnchor, constant: 8),
-      profileBioLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
-      profileBioLabel.trailingAnchor.constraint(equalTo: view.layoutMarginsGuide.trailingAnchor, constant: 16)
+      profileDescLabel.topAnchor.constraint(equalTo: profileLoginNameLabel.bottomAnchor, constant: 8),
+      profileDescLabel.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16),
+      profileDescLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
     ])
-
   }
 
-  func makeProfileExitButton() { }
+  func makeProfileExitButton() {
+    let profileExitButtonImage = UIImage(named: "ipad.and.arrow.forward") ?? UIImage()
+
+    exitButton = UIButton.systemButton(
+      with: profileExitButtonImage,
+      target: self,
+      action: #selector(self.didTapButton)
+    )
+    exitButton.tintColor = .ypRed
+
+    exitButton.translatesAutoresizingMaskIntoConstraints = false
+    view.addSubview(exitButton)
+
+    NSLayoutConstraint.activate([
+      exitButton.widthAnchor.constraint(equalToConstant: 44),
+      exitButton.heightAnchor.constraint(equalToConstant: 44),
+      exitButton.centerYAnchor.constraint(equalTo: profilePhotoImage.centerYAnchor),
+      exitButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
+    ])
+  }
 }
