@@ -15,6 +15,7 @@ final class ImagesListViewController: UIViewController {
   // MARK: - Private properties
 
   private let photosName: [String] = Array(0..<20).map { "\($0)" }
+  private let showSingleImageSegueIdentifier = "showSingleImage"
 
   private lazy var dateFormatter: DateFormatter = {
     let formatter = DateFormatter()
@@ -35,6 +36,23 @@ final class ImagesListViewController: UIViewController {
     super.viewDidLoad()
     setupTableView()
   }
+  // MARK: - public methods
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == showSingleImageSegueIdentifier {
+      guard
+        let viewController = segue.destination as? SingleImageViewController,
+        let indexPath = sender as? IndexPath
+      else {
+        super.prepare(for: segue, sender: sender)
+        return
+      }
+      let image = UIImage(named: photosName[indexPath.row])
+      viewController.image = image
+    } else {
+      super.prepare(for: segue, sender: sender)
+    }
+  }
 }
 
 // MARK: - private methods
@@ -52,6 +70,7 @@ private extension ImagesListViewController {
 extension ImagesListViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     tableView.deselectRow(at: indexPath, animated: true)
+    performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
   }
 }
 
@@ -60,6 +79,23 @@ extension ImagesListViewController: UITableViewDelegate {
 extension ImagesListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     photosName.count
+  }
+
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    guard let cell = tableView.dequeueReusableCell(
+      withIdentifier: ImagesListCell.reuseIdentifier,
+      for: indexPath
+    ) as? ImagesListCell else {
+      return UITableViewCell()
+    }
+
+    let image = UIImage(named: photosName[indexPath.row])
+    let date = dateFormatter.string(from: Date())
+    let isLiked = indexPath.row % 2 == 0
+
+    cell.config(image: image, date: date, isLiked: isLiked)
+
+    return cell
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -72,24 +108,5 @@ extension ImagesListViewController: UITableViewDataSource {
     let scale = imageViewWidth / imageWidth
     let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
     return cellHeight
-  }
-
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(
-      withIdentifier: ImagesListCell.reuseIdentifier,
-      for: indexPath
-    ) as? ImagesListCell else {
-      return UITableViewCell()
-    }
-
-    // prepare data for ImagesListCell. TO-DO: extract it into structure next sprint
-    let image = UIImage(named: photosName[indexPath.row])
-    let date = dateFormatter.string(from: Date())
-    let isLiked = indexPath.row % 2 == 0
-
-    // Best practics: Denis showed how to extract this method into ImagesListCell class and used from there
-    cell.config(image: image, date: date, isLiked: isLiked)
-
-    return cell
   }
 }
