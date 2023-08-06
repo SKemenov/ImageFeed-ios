@@ -10,4 +10,7 @@ import UIKit
 final class AuthViewController: UIViewController {
   // MARK: - Public properties
 
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
 }
