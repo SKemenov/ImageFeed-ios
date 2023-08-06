@@ -27,7 +27,7 @@ final  class ProfileViewController: UIViewController {
     return .lightContent
   }
 
-  // MARK: - Lifecyrcle
+  // MARK: - Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()

@@ -7,7 +7,7 @@
 
 import Foundation
 
-    // MARK: - Public properties
+// MARK: - Public properties
 
 // The API is to be used for non-automated, high-quality, and authentic experiences.
 // You cannot replicate the core user experience of Unsplash (unofficial clients, wallpaper applications, etc.).
@@ -21,4 +21,4 @@ public let accessScope = "public+read_user+write_likes"
 
 // defaultBaseURL is optional
 public let defaultBaseURL = URL(string: "https://api.unsplash.com")
-public let defaultAPIURL =  URL(string: "https://api.unsplash.com")
+public let defaultAPIURL = URL(string: "https://api.unsplash.com")
