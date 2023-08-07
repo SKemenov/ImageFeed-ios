@@ -20,3 +20,15 @@ final class AuthViewController: UIViewController {
     super.viewDidLoad()
   }
 }
+
+// MARK: - WebViewViewControllerDelegate
+
+extension AuthViewController: WebViewViewControllerDelegate {
+  func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String) {
+    print("webViewViewController code")
+  }
+
+  func webViewViewControllerDidCancel(_ viewController: WebViewViewController) {
+    print("webViewViewControllerDidCancel code")
+  }
+}
