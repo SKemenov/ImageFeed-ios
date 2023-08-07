@@ -39,7 +39,7 @@ final class WebViewViewController: UIViewController {
   }
 }
 
-// MARK: - Private methods
+// MARK: - Ext: Private methods
 
 private extension WebViewViewController {
   func setupUnsplashAuthWebView() {
@@ -59,19 +59,15 @@ private extension WebViewViewController {
   }
 }
 
-// MARK: - WKNavigationDelegate
+// MARK: - Ext: WKNavigationDelegate
 
 extension WebViewViewController: WKNavigationDelegate {
-  func webView(
-    _ webView: WKWebView,
-    decidePolicyFor navigationAction: WKNavigationAction,
-    decisionHandler: @escaping (WKNavigationActionPolicy) -> Void
-  ) {
-//    if let code = code(from: navigationAction) { //1
-//      //TODO: process code                     //2
-//      decisionHandler(.cancel) //3
-//    } else {
-//      decisionHandler(.allow) //4
-//    }
+  func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+    if let code = code(from: navigationAction) {
+      // TODO: process code, after that cancel the request, because we've already received the token
+      decisionHandler(.cancel)
+    } else {
+      decisionHandler(.allow)
+    }
   }
 }
