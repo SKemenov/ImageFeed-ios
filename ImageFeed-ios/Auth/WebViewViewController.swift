@@ -57,6 +57,24 @@ private extension WebViewViewController {
     let request = URLRequest(url: url)
     webView.load(request)
   }
+
+  func code(from navigationAction: WKNavigationAction) -> String? {
+    if
+      let url = navigationAction.request.url,
+      let urlComponents = URLComponents(string: url.absoluteString),
+      urlComponents.path == "/oauth/authorize/native",
+      let items = urlComponents.queryItems,
+      let codeItem = items.first(where: { $0.name == "code" }) {
+        print("urlComponents \(urlComponents)")
+        print("urlComponents.path \(urlComponents.path)")
+        print("items \(items)")
+      print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
+        return codeItem.value
+    } else {
+      print("can't take url")
+      return nil
+    }
+  }
 }
 
 // MARK: - Ext: WKNavigationDelegate
