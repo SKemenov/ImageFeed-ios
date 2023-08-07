@@ -8,6 +8,14 @@
 import UIKit
 import WebKit
 
+// MARK: - Protocol
+protocol WebViewViewControllerDelegate: AnyObject {
+  func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String)
+  func webViewViewControllerDidCancel(_ viewController: WebViewViewController)
+}
+
+// MARK: - Class
+
 final class WebViewViewController: UIViewController {
   // MARK: - Outlets
 
