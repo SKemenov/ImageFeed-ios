@@ -17,6 +17,9 @@ protocol WebViewViewControllerDelegate: AnyObject {
 // MARK: - Class
 
 final class WebViewViewController: UIViewController {
+  // MARK: - Private properties
+  private let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+
   // MARK: - Outlets
 
   @IBOutlet private weak var webView: WKWebView!
