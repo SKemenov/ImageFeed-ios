@@ -111,7 +111,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CDz-vc-Qso">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="87" width="393" height="689"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -147,9 +147,9 @@
                             <constraint firstItem="YIR-xa-LQQ" firstAttribute="trailing" secondItem="CDz-vc-Qso" secondAttribute="trailing" id="SAG-2C-AKo"/>
                             <constraint firstItem="8yd-Zz-I6Z" firstAttribute="leading" secondItem="YIR-xa-LQQ" secondAttribute="leading" id="X6P-n9-eam"/>
                             <constraint firstItem="YIR-xa-LQQ" firstAttribute="trailing" secondItem="8yd-Zz-I6Z" secondAttribute="trailing" id="Xa6-eG-cDT"/>
-                            <constraint firstItem="YIR-xa-LQQ" firstAttribute="bottom" secondItem="CDz-vc-Qso" secondAttribute="bottom" id="nzu-rL-jSx"/>
+                            <constraint firstItem="YIR-xa-LQQ" firstAttribute="bottom" secondItem="CDz-vc-Qso" secondAttribute="bottom" constant="76" id="nzu-rL-jSx"/>
                             <constraint firstItem="8yd-Zz-I6Z" firstAttribute="top" secondItem="oTh-kI-SAt" secondAttribute="bottom" id="sRf-xe-xQS"/>
-                            <constraint firstItem="CDz-vc-Qso" firstAttribute="top" secondItem="YIR-xa-LQQ" secondAttribute="top" id="w1Z-xC-WqC"/>
+                            <constraint firstItem="CDz-vc-Qso" firstAttribute="top" secondItem="YIR-xa-LQQ" secondAttribute="top" constant="87" id="w1Z-xC-WqC"/>
                         </constraints>
                     </view>
                     <connections>
