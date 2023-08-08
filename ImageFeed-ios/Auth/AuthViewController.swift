@@ -8,6 +8,11 @@
 import UIKit
 
 final class AuthViewController: UIViewController {
+  // MARK: - Private properties
+
+  private let showWebViewSegueIdentifier = "ShowWebView"
+
+
   // MARK: - Public properties
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -19,6 +24,19 @@ final class AuthViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   }
+  // MARK: - public methods
+
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == showWebViewSegueIdentifier {
+      guard let webViewViewController = segue.destination as? WebViewViewController else {
+        super.prepare(for: segue, sender: sender)
+        return
+      }
+      webViewViewController.delegate = self
+    } else {
+      super.prepare(for: segue, sender: sender)
+    }
+  }
 }
 
 // MARK: - WebViewViewControllerDelegate
@@ -29,6 +47,6 @@ extension AuthViewController: WebViewViewControllerDelegate {
   }
 
   func webViewViewControllerDidCancel(_ viewController: WebViewViewController) {
-    print("webViewViewControllerDidCancel code")
+    dismiss(animated: true)
   }
 }

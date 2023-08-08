@@ -24,11 +24,10 @@ final class WebViewViewController: UIViewController {
 
   @IBOutlet private weak var webView: WKWebView!
 
-  // MARK: - Private properties
-
-  private let showWebViewSegueIdentifier = "ShowWebView"
-
   // MARK: - Public properties
+
+  weak var delegate: WebViewViewControllerDelegate?
+
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
   }
@@ -44,13 +43,12 @@ final class WebViewViewController: UIViewController {
 
   // MARK: - Actions
 
-  @IBAction private func didTapBackButton() {
-    // (_ sender: Any?)
-    dismiss(animated: true)
+  @IBAction private func didTapBackButton(_ sender: Any?) {
+    delegate?.webViewViewControllerDidCancel(self)
   }
 }
 
-// MARK: - Ext: Private methods
+// MARK: - Private methods
 
 private extension WebViewViewController {
   func setupUnsplashAuthWebView() {
@@ -76,11 +74,11 @@ private extension WebViewViewController {
       urlComponents.path == "/oauth/authorize/native",
       let items = urlComponents.queryItems,
       let codeItem = items.first(where: { $0.name == "code" }) {
-        print("urlComponents \(urlComponents)")
-        print("urlComponents.path \(urlComponents.path)")
-        print("items \(items)")
+      print("urlComponents \(urlComponents)")
+      print("urlComponents.path \(urlComponents.path)")
+      print("items \(items)")
       print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
-        return codeItem.value
+      return codeItem.value
     } else {
       print("can't take url")
       return nil
@@ -88,12 +86,13 @@ private extension WebViewViewController {
   }
 }
 
-// MARK: - Ext: WKNavigationDelegate
+// MARK: - WKNavigationDelegate
 
 extension WebViewViewController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
     if let code = code(from: navigationAction) {
       // TODO: process code, after that cancel the request, because we've already received the token
+      print(code)
       decisionHandler(.cancel)
     } else {
       decisionHandler(.allow)
