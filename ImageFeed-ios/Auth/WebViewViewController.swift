@@ -23,6 +23,7 @@ final class WebViewViewController: UIViewController {
   // MARK: - Outlets
 
   @IBOutlet private weak var webView: WKWebView!
+  @IBOutlet private weak var progressView: UIProgressView!
 
   // MARK: - Public properties
 
@@ -38,6 +39,7 @@ final class WebViewViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     webView.navigationDelegate = self
+    setupProgressView()
     setupUnsplashAuthWebView()
   }
 
@@ -52,7 +54,10 @@ final class WebViewViewController: UIViewController {
 
 private extension WebViewViewController {
   func setupUnsplashAuthWebView() {
-    guard var urlComponents = URLComponents(string: unsplashAuthorizeURLString) else { return }
+    guard var urlComponents = URLComponents(string: unsplashAuthorizeURLString) else {
+      print("Incorrect unsplashAuthorizeURLString string")
+      return
+    }
     urlComponents.queryItems = [
       URLQueryItem(name: "client_id", value: accessKey),
       URLQueryItem(name: "redirect_uri", value: redirectURI),
@@ -74,15 +79,21 @@ private extension WebViewViewController {
       urlComponents.path == "/oauth/authorize/native",
       let items = urlComponents.queryItems,
       let codeItem = items.first(where: { $0.name == "code" }) {
-      print("urlComponents \(urlComponents)")
-      print("urlComponents.path \(urlComponents.path)")
-      print("items \(items)")
-      print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
-      return codeItem.value
+        print("urlComponents \(urlComponents)")
+        print("urlComponents.path \(urlComponents.path)")
+        print("items \(items)")
+        print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
+        return codeItem.value
     } else {
-      print("can't take url")
-      return nil
+        print("can't take url")
+        return nil
     }
+  }
+
+  func setupProgressView() {
+    progressView.progressTintColor = .ypBlack
+    progressView.trackTintColor = .ypGray
+    progressView.progressViewStyle = .bar
   }
 }
 

@@ -132,6 +132,11 @@
                                     <action selector="didTapBackButton:" destination="htf-F5-HO0" eventType="touchUpInside" id="OFi-J0-ceO"/>
                                 </connections>
                             </button>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-Zz-I6Z">
+                                <rect key="frame" x="0.0" y="52" width="393" height="4"/>
+                                <color key="progressTintColor" name="YP Black"/>
+                                <color key="trackTintColor" name="YP Gray"/>
+                            </progressView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YIR-xa-LQQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -140,11 +145,15 @@
                             <constraint firstItem="oTh-kI-SAt" firstAttribute="leading" secondItem="YIR-xa-LQQ" secondAttribute="leading" constant="8" id="1s3-Lj-GoA"/>
                             <constraint firstItem="oTh-kI-SAt" firstAttribute="top" secondItem="YIR-xa-LQQ" secondAttribute="top" constant="8" id="HLg-af-pWS"/>
                             <constraint firstItem="YIR-xa-LQQ" firstAttribute="trailing" secondItem="CDz-vc-Qso" secondAttribute="trailing" id="SAG-2C-AKo"/>
+                            <constraint firstItem="8yd-Zz-I6Z" firstAttribute="leading" secondItem="YIR-xa-LQQ" secondAttribute="leading" id="X6P-n9-eam"/>
+                            <constraint firstItem="YIR-xa-LQQ" firstAttribute="trailing" secondItem="8yd-Zz-I6Z" secondAttribute="trailing" id="Xa6-eG-cDT"/>
                             <constraint firstItem="YIR-xa-LQQ" firstAttribute="bottom" secondItem="CDz-vc-Qso" secondAttribute="bottom" id="nzu-rL-jSx"/>
+                            <constraint firstItem="8yd-Zz-I6Z" firstAttribute="top" secondItem="oTh-kI-SAt" secondAttribute="bottom" id="sRf-xe-xQS"/>
                             <constraint firstItem="CDz-vc-Qso" firstAttribute="top" secondItem="YIR-xa-LQQ" secondAttribute="top" id="w1Z-xC-WqC"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="progressView" destination="8yd-Zz-I6Z" id="GVS-98-Zku"/>
                         <outlet property="webView" destination="CDz-vc-Qso" id="ADB-ul-qtm"/>
                     </connections>
                 </viewController>
@@ -353,6 +362,9 @@
         </namedColor>
         <namedColor name="YP Black">
             <color red="0.10199999809265137" green="0.10599999874830246" blue="0.13300000131130219" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="YP Gray">
+            <color red="0.68199998140335083" green="0.68599998950958252" blue="0.70599997043609619" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="YP White">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
