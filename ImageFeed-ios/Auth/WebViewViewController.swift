@@ -36,10 +36,31 @@ final class WebViewViewController: UIViewController {
 
   // MARK: - Lifecycle
 
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+
+    webView.addObserver(
+      self,
+      forKeyPath: #keyPath(WKWebView.estimatedProgress),
+      options: .new,
+      context: nil
+    )
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(true)
+
+    webView.removeObserver(
+      self,
+      forKeyPath: #keyPath(WKWebView.estimatedProgress)
+    )
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
+
     webView.navigationDelegate = self
-    setupProgressView()
+    setupProgress()
     setupUnsplashAuthWebView()
   }
 
@@ -47,6 +68,22 @@ final class WebViewViewController: UIViewController {
 
   @IBAction private func didTapBackButton(_ sender: Any?) {
     delegate?.webViewViewControllerDidCancel(self)
+  }
+
+  // MARK: - Public methods
+
+  // swiftlint:disable:next block_based_kvo
+  override func observeValue(
+    forKeyPath keyPath: String?,
+    of object: Any?,
+    change: [NSKeyValueChangeKey: Any]?,
+    context: UnsafeMutableRawPointer?
+  ) {
+    if keyPath == #keyPath(WKWebView.estimatedProgress) {
+      updateProgress()
+    } else {
+      super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
+    }
   }
 }
 
@@ -79,21 +116,26 @@ private extension WebViewViewController {
       urlComponents.path == "/oauth/authorize/native",
       let items = urlComponents.queryItems,
       let codeItem = items.first(where: { $0.name == "code" }) {
-        print("urlComponents \(urlComponents)")
-        print("urlComponents.path \(urlComponents.path)")
-        print("items \(items)")
-        print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
-        return codeItem.value
+      print("urlComponents \(urlComponents)")
+      print("urlComponents.path \(urlComponents.path)")
+      print("items \(items)")
+      print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
+      return codeItem.value
     } else {
-        print("can't take url")
-        return nil
+      print("can't take url")
+      return nil
     }
   }
 
-  func setupProgressView() {
+  func setupProgress() {
     progressView.progressTintColor = .ypBlack
     progressView.trackTintColor = .ypGray
     progressView.progressViewStyle = .bar
+  }
+
+  func updateProgress() {
+    progressView.progress = Float(webView.estimatedProgress)
+    progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
   }
 }
 

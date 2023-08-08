@@ -132,7 +132,7 @@
                                     <action selector="didTapBackButton:" destination="htf-F5-HO0" eventType="touchUpInside" id="OFi-J0-ceO"/>
                                 </connections>
                             </button>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-Zz-I6Z">
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8yd-Zz-I6Z">
                                 <rect key="frame" x="0.0" y="52" width="393" height="4"/>
                                 <color key="progressTintColor" name="YP Black"/>
                                 <color key="trackTintColor" name="YP Gray"/>
