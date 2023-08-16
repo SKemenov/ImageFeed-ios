@@ -21,7 +21,7 @@ final  class ProfileViewController: UIViewController {
   private let profilePhoto = "photo_mock"
   private let profileUserName = "Константин Константинопольский"
   private let profileLoginName = "@konstantin_kon"
-  private let profileDescription = "Hello, swift!\n \(String(describing: OAuth2TokenStorage().token))"
+  private let profileDescription = "Hello, swift!"
 
   // MARK: - Public properties
 

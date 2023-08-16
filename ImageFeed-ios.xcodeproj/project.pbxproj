@@ -23,6 +23,7 @@
 		E99EFE7B2A5F4202005BDB6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99EFE7A2A5F4202005BDB6A /* Assets.xcassets */; };
 		E99EFE7E2A5F4202005BDB6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99EFE7C2A5F4202005BDB6A /* LaunchScreen.storyboard */; };
 		E99EFE872A5F4B4C005BDB6A /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */; };
+		E9BAEFE52A8D0C94001C49EC /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */; };
 		E9F0BD932A86C6C600A7D71D /* URLRequest+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F0BD922A86C6C600A7D71D /* URLRequest+Extensions.swift */; };
 		E9F0BD952A87F66900A7D71D /* URLSession+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F0BD942A87F66900A7D71D /* URLSession+Extensions.swift */; };
 		E9F0BD982A87F87B00A7D71D /* SnakeCaseJSONDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9F0BD972A87F87B00A7D71D /* SnakeCaseJSONDecoder.swift */; };
@@ -47,6 +48,7 @@
 		E99EFE7D2A5F4202005BDB6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E99EFE7F2A5F4202005BDB6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
+		E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		E9F0BD922A86C6C600A7D71D /* URLRequest+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Extensions.swift"; sourceTree = "<group>"; };
 		E9F0BD942A87F66900A7D71D /* URLSession+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Extensions.swift"; sourceTree = "<group>"; };
 		E9F0BD972A87F87B00A7D71D /* SnakeCaseJSONDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnakeCaseJSONDecoder.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				E9190A5A2A7FF144008FE2FF /* AuthViewController.swift */,
 				E9190A5D2A7FF32C008FE2FF /* WebViewViewController.swift */,
+				E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 				E90EA1662A78DBA900EC34FD /* UIColor+Extensions.swift in Sources */,
 				E9292ADC2A683650004D9234 /* SingleImageViewController.swift in Sources */,
 				E99EFE742A5F4200005BDB6A /* SceneDelegate.swift in Sources */,
+				E9BAEFE52A8D0C94001C49EC /* RootNavigationController.swift in Sources */,
 				E9190A5B2A7FF144008FE2FF /* AuthViewController.swift in Sources */,
 				E9F0BD932A86C6C600A7D71D /* URLRequest+Extensions.swift in Sources */,
 				E96D1DA82A8365FB00FDE082 /* OAuth2TokenStorage.swift in Sources */,
@@ -448,6 +452,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
@@ -481,6 +486,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;

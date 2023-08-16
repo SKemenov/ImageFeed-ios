@@ -23,7 +23,6 @@ final class SplashViewController: UIViewController {
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
-    print("ITS LIT Start Splash \(oAuth2TokenStorage.token)")
     if oAuth2TokenStorage.token == nil {
       performSegue(withIdentifier: showAuthViewSegueIdentifier, sender: nil)
     } else {
@@ -50,7 +49,6 @@ final class SplashViewController: UIViewController {
 private extension SplashViewController {
   func switchToTabBarController() {
     guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
-print("ITS LIT Go to TabBar")
     let tabBarController = UIStoryboard(name: "Main", bundle: .main)
       .instantiateViewController(withIdentifier: "TabBarViewController")
     window.rootViewController = tabBarController
@@ -61,7 +59,6 @@ print("ITS LIT Go to TabBar")
 
 extension SplashViewController: AuthViewControllerDelegate {
   func authViewController(_ viewController: AuthViewController) {
-    print("ITS LIT Return to SplashViewController without the code")
     dismiss(animated: true) { [weak self] in
       guard let self else { preconditionFailure("Cannot make weak link") }
       self.switchToTabBarController()

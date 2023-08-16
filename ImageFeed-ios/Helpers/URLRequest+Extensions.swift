@@ -18,7 +18,6 @@ extension URLRequest {
     guard let url = URL(string: path, relativeTo: baseURL) else { preconditionFailure("Cannot make url") }
     var request = URLRequest(url: url)
     request.httpMethod = httpMethod
-    print(request)
     return request
   }
 }

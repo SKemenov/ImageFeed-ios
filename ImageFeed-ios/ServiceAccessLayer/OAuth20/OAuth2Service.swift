@@ -37,11 +37,9 @@ private extension OAuth2Service {
 
   var authToken: String? {
     get {
-      print("ITS LIT Read OAuth2Service.authToken")
       return OAuth2TokenStorage().token
     }
     set {
-      print("ITS LIT Write OAuth2Service.authToken")
       OAuth2TokenStorage().token = newValue
     }
   }
@@ -66,7 +64,6 @@ private extension OAuth2Service {
       let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
         Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
       }
-      print("ITS LIT fetchOAuthTokenResponseBody \(response)")
       completion(response)
     }
   }
@@ -94,7 +91,6 @@ extension OAuth2Service: AuthRouting {
       guard let self else { preconditionFailure("Cannot make weak link") }
       switch result {
       case .success(let body):
-        print("ITS LIT OAuth2Service.fetchAuthToken.success")
         self.authToken = body.accessToken
         completion(.success(body.accessToken))
       case .failure(let error):

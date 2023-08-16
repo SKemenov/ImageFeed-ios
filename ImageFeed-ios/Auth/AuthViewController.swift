@@ -32,8 +32,6 @@ final class AuthViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    setNeedsStatusBarAppearanceUpdate()
-    print("ITS LIT AuthViewController setNeedsStatusBarAppearanceUpdate")
   }
   // MARK: - public methods
 
@@ -71,7 +69,6 @@ private extension AuthViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
   func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String) {
-print("ITS LIT Return to AuthViewController with the code")
     fetchAuthToken(with: code)
   }
 

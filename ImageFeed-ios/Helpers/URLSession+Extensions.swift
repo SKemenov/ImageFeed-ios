@@ -29,7 +29,6 @@ extension URLSession {
     let task = dataTask(with: request) { data, response, error in
       if let data, let response, let statusCode = (response as? HTTPURLResponse)?.statusCode {
         if 200..<300 ~= statusCode {
-          print("\nITS LIT data from URLSession \(data)")
           completionOnMainQueue(.success(data))
         } else {
           completionOnMainQueue(.failure(NetworkError.httpStatusCode(statusCode)))

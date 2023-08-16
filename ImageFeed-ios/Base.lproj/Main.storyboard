@@ -249,10 +249,10 @@
             </objects>
             <point key="canvasLocation" x="-1747" y="-245"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Root Navigation Controller-->
         <scene sceneID="EVg-XD-iaF">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" id="UrX-ax-1qB" sceneMemberID="viewController">
+                <navigationController modalPresentationStyle="fullScreen" id="UrX-ax-1qB" customClass="RootNavigationController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ZFS-VA-emK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="884-0t-92K">

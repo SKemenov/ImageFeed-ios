@@ -32,12 +32,10 @@ final class OAuth2TokenStorage {
 extension OAuth2TokenStorage: TokenStorage {
   var token: String? {
     get {
-      print("ITS LIT Read OAuth2TokenStorage.token")
-      return userDefaults.string(forKey: Keys.token.rawValue)
+      userDefaults.string(forKey: Keys.token.rawValue)
     }
     set {
-      print("ITS LIT Write OAuth2TokenStorage.token")
-      return userDefaults.set(newValue, forKey: Keys.token.rawValue)
+      userDefaults.set(newValue, forKey: Keys.token.rawValue)
     }
   }
 }

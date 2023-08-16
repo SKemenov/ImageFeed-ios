@@ -130,10 +130,8 @@ private extension WebViewViewController {
       urlComponents.path == WebConstants.authorizedURLPath,
       let items = urlComponents.queryItems,
       let codeItem = items.first(where: { $0.name == WebConstants.code }) {
-      print("ITS LIT with code \(url)")
       return codeItem.value
     } else {
-      print("ITS LIT without code \(String(describing: navigationAction.request.url))")
       return nil
     }
   }
@@ -155,9 +153,8 @@ private extension WebViewViewController {
 extension WebViewViewController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
     if let code = code(from: navigationAction) {
-      decisionHandler(.cancel)
       delegate?.webViewViewController(self, didAuthenticateWithCode: code)
-      print("ITS LIT HAVE A CODE SHOULD GO AWAY")
+      decisionHandler(.cancel)
     } else {
       decisionHandler(.allow)
     }
