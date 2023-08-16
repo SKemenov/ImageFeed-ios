@@ -79,11 +79,7 @@ extension WebViewViewController {
 
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(true)
-
-    webView.removeObserver(
-      self,
-      forKeyPath: #keyPath(WKWebView.estimatedProgress)
-    )
+    webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
   }
 
   // swiftlint:disable:next block_based_kvo

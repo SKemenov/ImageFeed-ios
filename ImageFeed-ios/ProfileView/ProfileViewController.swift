@@ -15,6 +15,7 @@ final  class ProfileViewController: UIViewController {
   private var profileDescLabel = UILabel()
   private var exitButton = UIButton()
 
+  // FIXME: Disable after check SplashViewController flow
   private let oAuth2TokenStorage = OAuth2TokenStorage()
 
   // MARK: - Mock data
