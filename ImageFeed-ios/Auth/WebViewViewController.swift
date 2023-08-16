@@ -107,8 +107,7 @@ extension WebViewViewController {
 private extension WebViewViewController {
   func setupUnsplashAuthWebView() {
     guard var urlComponents = URLComponents(string: WebConstants.authorizeURLString) else {
-      print("Incorrect \(WebConstants.authorizeURLString) string")
-      return
+      preconditionFailure("Incorrect \(WebConstants.authorizeURLString) string")
     }
     urlComponents.queryItems = [
       URLQueryItem(name: WebElements.clientId, value: accessKey),

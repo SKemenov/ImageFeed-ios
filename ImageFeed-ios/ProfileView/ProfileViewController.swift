@@ -21,13 +21,13 @@ final  class ProfileViewController: UIViewController {
   private let profilePhoto = "photo_mock"
   private let profileUserName = "Константин Константинопольский"
   private let profileLoginName = "@konstantin_kon"
-  private let profileDescription = "Hello, swift! \(OAuth2TokenStorage().token ?? "")"
+  private let profileDescription = "Hello, swift!\n \(String(describing: OAuth2TokenStorage().token))"
 
   // MARK: - Public properties
 
-  //  override var preferredStatusBarStyle: UIStatusBarStyle {
-  //    return .lightContent
-  //  }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+      return .lightContent
+    }
 
   // MARK: - Lifecycle
 
@@ -101,6 +101,8 @@ private extension ProfileViewController {
     profileDescLabel.text = profileDescription
     profileDescLabel.textColor = .ypWhite
     profileDescLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+    profileDescLabel.lineBreakMode = .byWordWrapping
+    profileDescLabel.numberOfLines = 0
 
     profileDescLabel.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(profileDescLabel)

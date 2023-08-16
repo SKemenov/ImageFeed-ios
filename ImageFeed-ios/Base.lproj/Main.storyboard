@@ -39,7 +39,7 @@
             <objects>
                 <viewController id="ckT-ry-nxY" userLabel="ProfileView" customClass="ProfileViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XTN-WU-skL">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="LPc-Bj-FAA"/>
                         <color key="backgroundColor" name="YP Background"/>
@@ -55,11 +55,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yyn-v0-qbe">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AqL-sv-sOf">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" name="YP Background"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="224" id="Xo6-7m-CIh" customClass="ImagesListCell" customModule="ImageFeed_ios" customModuleProvider="target">
@@ -227,7 +227,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="drn-4V-d3r" userLabel="Logo Prakticum">
-                                <rect key="frame" x="159" y="400" width="75" height="77"/>
+                                <rect key="frame" x="159" y="387.66666666666669" width="75" height="77"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="77" id="ZEc-sI-rOg"/>
                                     <constraint firstAttribute="width" constant="75" id="ofj-HO-t3k"/>
@@ -237,13 +237,12 @@
                         <viewLayoutGuide key="safeArea" id="hqb-I4-UtA"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="drn-4V-d3r" firstAttribute="centerX" secondItem="hqb-I4-UtA" secondAttribute="centerX" id="ZZi-bP-fJ4"/>
-                            <constraint firstItem="drn-4V-d3r" firstAttribute="centerY" secondItem="hqb-I4-UtA" secondAttribute="centerY" id="miG-n6-1HW"/>
+                            <constraint firstItem="drn-4V-d3r" firstAttribute="centerX" secondItem="2ev-XX-vc7" secondAttribute="centerX" id="ZZi-bP-fJ4"/>
+                            <constraint firstItem="drn-4V-d3r" firstAttribute="centerY" secondItem="2ev-XX-vc7" secondAttribute="centerY" id="miG-n6-1HW"/>
                         </constraints>
                     </view>
                     <connections>
                         <segue destination="UrX-ax-1qB" kind="show" identifier="ShowAuthView" id="GlA-cx-bDt"/>
-                        <segue destination="R5g-Mp-u9b" kind="show" identifier="ShowTabView" id="XHp-VD-dhi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1IU-fn-Mcp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -272,7 +271,7 @@
         <!--AuthView-->
         <scene sceneID="87x-6z-R8X">
             <objects>
-                <viewController id="j2E-Xw-ekT" userLabel="AuthView" customClass="AuthViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="j2E-Xw-ekT" userLabel="AuthView" customClass="AuthViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9LC-7x-mGO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

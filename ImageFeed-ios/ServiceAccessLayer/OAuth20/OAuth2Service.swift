@@ -20,7 +20,7 @@ final class OAuth2Service {
   private let urlSession = URLSession.shared
 }
 
-// MARK: - Private properties
+// MARK: - Private enums, property & structure
 
 private extension OAuth2Service {
   enum OAuth2Constants {
@@ -37,9 +37,11 @@ private extension OAuth2Service {
 
   var authToken: String? {
     get {
+      print("ITS LIT Read OAuth2Service.authToken")
       return OAuth2TokenStorage().token
     }
     set {
+      print("ITS LIT Write OAuth2Service.authToken")
       OAuth2TokenStorage().token = newValue
     }
   }
@@ -60,11 +62,11 @@ private extension OAuth2Service {
     for request: URLRequest, completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void
   ) -> URLSessionTask {
     let decoder = SnakeCaseJSONDecoder()
-    return urlSession.data(for: request) { (result: Result<Data, Error>) in
+    return urlSession.fetchData(for: request) { (result: Result<Data, Error>) in
       let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
         Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
       }
-      print(response)
+      print("ITS LIT fetchOAuthTokenResponseBody \(response)")
       completion(response)
     }
   }
@@ -89,12 +91,12 @@ extension OAuth2Service: AuthRouting {
   func fetchAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
     let request = authTokenRequest(code: code)
     let task = fetchOAuthTokenResponseBody(for: request) { [weak self] result in
-      guard let self else { return }
+      guard let self else { preconditionFailure("Cannot make weak link") }
       switch result {
       case .success(let body):
-        let authToken = body.accessToken
-        self.authToken = authToken
-        completion(.success(authToken))
+        print("ITS LIT OAuth2Service.fetchAuthToken.success")
+        self.authToken = body.accessToken
+        completion(.success(body.accessToken))
       case .failure(let error):
         completion(.failure(error))
       }

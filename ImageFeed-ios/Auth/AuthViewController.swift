@@ -9,7 +9,7 @@ import UIKit
 
 // MARK: - Protocol
 protocol AuthViewControllerDelegate: AnyObject {
-  func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String)
+  func authViewController(_ viewController: AuthViewController)
 }
 
 
@@ -22,13 +22,23 @@ final class AuthViewController: UIViewController {
 
   // MARK: - Public properties
 
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    print("ITS LIT AuthViewController should be white")
+    return .lightContent
+  }
+
   weak var delegate: AuthViewControllerDelegate?
 
   // MARK: - Lifecycle
-
-  override func viewDidLoad() {
-    super.viewDidLoad()
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    setNeedsStatusBarAppearanceUpdate()
+    print("ITS LIT AuthViewController setNeedsStatusBarAppearanceUpdate")
   }
+
+//  override func viewDidLoad() {
+//    super.viewDidLoad()
+//  }
   // MARK: - public methods
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -48,10 +58,12 @@ final class AuthViewController: UIViewController {
 private extension AuthViewController {
   func fetchAuthToken(with code: String) {
     oAuth2Service.fetchAuthToken(with: code) { [weak self] result in
-      guard let self else { return }
+      guard let self else { preconditionFailure("Cannot make weak link") }
       switch result {
+        //      case .success(let result):
       case .success(let result):
-        self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+        print("ITS LIT \(result)")
+        self.delegate?.authViewController(self)
       case .failure(let error):
         print("The error \(error)")
       }
@@ -63,6 +75,7 @@ private extension AuthViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
   func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String) {
+print("ITS LIT Return to AuthViewController with the code")
     fetchAuthToken(with: code)
   }
 

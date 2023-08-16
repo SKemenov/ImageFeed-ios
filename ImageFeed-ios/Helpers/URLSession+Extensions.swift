@@ -19,7 +19,7 @@ enum NetworkError: Error {
 // MARK: - Public methods
 
 extension URLSession {
-  func data(for request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionTask {
+  func fetchData(for request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void) -> URLSessionTask {
     let completionOnMainQueue: (Result<Data, Error>) -> Void = { result in
       DispatchQueue.main.async {
         completion(result)

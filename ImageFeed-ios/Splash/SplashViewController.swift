@@ -13,14 +13,21 @@ final class SplashViewController: UIViewController {
   private let showAuthViewSegueIdentifier = "ShowAuthView"
   private let oAuth2TokenStorage = OAuth2TokenStorage()
 
+  // MARK: - Public properties
+
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+    return .lightContent
+  }
+
   // MARK: - Lifecycle
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
-    if let token = oAuth2TokenStorage.token {
-      switchToTabBarController()
-    } else {
+    print("ITS LIT Start Splash \(oAuth2TokenStorage.token)")
+    if oAuth2TokenStorage.token == nil {
       performSegue(withIdentifier: showAuthViewSegueIdentifier, sender: nil)
+    } else {
+      switchToTabBarController()
     }
   }
 
@@ -43,6 +50,7 @@ final class SplashViewController: UIViewController {
 private extension SplashViewController {
   func switchToTabBarController() {
     guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+print("ITS LIT Go to TabBar")
     let tabBarController = UIStoryboard(name: "Main", bundle: .main)
       .instantiateViewController(withIdentifier: "TabBarViewController")
     window.rootViewController = tabBarController
@@ -52,9 +60,10 @@ private extension SplashViewController {
 // MARK: - AuthViewControllerDelegate
 
 extension SplashViewController: AuthViewControllerDelegate {
-  func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
+  func authViewController(_ viewController: AuthViewController) {
+    print("ITS LIT Return to SplashViewController without the code")
     dismiss(animated: true) { [weak self] in
-      guard let self else { return }
+      guard let self else { preconditionFailure("Cannot make weak link") }
       self.switchToTabBarController()
     }
   }
