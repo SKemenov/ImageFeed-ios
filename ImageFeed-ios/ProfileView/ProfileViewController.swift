@@ -144,7 +144,7 @@ private extension ProfileViewController {
   }
 
   func switchToSplashViewController() {
-    guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
     let splashViewController = UIStoryboard(name: "Main", bundle: .main)
       .instantiateViewController(withIdentifier: "SplashViewController")
     window.rootViewController = splashViewController
