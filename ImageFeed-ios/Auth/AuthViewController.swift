@@ -7,17 +7,22 @@
 
 import UIKit
 
+// MARK: - Protocol
+protocol AuthViewControllerDelegate: AnyObject {
+  func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String)
+}
+
+
 final class AuthViewController: UIViewController {
   // MARK: - Private properties
 
   private let showWebViewSegueIdentifier = "ShowWebView"
-
+  private let oAuth2TokenStorage = OAuth2TokenStorage()
+  private let oAuth2Service = OAuth2Service()
 
   // MARK: - Public properties
 
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
-  }
+  weak var delegate: AuthViewControllerDelegate?
 
   // MARK: - Lifecycle
 
@@ -29,8 +34,7 @@ final class AuthViewController: UIViewController {
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == showWebViewSegueIdentifier {
       guard let webViewViewController = segue.destination as? WebViewViewController else {
-        super.prepare(for: segue, sender: sender)
-        return
+        preconditionFailure("Error with \(showWebViewSegueIdentifier)")
       }
       webViewViewController.delegate = self
     } else {
@@ -39,11 +43,27 @@ final class AuthViewController: UIViewController {
   }
 }
 
+// MARK: - Private Methods
+
+private extension AuthViewController {
+  func fetchAuthToken(with code: String) {
+    oAuth2Service.fetchAuthToken(with: code) { [weak self] result in
+      guard let self else { return }
+      switch result {
+      case .success(let result):
+        self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+      case .failure(let error):
+        print("The error \(error)")
+      }
+    }
+  }
+}
+
 // MARK: - WebViewViewControllerDelegate
 
 extension AuthViewController: WebViewViewControllerDelegate {
   func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String) {
-    print("webViewViewController code")
+    fetchAuthToken(with: code)
   }
 
   func webViewViewControllerDidCancel(_ viewController: WebViewViewController) {
