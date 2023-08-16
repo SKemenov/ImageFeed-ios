@@ -15,17 +15,19 @@ final  class ProfileViewController: UIViewController {
   private var profileDescLabel = UILabel()
   private var exitButton = UIButton()
 
+  private let oAuth2TokenStorage = OAuth2TokenStorage()
+
   // MARK: - Mock data
   private let profilePhoto = "photo_mock"
   private let profileUserName = "Константин Константинопольский"
   private let profileLoginName = "@konstantin_kon"
-  private let profileDescription = "Hello, swift!"
+  private let profileDescription = "Hello, swift! \(OAuth2TokenStorage().token ?? "")"
 
   // MARK: - Public properties
 
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
-  }
+  //  override var preferredStatusBarStyle: UIStatusBarStyle {
+  //    return .lightContent
+  //  }
 
   // MARK: - Lifecycle
 
@@ -44,6 +46,9 @@ final  class ProfileViewController: UIViewController {
 
 private extension ProfileViewController {
   @objc func didTapButton() {
+    // just to check the SplashViewController flow
+    resetToken()
+    switchToSplashViewController()
   }
 
   func makeProfilePhotoImage() {
@@ -126,5 +131,20 @@ private extension ProfileViewController {
       exitButton.centerYAnchor.constraint(equalTo: profilePhotoImage.centerYAnchor),
       exitButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
     ])
+  }
+}
+
+// MARK: - Private methods to check SplashViewController flow
+
+private extension ProfileViewController {
+  func resetToken() {
+    oAuth2TokenStorage.token = nil
+  }
+
+  func switchToSplashViewController() {
+    guard let window = UIApplication.shared.windows.first else { fatalError("Invalid Configuration") }
+    let splashViewController = UIStoryboard(name: "Main", bundle: .main)
+      .instantiateViewController(withIdentifier: "SplashViewController")
+    window.rootViewController = splashViewController
   }
 }
