@@ -23,22 +23,18 @@ final class AuthViewController: UIViewController {
   // MARK: - Public properties
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    print("ITS LIT AuthViewController should be white")
     return .lightContent
   }
 
   weak var delegate: AuthViewControllerDelegate?
 
   // MARK: - Lifecycle
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
+
+  override func viewDidLoad() {
+    super.viewDidLoad()
     setNeedsStatusBarAppearanceUpdate()
     print("ITS LIT AuthViewController setNeedsStatusBarAppearanceUpdate")
   }
-
-//  override func viewDidLoad() {
-//    super.viewDidLoad()
-//  }
   // MARK: - public methods
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
