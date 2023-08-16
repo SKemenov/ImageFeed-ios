@@ -17,8 +17,19 @@ protocol WebViewViewControllerDelegate: AnyObject {
 // MARK: - Class
 
 final class WebViewViewController: UIViewController {
-  // MARK: - Private properties
-  private let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
+  // MARK: - Private enums
+  private enum WebConstants {
+    static let authorizeURLString = "https://unsplash.com/oauth/authorize"
+    static let authorizedURLPath = "/oauth/authorize/native"
+    static let code = "code"
+  }
+
+  private enum WebElements {
+    static let clientId = "client_id"
+    static let redirectUri = "redirect_uri"
+    static let responseType = "response_type"
+    static let scope = "scope"
+  }
 
   // MARK: - Outlets
 
@@ -30,31 +41,11 @@ final class WebViewViewController: UIViewController {
   weak var delegate: WebViewViewControllerDelegate?
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
+    return .darkContent
   }
 
 
   // MARK: - Lifecycle
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(true)
-
-    webView.addObserver(
-      self,
-      forKeyPath: #keyPath(WKWebView.estimatedProgress),
-      options: .new,
-      context: nil
-    )
-  }
-
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(true)
-
-    webView.removeObserver(
-      self,
-      forKeyPath: #keyPath(WKWebView.estimatedProgress)
-    )
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -69,8 +60,31 @@ final class WebViewViewController: UIViewController {
   @IBAction private func didTapBackButton(_ sender: Any?) {
     delegate?.webViewViewControllerDidCancel(self)
   }
+}
 
-  // MARK: - Public methods
+// MARK: - Progress observer methods
+
+extension WebViewViewController {
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(true)
+
+    webView.addObserver(
+      self,
+      forKeyPath: #keyPath(WKWebView.estimatedProgress),
+      options: .new,
+      context: nil
+    )
+    updateProgress()
+  }
+
+  override func viewDidDisappear(_ animated: Bool) {
+    super.viewDidDisappear(true)
+
+    webView.removeObserver(
+      self,
+      forKeyPath: #keyPath(WKWebView.estimatedProgress)
+    )
+  }
 
   // swiftlint:disable:next block_based_kvo
   override func observeValue(
@@ -87,19 +101,20 @@ final class WebViewViewController: UIViewController {
   }
 }
 
+
 // MARK: - Private methods
 
 private extension WebViewViewController {
   func setupUnsplashAuthWebView() {
-    guard var urlComponents = URLComponents(string: unsplashAuthorizeURLString) else {
-      print("Incorrect unsplashAuthorizeURLString string")
+    guard var urlComponents = URLComponents(string: WebConstants.authorizeURLString) else {
+      print("Incorrect \(WebConstants.authorizeURLString) string")
       return
     }
     urlComponents.queryItems = [
-      URLQueryItem(name: "client_id", value: accessKey),
-      URLQueryItem(name: "redirect_uri", value: redirectURI),
-      URLQueryItem(name: "response_type", value: "code"),
-      URLQueryItem(name: "scope", value: accessScope)
+      URLQueryItem(name: WebElements.clientId, value: accessKey),
+      URLQueryItem(name: WebElements.redirectUri, value: redirectURI),
+      URLQueryItem(name: WebElements.responseType, value: WebConstants.code),
+      URLQueryItem(name: WebElements.scope, value: accessScope)
     ]
     guard let url = urlComponents.url else {
       print(CancellationError())
@@ -113,16 +128,13 @@ private extension WebViewViewController {
     if
       let url = navigationAction.request.url,
       let urlComponents = URLComponents(string: url.absoluteString),
-      urlComponents.path == "/oauth/authorize/native",
+      urlComponents.path == WebConstants.authorizedURLPath,
       let items = urlComponents.queryItems,
-      let codeItem = items.first(where: { $0.name == "code" }) {
-      print("urlComponents \(urlComponents)")
-      print("urlComponents.path \(urlComponents.path)")
-      print("items \(items)")
-      print("codeItem.name, .value \(codeItem.name) \(codeItem.value ?? "can't take value")")
+      let codeItem = items.first(where: { $0.name == WebConstants.code }) {
+      print("ITS LIT with code \(url)")
       return codeItem.value
     } else {
-      print("can't take url")
+      print("ITS LIT without code \(String(describing: navigationAction.request.url))")
       return nil
     }
   }
@@ -144,9 +156,9 @@ private extension WebViewViewController {
 extension WebViewViewController: WKNavigationDelegate {
   func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
     if let code = code(from: navigationAction) {
-      // TODO: process code, after that cancel the request, because we've already received the token
-      print(code)
       decisionHandler(.cancel)
+      delegate?.webViewViewController(self, didAuthenticateWithCode: code)
+      print("ITS LIT HAVE A CODE SHOULD GO AWAY")
     } else {
       decisionHandler(.allow)
     }
