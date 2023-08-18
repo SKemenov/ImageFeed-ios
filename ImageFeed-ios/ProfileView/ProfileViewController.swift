@@ -15,6 +15,9 @@ final  class ProfileViewController: UIViewController {
   private var profileDescLabel = UILabel()
   private var exitButton = UIButton()
 
+  // FIXME: Disable after check SplashViewController flow
+  private let oAuth2TokenStorage = OAuth2TokenStorage()
+
   // MARK: - Mock data
   private let profilePhoto = "photo_mock"
   private let profileUserName = "Константин Константинопольский"
@@ -23,11 +26,11 @@ final  class ProfileViewController: UIViewController {
 
   // MARK: - Public properties
 
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
-  }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+      return .lightContent
+    }
 
-  // MARK: - Lifecyrcle
+  // MARK: - Lifecycle
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -44,6 +47,9 @@ final  class ProfileViewController: UIViewController {
 
 private extension ProfileViewController {
   @objc func didTapButton() {
+    // just to check the SplashViewController flow
+    resetToken()
+    switchToSplashViewController()
   }
 
   func makeProfilePhotoImage() {
@@ -96,6 +102,8 @@ private extension ProfileViewController {
     profileDescLabel.text = profileDescription
     profileDescLabel.textColor = .ypWhite
     profileDescLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+    profileDescLabel.lineBreakMode = .byWordWrapping
+    profileDescLabel.numberOfLines = 0
 
     profileDescLabel.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(profileDescLabel)
@@ -126,5 +134,20 @@ private extension ProfileViewController {
       exitButton.centerYAnchor.constraint(equalTo: profilePhotoImage.centerYAnchor),
       exitButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16)
     ])
+  }
+}
+
+// MARK: - Private methods to check SplashViewController flow
+
+private extension ProfileViewController {
+  func resetToken() {
+    oAuth2TokenStorage.token = nil
+  }
+
+  func switchToSplashViewController() {
+    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
+    let splashViewController = UIStoryboard(name: "Main", bundle: .main)
+      .instantiateViewController(withIdentifier: "SplashViewController")
+    window.rootViewController = splashViewController
   }
 }
