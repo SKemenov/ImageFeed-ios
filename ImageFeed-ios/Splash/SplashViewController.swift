@@ -61,6 +61,7 @@ private extension SplashViewController {
       switch result {
       case .success(let result):
         print("ITS LIT \(result)")
+        dismiss(animated: true)
         self.switchToTabBarController()
       case .failure(let error):
         print("The error \(error)")
@@ -73,9 +74,6 @@ private extension SplashViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
   func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
-    dismiss(animated: true) { [weak self] in
-      guard let self else { preconditionFailure("Cannot make weak link") }
-      fetchAuthToken(with: code)
-    }
+    fetchAuthToken(with: code)
   }
 }
