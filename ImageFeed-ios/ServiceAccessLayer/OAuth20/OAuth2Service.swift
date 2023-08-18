@@ -16,8 +16,13 @@ protocol AuthRouting: AnyObject {
 // MARK: - Class
 
 final class OAuth2Service {
-  static let shared = OAuth2Service()
+  // MARK: - Private stored properties
   private let urlSession = URLSession.shared
+
+  // MARK: - Singleton property & init
+
+  static let shared = OAuth2Service()
+  private init() { }
 }
 
 // MARK: - Private enums, property & structure

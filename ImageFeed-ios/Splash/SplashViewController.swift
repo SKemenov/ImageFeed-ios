@@ -12,6 +12,7 @@ final class SplashViewController: UIViewController {
 
   private let showAuthViewSegueIdentifier = "ShowAuthView"
   private let oAuth2TokenStorage = OAuth2TokenStorage()
+  private let oAuth2Service = OAuth2Service.shared
 
   // MARK: - Public properties
 
@@ -53,15 +54,28 @@ private extension SplashViewController {
       .instantiateViewController(withIdentifier: "TabBarViewController")
     window.rootViewController = tabBarController
   }
+
+  func fetchAuthToken(with code: String) {
+    oAuth2Service.fetchAuthToken(with: code) { [weak self] result in
+      guard let self else { preconditionFailure("Cannot make weak link") }
+      switch result {
+      case .success(let result):
+        print("ITS LIT \(result)")
+        self.switchToTabBarController()
+      case .failure(let error):
+        print("The error \(error)")
+      }
+    }
+  }
 }
 
 // MARK: - AuthViewControllerDelegate
 
 extension SplashViewController: AuthViewControllerDelegate {
-  func authViewController(_ viewController: AuthViewController) {
+  func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
     dismiss(animated: true) { [weak self] in
       guard let self else { preconditionFailure("Cannot make weak link") }
-      self.switchToTabBarController()
+      fetchAuthToken(with: code)
     }
   }
 }
