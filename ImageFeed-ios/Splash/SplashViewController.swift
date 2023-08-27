@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ProgressHUD
 
 final class SplashViewController: UIViewController {
   // MARK: - Private properties
@@ -61,9 +62,11 @@ private extension SplashViewController {
       switch result {
       case .success(let result):
         print("ITS LIT \(result)")
+        ProgressHUD.dismiss()
         dismiss(animated: true)
         self.switchToTabBarController()
       case .failure(let error):
+        ProgressHUD.dismiss()
         print("The error \(error)")
       }
     }
@@ -74,6 +77,7 @@ private extension SplashViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
   func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
+    ProgressHUD.show()
     fetchAuthToken(with: code)
   }
 }
