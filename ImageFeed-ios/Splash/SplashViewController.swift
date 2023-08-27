@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import ProgressHUD
+// import ProgressHUD
 
 final class SplashViewController: UIViewController {
   // MARK: - Private properties
@@ -58,15 +58,15 @@ private extension SplashViewController {
 
   func fetchAuthToken(with code: String) {
     oAuth2Service.fetchAuthToken(with: code) { [weak self] result in
-      guard let self else { preconditionFailure("Cannot make weak link") }
+      guard let self else { preconditionFailure("Cannot fetch auth token") }
       switch result {
       case .success(let result):
         print("ITS LIT \(result)")
-        ProgressHUD.dismiss()
-        dismiss(animated: true)
+        UIBlockingProgressHUD.dismiss()
+//        ProgressHUD.dismiss()
         self.switchToTabBarController()
       case .failure(let error):
-        ProgressHUD.dismiss()
+        UIBlockingProgressHUD.dismiss()
         print("The error \(error)")
       }
     }
@@ -77,7 +77,9 @@ private extension SplashViewController {
 
 extension SplashViewController: AuthViewControllerDelegate {
   func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
-    ProgressHUD.show()
+    dismiss(animated: true)
+    UIBlockingProgressHUD.show()
+//    ProgressHUD.show(interaction: false)
     fetchAuthToken(with: code)
   }
 }
