@@ -18,6 +18,8 @@ protocol AuthRouting: AnyObject {
 final class OAuth2Service {
   // MARK: - Private stored properties
   private let urlSession = URLSession.shared
+  private var task: URLSessionTask?
+  private var lastCode: String?
 
   // MARK: - Singleton property & init
 
@@ -78,7 +80,7 @@ private extension OAuth2Service {
     }
   }
 
-  func authTokenRequest(code: String) -> URLRequest {
+  func makeAuthTokenRequest(code: String) -> URLRequest {
     guard let url = URL(string: OAuth2Constants.tokenRequestURLString) else { preconditionFailure("Cannot make url") }
     return URLRequest.makeHTTPRequest(
       path: OAuth2Constants.tokenRequestPathString
@@ -99,9 +101,22 @@ extension OAuth2Service: AuthRouting {
     let completionOnMainQueue: (Result<String, Error>) -> Void = { result in
       DispatchQueue.main.async {
         completion(result)
+        self.task = nil
+        if result as? Error != nil {
+          self.lastCode = nil
+          print("ITS LIT result is failure")
+        } else {
+          print("ITS LIT result is success")
+        }
       }
     }
-    let request = authTokenRequest(code: code)
+
+    assert(Thread.isMainThread)
+    if lastCode == code { return }
+    task?.cancel()
+    lastCode = code
+
+    let request = makeAuthTokenRequest(code: code)
     let task = fetchOAuthTokenResponseBody(for: request) { [weak self] result in
       guard let self else { preconditionFailure("Cannot make weak link") }
       switch result {
@@ -112,6 +127,7 @@ extension OAuth2Service: AuthRouting {
         completionOnMainQueue(.failure(error))
       }
     }
+    self.task = task
     task.resume()
   }
 }
