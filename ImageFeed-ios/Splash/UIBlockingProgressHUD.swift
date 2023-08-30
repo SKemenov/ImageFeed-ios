@@ -12,6 +12,7 @@ import ProgressHUD
 
 // swiftlint:disable:next convenience_type
 final class UIBlockingProgressHUD {
+
   private static var window: UIWindow? {
     UIApplication.shared.windows.first
   }

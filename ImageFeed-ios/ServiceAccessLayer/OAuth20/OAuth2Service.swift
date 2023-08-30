@@ -59,6 +59,7 @@ private extension OAuth2Service {
 // MARK: - Private methods
 
 private extension OAuth2Service {
+
   func makeAuthTokenRequest(with code: String) -> URLRequest? {
     return requestBuilder.makeHTTPRequest(
       path: Constants.tokenRequestPathString
@@ -75,7 +76,9 @@ private extension OAuth2Service {
 // MARK: - AuthRouting
 
 extension OAuth2Service: AuthRouting {
+
   func fetchAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
+
     assert(Thread.isMainThread)
     guard code != lastCode else { return }
     currentTask?.cancel()

@@ -16,6 +16,7 @@ import Foundation
 // 4. Do not abuse the API. Too many requests too quickly will get your access turned off.
 
 enum Constants {
+
   // MARK: - Unsplash API constants for app
   static let accessKey = "IgH-MbheyUstaJWCnPaQc2gtrMXJyISlRHyzSdpZI5E"
   static let secureKey = "H64ks3MlhldqtzwBGDXiLN6OdvL8ML0isXVDwI0hzb4"

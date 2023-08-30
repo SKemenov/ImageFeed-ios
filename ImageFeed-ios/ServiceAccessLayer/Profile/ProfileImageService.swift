@@ -30,6 +30,7 @@ final class ProfileImageService {
 // MARK: - Private methods
 
 private extension ProfileImageService {
+
   func makeRequest(userName: String) -> URLRequest? {
     requestBuilder.makeHTTPRequest(path: "/users/\(userName)")
   }
@@ -38,7 +39,9 @@ private extension ProfileImageService {
 // MARK: - ProfileLoading
 
 extension ProfileImageService: ProfileImageLoading {
+
   func fetchProfileImageURL(userName: String, completion: @escaping (Result<String, Error>) -> Void) {
+
     assert(Thread.isMainThread)
 
     currentTask?.cancel()
@@ -49,8 +52,11 @@ extension ProfileImageService: ProfileImageLoading {
       return
     }
 
-    let task = session.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+    let task = session.objectTask(for: request) {
+      [weak self] (result: Result<ProfileResult, Error>) in
+
       guard let self else { preconditionFailure("Cannot make weak link") }
+
       switch result {
       case .success(let profilePhoto):
         guard let mediumPhoto = profilePhoto.profileImage?.medium else { return }
@@ -66,6 +72,7 @@ extension ProfileImageService: ProfileImageLoading {
       }
       self.currentTask = nil
     }
+
     self.currentTask = task
     task.resume()
   }

@@ -35,6 +35,7 @@ struct ProfileResult: Codable {
 // MARK: - Init for ProfileResult
 
 extension Profile {
+
   init(result profile: ProfileResult) {
     self.init(
       username: profile.username,

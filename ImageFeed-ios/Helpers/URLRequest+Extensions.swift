@@ -15,15 +15,10 @@ final class URLRequestBuilder {
   static let shared = URLRequestBuilder()
   private let storage = OAuth2TokenStorage.shared
 
-  // MARK: - Singleton? init
-//
-//  init(storage: OAuth2TokenStorage = .shared) {
-//    self.storage = storage
-//  }
-
   // MARK: - Methods
 
   func makeHTTPRequest(path: String, httpMethod: String? = nil, baseURLString: String? = nil) -> URLRequest? {
+
     guard
       let url = URL(string: baseURLString ?? Constants.defaultApiBaseURLString),
       let baseURL = URL(string: path, relativeTo: url)

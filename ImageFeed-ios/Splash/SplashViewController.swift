@@ -52,7 +52,9 @@ final class SplashViewController: UIViewController {
 // MARK: - Private methods
 
 private extension SplashViewController {
+
   func checkAuthStatus() {
+
     guard !wasChecked else { return }
     wasChecked = true
     if oAuth2Service.isAuthenticated {
@@ -69,6 +71,7 @@ private extension SplashViewController {
   }
 
   func showAuthViewController() {
+
     let storyboard = UIStoryboard(name: "Main", bundle: .main)
     let viewController = storyboard.instantiateViewController(withIdentifier: "AuthViewControllerID")
     guard let viewController = viewController as? AuthViewController else { return }
@@ -78,6 +81,7 @@ private extension SplashViewController {
   }
 
   func switchToTabBarController() {
+
     guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
     let tabBarController = UIStoryboard(name: "Main", bundle: .main)
       .instantiateViewController(withIdentifier: "TabBarViewControllerID")
@@ -85,11 +89,13 @@ private extension SplashViewController {
   }
 
   func setupSplashViewController() {
+
     let storyboard = UIStoryboard(name: "Main", bundle: .main)
     storyboard.instantiateInitialViewController() // use it for "is Initial VC"
   }
 
   func showLoginAlert(error: Error) {
+
     alertPresenter.showAlert(
       title: "Что-то пошло не так (",
       message: "Не удалось войти в систему \(error.localizedDescription)") {
@@ -98,10 +104,13 @@ private extension SplashViewController {
   }
 
   func fetchAuthToken(with code: String) {
+
     UIBlockingProgressHUD.show()
 
     oAuth2Service.fetchAuthToken(with: code) { [weak self] authResult in
+
       guard let self else { preconditionFailure("Cannot fetch auth token") }
+
       switch authResult {
         // swiftlint:disable:next empty_enum_arguments
       case .success(_):
@@ -117,8 +126,11 @@ private extension SplashViewController {
   }
 
   func fetchProfile(completion: @escaping () -> Void) {
+
     profileService.fetchProfile { [weak self] profileResult in
+
       guard let self else { preconditionFailure("Cannot fetch profileResult") }
+
       switch profileResult {
         // swiftlint:disable:next empty_enum_arguments
       case .success(_):
@@ -134,8 +146,11 @@ private extension SplashViewController {
 // MARK: - AuthViewControllerDelegate
 
 extension SplashViewController: AuthViewControllerDelegate {
+
   func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
-    dismiss(animated: true) { [weak self] in
+
+    dismiss(animated: true) {
+      [weak self] in
       guard let self else { return }
       self.fetchAuthToken(with: code)
     }

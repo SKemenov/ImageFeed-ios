@@ -39,6 +39,7 @@ final class ImagesListViewController: UIViewController {
   // MARK: - public methods
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
     if segue.identifier == showSingleImageSegueIdentifier {
       guard
         let viewController = segue.destination as? SingleImageViewController,
@@ -58,7 +59,9 @@ final class ImagesListViewController: UIViewController {
 // MARK: - private methods
 
 private extension ImagesListViewController {
+
   func setupTableView() {
+
     tableView.dataSource = self
     tableView.delegate = self
     tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 0, right: 0)
@@ -68,7 +71,9 @@ private extension ImagesListViewController {
 // MARK: - UITableViewDelegate
 
 extension ImagesListViewController: UITableViewDelegate {
+
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
     tableView.deselectRow(at: indexPath, animated: true)
     performSegue(withIdentifier: showSingleImageSegueIdentifier, sender: indexPath)
   }
@@ -77,11 +82,13 @@ extension ImagesListViewController: UITableViewDelegate {
 // MARK: - UITableViewDataSource
 
 extension ImagesListViewController: UITableViewDataSource {
+
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     photosName.count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
     guard let cell = tableView.dequeueReusableCell(
       withIdentifier: ImagesListCell.reuseIdentifier,
       for: indexPath
@@ -99,6 +106,7 @@ extension ImagesListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+
     guard let image = UIImage(named: photosName[indexPath.row]) else {
       return 0
     }

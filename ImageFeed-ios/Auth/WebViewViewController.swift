@@ -60,6 +60,7 @@ final class WebViewViewController: UIViewController {
 // MARK: - Progress observer methods
 
 extension WebViewViewController {
+
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(true)
 
@@ -96,7 +97,9 @@ extension WebViewViewController {
 // MARK: - Private methods
 
 private extension WebViewViewController {
+
   func setupUnsplashAuthWebView() {
+
     guard var urlComponents = URLComponents(string: Constants.authorizeURLString) else {
       preconditionFailure("Incorrect \(Constants.authorizeURLString) string")
     }
@@ -115,6 +118,7 @@ private extension WebViewViewController {
   }
 
   func code(from navigationAction: WKNavigationAction) -> String? {
+
     if
       let url = navigationAction.request.url,
       let urlComponents = URLComponents(string: url.absoluteString),
@@ -128,12 +132,14 @@ private extension WebViewViewController {
   }
 
   func setupProgress() {
+
     progressView.progressTintColor = .ypBlack
     progressView.trackTintColor = .ypGray
     progressView.progressViewStyle = .bar
   }
 
   func updateProgress() {
+
     progressView.progress = Float(webView.estimatedProgress)
     progressView.isHidden = fabs(webView.estimatedProgress - 1.0) <= 0.0001
   }
@@ -142,7 +148,9 @@ private extension WebViewViewController {
 // MARK: - WKNavigationDelegate
 
 extension WebViewViewController: WKNavigationDelegate {
+
   func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+
     if let code = code(from: navigationAction) {
       delegate?.webViewViewController(self, didAuthenticateWithCode: code)
       decisionHandler(.cancel)

@@ -34,6 +34,7 @@ final class ProfileService {
 // MARK: - Private methods
 
 private extension ProfileService {
+
   func makeProfileRequest() -> URLRequest? {
     requestBuilder.makeHTTPRequest(path: Constants.profileRequestPathString)
   }
@@ -42,7 +43,9 @@ private extension ProfileService {
 // MARK: - ProfileLoading
 
 extension ProfileService: ProfileLoading {
+
   func fetchProfile(completion: @escaping (Result<Profile, Error>) -> Void) {
+
     assert(Thread.isMainThread)
     currentTask?.cancel()
 
@@ -53,9 +56,13 @@ extension ProfileService: ProfileLoading {
     }
 
     let session = URLSession.shared
-    currentTask = session.objectTask(for: request) { [weak self] (result: Result<ProfileResult, Error>) in
+    currentTask = session.objectTask(for: request) {
+      [weak self] (result: Result<ProfileResult, Error>) in
+
       guard let self else { preconditionFailure("Cannot make weak link") }
+
       self.currentTask = nil
+
       switch result {
       case .success(let profileResult):
         let profile = Profile(result: profileResult)

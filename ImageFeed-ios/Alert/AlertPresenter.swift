@@ -16,6 +16,7 @@ protocol AlertPresenting: AnyObject {
 // MARK: - Class
 
 final class AlertPresenter: AlertPresenting {
+
   weak var delegate: UIViewController?
 
   func showAlert(title: String, message: String, completion: @escaping () -> Void) {

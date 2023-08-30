@@ -17,6 +17,7 @@ protocol TokenStorage {
 // MARK: - Class
 
 final class OAuth2TokenStorage {
+
   static let shared = OAuth2TokenStorage()
 
   private let keychainWrapper = KeychainWrapper.standard
@@ -25,6 +26,7 @@ final class OAuth2TokenStorage {
 // MARK: - TokenStorage
 
 extension OAuth2TokenStorage: TokenStorage {
+
   var token: String? {
     get {
       keychainWrapper.string(forKey: Constants.bearerToken)
@@ -37,6 +39,7 @@ extension OAuth2TokenStorage: TokenStorage {
 }
 
 extension OAuth2TokenStorage {
+
   func removeToken() -> Bool {
     keychainWrapper.removeObject(forKey: Constants.bearerToken)
   }

@@ -8,6 +8,7 @@
 import UIKit
 
 final  class ProfileViewController: UIViewController {
+
   // MARK: - Private properties
   private var profilePhotoImage = UIImageView()
   private var profileFullNameLabel = UILabel()
@@ -62,8 +63,8 @@ final  class ProfileViewController: UIViewController {
       object: nil,
       queue: .main
     ) { [weak self] notification in
-        self?.updateAvatar(notification: notification)
-      }
+      self?.updateAvatar(notification: notification)
+    }
 
     makeProfilePhotoImage()
     makeProfileFullNameLabel()
@@ -81,30 +82,34 @@ final  class ProfileViewController: UIViewController {
 // MARK: - Private methods
 
 private extension ProfileViewController {
+
   @objc func didTapButton() {
+
     // just to check the SplashViewController flow
     resetToken()
     switchToSplashViewController()
   }
 
   @objc func updateAvatar(notification: Notification) {
+
     guard
       isViewLoaded,
-        let userInfo = notification.userInfo,
-        let profileImageURL = userInfo["URL"] as? String,
-        let url = URL(string: profileImageURL)
+      let userInfo = notification.userInfo,
+      let profileImageURL = userInfo["URL"] as? String,
+      let url = URL(string: profileImageURL)
     else { return }
 
     updateAvatar(url: url)
   }
 
   func updateAvatar(url: URL) {
-//    profileImage.kf.indicatiorType = .activity
-//    let processor = RoundCornerImageProcessor(cornerRadius: 61)
-//    profileImage.kf.setImage(with: url, options: [.processor(processor)])
+    //    profileImage.kf.indicatiorType = .activity
+    //    let processor = RoundCornerImageProcessor(cornerRadius: 61)
+    //    profileImage.kf.setImage(with: url, options: [.processor(processor)])
   }
 
   func loadProfile() {
+
     guard let profile = profileService.profile else {
       assertionFailure("Has no profile")
       return
@@ -116,6 +121,7 @@ private extension ProfileViewController {
   }
 
   func makeProfilePhotoImage() {
+
     profilePhotoImage.image = UIImage(named: profilePhoto)
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
 
@@ -130,6 +136,7 @@ private extension ProfileViewController {
   }
 
   func makeProfileFullNameLabel() {
+
     //    profileFullNameLabel.text = profileUserName
     profileFullNameLabel.textColor = .ypWhite
     profileFullNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
@@ -147,6 +154,7 @@ private extension ProfileViewController {
   }
 
   func makeProfileLoginNameLabel() {
+
     //    profileLoginNameLabel.text = profileLoginName
     profileLoginNameLabel.textColor = .ypGray
     profileLoginNameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
@@ -162,6 +170,7 @@ private extension ProfileViewController {
   }
 
   func makeProfileBioLabel() {
+
     //    profileBioLabel.text = profileBio
     profileBioLabel.textColor = .ypWhite
     profileBioLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
@@ -179,6 +188,7 @@ private extension ProfileViewController {
   }
 
   func makeProfileExitButton() {
+
     let profileExitButtonImage = UIImage(named: "ipad.and.arrow.forward") ?? UIImage()
 
     exitButton = UIButton.systemButton(
@@ -203,7 +213,9 @@ private extension ProfileViewController {
 // MARK: - Private methods to check SplashViewController flow
 
 private extension ProfileViewController {
+
   func resetToken() {
+
     guard storage.removeToken() else {
       assertionFailure("Cannot remove token")
       return
@@ -211,6 +223,7 @@ private extension ProfileViewController {
   }
 
   func switchToSplashViewController() {
+
     guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
     let splashViewController = UIStoryboard(name: "Main", bundle: .main)
       .instantiateViewController(withIdentifier: "SplashViewControllerID")

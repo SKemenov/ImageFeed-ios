@@ -21,10 +21,12 @@ enum NetworkError: Error {
 // MARK: - Public methods
 
 extension URLSession {
+
   func objectTask<T: Decodable>(
     for request: URLRequest,
     completion: @escaping (Result<T, Error>) -> Void
   ) -> URLSessionTask {
+
     let completionOnMainQueue: (Result<T, Error>) -> Void = { result in
       DispatchQueue.main.async {
         completion(result)

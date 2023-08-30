@@ -31,9 +31,11 @@ final class AuthViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
   }
+
   // MARK: - public methods
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
     if segue.identifier == showWebViewSegueIdentifier {
       guard let webViewViewController = segue.destination as? WebViewViewController else {
         preconditionFailure("Error with \(showWebViewSegueIdentifier)")
@@ -48,6 +50,7 @@ final class AuthViewController: UIViewController {
 // MARK: - WebViewViewControllerDelegate
 
 extension AuthViewController: WebViewViewControllerDelegate {
+
   func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String) {
     delegate?.authViewController(self, didAuthenticateWithCode: code)
   }
