@@ -13,7 +13,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="Tuc-bl-ltV">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" modalPresentationStyle="fullScreen" id="R5g-Mp-u9b" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewControllerID" modalPresentationStyle="fullScreen" id="R5g-Mp-u9b" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Xhx-Ui-Yhw"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Egi-43-18C">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
@@ -37,7 +37,7 @@
         <!--ProfileView-->
         <scene sceneID="gpq-nh-Qsi">
             <objects>
-                <viewController id="ckT-ry-nxY" userLabel="ProfileView" customClass="ProfileViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewControllerID" id="ckT-ry-nxY" userLabel="ProfileView" customClass="ProfileViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XTN-WU-skL">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,7 +53,7 @@
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ImagesListViewControllerID" id="BYZ-38-t0r" userLabel="ImageList" customClass="ImagesListViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="yyn-v0-qbe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -144,7 +144,7 @@
         <!--SingleImageView-->
         <scene sceneID="dpO-su-kr0">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="XAz-yl-lP1" userLabel="SingleImageView" customClass="SingleImageViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SingleImageViewControllerID" modalPresentationStyle="fullScreen" id="XAz-yl-lP1" userLabel="SingleImageView" customClass="SingleImageViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="htG-ds-jw8">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -221,7 +221,7 @@
         <!--SplashView-->
         <scene sceneID="tKc-RM-1jY">
             <objects>
-                <viewController storyboardIdentifier="SplashViewController" id="V8R-Nf-Tlj" userLabel="SplashView" customClass="SplashViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SplashViewControllerID" id="V8R-Nf-Tlj" userLabel="SplashView" customClass="SplashViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2ev-XX-vc7">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -252,7 +252,7 @@
         <!--Root Navigation Controller-->
         <scene sceneID="EVg-XD-iaF">
             <objects>
-                <navigationController modalPresentationStyle="fullScreen" id="UrX-ax-1qB" customClass="RootNavigationController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RootNavigationControllerID" modalPresentationStyle="fullScreen" id="UrX-ax-1qB" customClass="RootNavigationController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="ZFS-VA-emK"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="884-0t-92K">
@@ -271,7 +271,7 @@
         <!--AuthView-->
         <scene sceneID="87x-6z-R8X">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="j2E-Xw-ekT" userLabel="AuthView" customClass="AuthViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewControllerID" modalPresentationStyle="fullScreen" id="j2E-Xw-ekT" userLabel="AuthView" customClass="AuthViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9LC-7x-mGO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -324,7 +324,7 @@
         <!--WebView-->
         <scene sceneID="36p-6W-sfq">
             <objects>
-                <viewController id="htf-F5-HO0" userLabel="WebView" customClass="WebViewViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WebViewViewControllerID" id="htf-F5-HO0" userLabel="WebView" customClass="WebViewViewController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="LTK-Yv-qBB">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
