@@ -359,15 +359,15 @@
                         <viewLayoutGuide key="safeArea" id="YIR-xa-LQQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="CDz-vc-Qso" firstAttribute="leading" secondItem="YIR-xa-LQQ" secondAttribute="leading" id="1Kd-xO-93c"/>
+                            <constraint firstItem="CDz-vc-Qso" firstAttribute="leading" secondItem="LTK-Yv-qBB" secondAttribute="leading" id="1Kd-xO-93c"/>
                             <constraint firstItem="oTh-kI-SAt" firstAttribute="leading" secondItem="YIR-xa-LQQ" secondAttribute="leading" constant="8" id="1s3-Lj-GoA"/>
                             <constraint firstItem="oTh-kI-SAt" firstAttribute="top" secondItem="YIR-xa-LQQ" secondAttribute="top" constant="8" id="HLg-af-pWS"/>
-                            <constraint firstItem="YIR-xa-LQQ" firstAttribute="trailing" secondItem="CDz-vc-Qso" secondAttribute="trailing" id="SAG-2C-AKo"/>
+                            <constraint firstAttribute="trailing" secondItem="CDz-vc-Qso" secondAttribute="trailing" id="SAG-2C-AKo"/>
                             <constraint firstItem="8yd-Zz-I6Z" firstAttribute="leading" secondItem="YIR-xa-LQQ" secondAttribute="leading" id="X6P-n9-eam"/>
                             <constraint firstItem="YIR-xa-LQQ" firstAttribute="trailing" secondItem="8yd-Zz-I6Z" secondAttribute="trailing" id="Xa6-eG-cDT"/>
-                            <constraint firstItem="YIR-xa-LQQ" firstAttribute="bottom" secondItem="CDz-vc-Qso" secondAttribute="bottom" id="nzu-rL-jSx"/>
+                            <constraint firstAttribute="bottom" secondItem="CDz-vc-Qso" secondAttribute="bottom" id="nzu-rL-jSx"/>
                             <constraint firstItem="8yd-Zz-I6Z" firstAttribute="top" secondItem="oTh-kI-SAt" secondAttribute="bottom" id="sRf-xe-xQS"/>
-                            <constraint firstItem="CDz-vc-Qso" firstAttribute="top" secondItem="YIR-xa-LQQ" secondAttribute="top" id="w1Z-xC-WqC"/>
+                            <constraint firstItem="CDz-vc-Qso" firstAttribute="top" secondItem="LTK-Yv-qBB" secondAttribute="top" id="w1Z-xC-WqC"/>
                         </constraints>
                     </view>
                     <connections>
