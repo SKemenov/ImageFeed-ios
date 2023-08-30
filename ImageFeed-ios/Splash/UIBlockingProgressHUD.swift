@@ -8,6 +8,8 @@
 import UIKit
 import ProgressHUD
 
+// MARK: - Class
+
 // swiftlint:disable:next convenience_type
 final class UIBlockingProgressHUD {
   private static var window: UIWindow? {
@@ -16,13 +18,16 @@ final class UIBlockingProgressHUD {
 
   static func show() {
     window?.isUserInteractionEnabled = false
-    ProgressHUD.animationType = .circleRotateChase
-    ProgressHUD.colorHUD = .clear
     ProgressHUD.show()
   }
 
   static func dismiss() {
     window?.isUserInteractionEnabled = true
     ProgressHUD.dismiss()
+  }
+
+  static func setup() {
+    ProgressHUD.animationType = .circleRotateChase
+    ProgressHUD.colorHUD = .clear
   }
 }
