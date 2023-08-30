@@ -18,11 +18,6 @@ protocol WebViewViewControllerDelegate: AnyObject {
 
 final class WebViewViewController: UIViewController {
   // MARK: - Private enums
-  private enum WebConstants {
-    static let authorizeURLString = "https://unsplash.com/oauth/authorize"
-    static let authorizedURLPath = "/oauth/authorize/native"
-    static let code = "code"
-  }
 
   private enum WebElements {
     static let clientId = "client_id"
@@ -102,14 +97,14 @@ extension WebViewViewController {
 
 private extension WebViewViewController {
   func setupUnsplashAuthWebView() {
-    guard var urlComponents = URLComponents(string: WebConstants.authorizeURLString) else {
-      preconditionFailure("Incorrect \(WebConstants.authorizeURLString) string")
+    guard var urlComponents = URLComponents(string: Constants.authorizeURLString) else {
+      preconditionFailure("Incorrect \(Constants.authorizeURLString) string")
     }
     urlComponents.queryItems = [
-      URLQueryItem(name: WebElements.clientId, value: accessKey),
-      URLQueryItem(name: WebElements.redirectUri, value: redirectURI),
-      URLQueryItem(name: WebElements.responseType, value: WebConstants.code),
-      URLQueryItem(name: WebElements.scope, value: accessScope)
+      URLQueryItem(name: WebElements.clientId, value: Constants.accessKey),
+      URLQueryItem(name: WebElements.redirectUri, value: Constants.redirectURI),
+      URLQueryItem(name: WebElements.responseType, value: Constants.code),
+      URLQueryItem(name: WebElements.scope, value: Constants.accessScope)
     ]
     guard let url = urlComponents.url else {
       print(CancellationError())
@@ -123,9 +118,9 @@ private extension WebViewViewController {
     if
       let url = navigationAction.request.url,
       let urlComponents = URLComponents(string: url.absoluteString),
-      urlComponents.path == WebConstants.authorizedURLPath,
+      urlComponents.path == Constants.authorizedURLPath,
       let items = urlComponents.queryItems,
-      let codeItem = items.first(where: { $0.name == WebConstants.code }) {
+      let codeItem = items.first(where: { $0.name == Constants.code }) {
       return codeItem.value
     } else {
       return nil
