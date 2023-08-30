@@ -16,41 +16,37 @@ protocol AuthRouting: AnyObject {
 // MARK: - Class
 
 final class OAuth2Service {
-  // MARK: - Private stored properties
-  private let urlSession = URLSession.shared
-  private var task: URLSessionTask?
+  // MARK: - Private properties
+
+  private let urlSession: URLSession
+  private let storage: OAuth2TokenStorage
+  private let requestBuilder: URLRequestBuilder
+
+  private var currentTask: URLSessionTask?
   private var lastCode: String?
 
   // MARK: - Singleton property & init
 
   static let shared = OAuth2Service()
-  private init() { }
+
+  private init(
+    urlSession: URLSession = .shared,
+    storage: OAuth2TokenStorage = .shared,
+    requestBuilder: URLRequestBuilder = .shared
+  ) {
+    self.urlSession = urlSession
+    self.storage = storage
+    self.requestBuilder = requestBuilder
+  }
+
+  var isAuthenticated: Bool {
+    storage.token != nil
+  }
 }
 
 // MARK: - Private enums, property & structure
 
 private extension OAuth2Service {
-  enum OAuth2Constants {
-    static let tokenURLString = "https://unsplash.com/oauth/token"
-    static let tokenRequestURLString = "https://unsplash.com"
-    static let tokenRequestPathString = "/oauth/token"
-    static let tokenRequestMethodString = "POST"
-    static let tokenRequestGrantTypeString = "authorization_code"
-  }
-
-  enum NetworkError: Error {
-    case codeError
-  }
-
-  var authToken: String? {
-    get {
-      return OAuth2TokenStorage().token
-    }
-    set {
-      OAuth2TokenStorage().token = newValue
-    }
-  }
-
   // TODO: Use SnakeCaseJSONDecoder instead of SJONDecoder with CodingKeys enum
   struct OAuthTokenResponseBody: Decodable {
     let accessToken: String
@@ -63,34 +59,16 @@ private extension OAuth2Service {
 // MARK: - Private methods
 
 private extension OAuth2Service {
-  func fetchOAuthTokenResponseBody(
-    for request: URLRequest, completion: @escaping (Result<OAuthTokenResponseBody, Error>) -> Void
-  ) -> URLSessionTask {
-    let completionOnMainQueue: (Result<OAuthTokenResponseBody, Error>) -> Void = { result in
-      DispatchQueue.main.async {
-        completion(result)
-      }
-    }
-    let decoder = SnakeCaseJSONDecoder()
-    return urlSession.fetchData(for: request) { (result: Result<Data, Error>) in
-      let response = result.flatMap { data -> Result<OAuthTokenResponseBody, Error> in
-        Result { try decoder.decode(OAuthTokenResponseBody.self, from: data) }
-      }
-      completionOnMainQueue(response)
-    }
-  }
-
-  func makeAuthTokenRequest(code: String) -> URLRequest {
-    guard let url = URL(string: OAuth2Constants.tokenRequestURLString) else { preconditionFailure("Cannot make url") }
-    return URLRequest.makeHTTPRequest(
-      path: OAuth2Constants.tokenRequestPathString
-      + "?client_id=\(accessKey)"
-      + "&&client_secret=\(secureKey)"
-      + "&&redirect_uri=\(redirectURI)"
+  func makeAuthTokenRequest(with code: String) -> URLRequest? {
+    return requestBuilder.makeHTTPRequest(
+      path: Constants.tokenRequestPathString
+      + "?client_id=\(Constants.accessKey)"
+      + "&&client_secret=\(Constants.secureKey)"
+      + "&&redirect_uri=\(Constants.redirectURI)"
       + "&&code=\(code)"
-      + "&&grant_type=\(OAuth2Constants.tokenRequestGrantTypeString)",
-      httpMethod: OAuth2Constants.tokenRequestMethodString,
-      baseURL: url)
+      + "&&grant_type=\(Constants.tokenRequestGrantTypeString)",
+      httpMethod: Constants.postMethodString,
+      baseURLString: Constants.baseURLString)
   }
 }
 
@@ -98,36 +76,30 @@ private extension OAuth2Service {
 
 extension OAuth2Service: AuthRouting {
   func fetchAuthToken(with code: String, completion: @escaping (Result<String, Error>) -> Void) {
-    let completionOnMainQueue: (Result<String, Error>) -> Void = { result in
-      DispatchQueue.main.async {
-        completion(result)
-        self.task = nil
-        if result as? Error != nil {
-          self.lastCode = nil
-          print("ITS LIT result is failure")
-        } else {
-          print("ITS LIT result is success")
-        }
-      }
-    }
-
     assert(Thread.isMainThread)
-    if lastCode == code { return }
-    task?.cancel()
+    guard code != lastCode else { return }
+    currentTask?.cancel()
     lastCode = code
 
-    let request = makeAuthTokenRequest(code: code)
-    let task = fetchOAuthTokenResponseBody(for: request) { [weak self] result in
+    guard let request = makeAuthTokenRequest(with: code) else {
+      assertionFailure("Invalid request")
+      completion(.failure(NetworkError.invalidRequest))
+      return
+    }
+
+    currentTask = urlSession.objectTask(for: request) {
+      [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
       guard let self else { preconditionFailure("Cannot make weak link") }
+      self.currentTask = nil
       switch result {
       case .success(let body):
-        self.authToken = body.accessToken
-        completionOnMainQueue(.success(body.accessToken))
+        let authToken = body.accessToken
+        self.storage.token = authToken
+        completion(.success(authToken))
       case .failure(let error):
-        completionOnMainQueue(.failure(error))
+        self.lastCode = nil
+        completion(.failure(error))
       }
     }
-    self.task = task
-    task.resume()
   }
 }

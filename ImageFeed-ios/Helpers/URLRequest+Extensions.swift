@@ -9,15 +9,33 @@ import Foundation
 
 // MARK: - Custom URLRequest implementation
 
-extension URLRequest {
-  static func makeHTTPRequest(
-    path: String,
-    httpMethod: String?,
-    baseURL: URL? = defaultBaseURL
-  ) -> URLRequest {
-    guard let url = URL(string: path, relativeTo: baseURL) else { preconditionFailure("Cannot make url") }
-    var request = URLRequest(url: url)
-    request.httpMethod = httpMethod
+final class URLRequestBuilder {
+  // MARK: - Private properties
+
+  static let shared = URLRequestBuilder()
+  private let storage = OAuth2TokenStorage.shared
+
+  // MARK: - Singleton? init
+//
+//  init(storage: OAuth2TokenStorage = .shared) {
+//    self.storage = storage
+//  }
+
+  // MARK: - Methods
+
+  func makeHTTPRequest(path: String, httpMethod: String? = nil, baseURLString: String? = nil) -> URLRequest? {
+    guard
+      let url = URL(string: baseURLString ?? Constants.defaultApiBaseURLString),
+      let baseURL = URL(string: path, relativeTo: url)
+    else { return nil }
+
+    var request = URLRequest(url: baseURL)
+    request.httpMethod = httpMethod ?? Constants.getMethodString
+
+    if let token = storage.token {
+      request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
+    }
+
     return request
   }
 }
