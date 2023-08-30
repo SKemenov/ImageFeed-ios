@@ -19,8 +19,6 @@ final  class ProfileViewController: UIViewController {
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
 
-  private var wasLoaded = false
-
   private var profileImageServiceObserver: NSObjectProtocol?
 
   // FIXME: Disable after check SplashViewController flow
@@ -29,9 +27,6 @@ final  class ProfileViewController: UIViewController {
 
   // MARK: - Mock data
   private let profilePhoto = "photo_mock"
-  //  private let profileUserName = "Константин Константинопольский"
-  //  private let profileLoginName = "@konstantin_kon"
-  //  private let profileBio = "Hello, swift!"
 
   // MARK: - Public properties
 
@@ -78,7 +73,7 @@ final  class ProfileViewController: UIViewController {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    checkProfileStatus()
+    loadProfile()
   }
 }
 
@@ -90,7 +85,6 @@ private extension ProfileViewController {
 
     // just to check the SplashViewController flow
     resetToken()
-    wasLoaded = false
     switchToSplashViewController()
   }
 
@@ -112,29 +106,13 @@ private extension ProfileViewController {
     //    profileImage.kf.setImage(with: url, options: [.processor(processor)])
   }
 
-  func checkProfileStatus() {
-
-    guard !wasLoaded else { return }
-    wasLoaded = true
-    loadProfile()
-  }
-
   func loadProfile() {
 
-    profileService.fetchProfile { [weak self] profileResult in
-      guard let self else {
-        assertionFailure("Cannot make weak link")
-        return
-      }
-      switch profileResult {
-      case .success(let profile):
-        self.profileFullNameLabel.text = profile.name
-        self.profileLoginNameLabel.text = profile.loginName
-        self.profileBioLabel.text = profile.bio
-      case .failure(let error):
-        print("ITS LIT Cannot process profile \(error)")
-      }
-    }
+    guard let profile = profileService.profile else { preconditionFailure("Cannot take profile") }
+
+    self.profileFullNameLabel.text = profile.name
+    self.profileLoginNameLabel.text = profile.loginName
+    self.profileBioLabel.text = profile.bio
   }
 
   func makeProfilePhotoImage() {

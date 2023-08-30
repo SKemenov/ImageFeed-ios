@@ -12,7 +12,7 @@ final class SplashViewController: UIViewController {
 
   private let showAuthViewSegueIdentifier = "ShowAuthView"
   private let oAuth2Service = OAuth2Service.shared
-  private let profileService = ProfileService()
+  private let profileService = ProfileService.shared
   private let alertPresenter = AlertPresenter()
   private var wasChecked = false
 
