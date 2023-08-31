@@ -13,6 +13,7 @@ final class SplashViewController: UIViewController {
   private let showAuthViewSegueIdentifier = "ShowAuthView"
   private let oAuth2Service = OAuth2Service.shared
   private let profileService = ProfileService.shared
+  private let profileImageService = ProfileImageService.shared
   private let alertPresenter = AlertPresenter()
   private var wasChecked = false
 
@@ -132,13 +133,29 @@ private extension SplashViewController {
       guard let self else { preconditionFailure("Cannot fetch profileResult") }
 
       switch profileResult {
-        // swiftlint:disable:next empty_enum_arguments
-      case .success(_):
+      case .success(let profile):
+        let userName = profile.username
+        self.fetchProfileImage(userName: userName)
         self.switchToTabBarController()
       case .failure(let error):
         self.showLoginAlert(error: error)
       }
       completion()
+    }
+  }
+
+  func fetchProfileImage(userName: String) {
+
+    profileImageService.fetchProfileImageURL(userName: userName) { [weak self] profileImageUrl in
+
+      guard let self else { return }
+
+      switch profileImageUrl {
+      case .success(let mediumPhoto):
+        print("ITS LIT \(mediumPhoto)")
+      case .failure(let error):
+        self.showLoginAlert(error: error)
+      }
     }
   }
 }
