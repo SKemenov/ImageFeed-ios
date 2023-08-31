@@ -52,20 +52,23 @@ extension ProfileImageService: ProfileImageLoading {
       return
     }
 
+    print("ITS LIT \(request)")
+
     let task = session.objectTask(for: request) {
       [weak self] (result: Result<ProfileResult, Error>) in
 
       guard let self else { preconditionFailure("Cannot make weak link") }
 
       switch result {
-      case .success(let profilePhoto):
-        guard let mediumPhoto = profilePhoto.profileImage?.medium else { return }
+      case .success(let profileResult):
+        guard let mediumPhoto = profileResult.profileImage?.medium else { return }
         self.avatarURL = URL(string: mediumPhoto)
+        print("ITS LIT \(mediumPhoto)")
         completion(.success(mediumPhoto))
         NotificationCenter.default.post(
           name: ProfileImageService.didChangeNotification,
           object: self,
-          userInfo: ["URL": mediumPhoto]
+          userInfo: [Notification.userInfoImageURLKey: mediumPhoto]
         )
       case .failure(let error):
         completion(.failure(error))
@@ -75,15 +78,5 @@ extension ProfileImageService: ProfileImageLoading {
 
     self.currentTask = task
     task.resume()
-  }
-}
-
-
-extension Notification {
-
-  static let userInfoImageURLKey: String = "URL"
-
-  var userInfoImageURL: String? {
-    userInfo?[Notification.userInfoImageURLKey] as? String
   }
 }
