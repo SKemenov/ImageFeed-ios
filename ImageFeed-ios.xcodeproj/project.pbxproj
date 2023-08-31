@@ -115,7 +115,6 @@
 			isa = PBXGroup;
 			children = (
 				E99EFE7A2A5F4202005BDB6A /* Assets.xcassets */,
-				E99EFE7C2A5F4202005BDB6A /* LaunchScreen.storyboard */,
 				E99EFE7F2A5F4202005BDB6A /* Info.plist */,
 			);
 			path = Resources;
@@ -137,6 +136,15 @@
 				E9FCE8D62A9E83C300CDCFC4 /* ProfileImageService.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		E98AAFA92AA0B3A600AD70CD /* Stotyboards */ = {
+			isa = PBXGroup;
+			children = (
+				E99EFE7C2A5F4202005BDB6A /* LaunchScreen.storyboard */,
+				E99EFE772A5F4200005BDB6A /* Main.storyboard */,
+			);
+			path = Stotyboards;
 			sourceTree = "<group>";
 		};
 		E995541D2A9E3439006B2F35 /* Alert */ = {
@@ -178,7 +186,7 @@
 				E99EFE882A5F4B54005BDB6A /* ImageList */,
 				E9C8E9262A6AAF91008F418B /* SingleImageView */,
 				E9292ADE2A69792A004D9234 /* Resources */,
-				E99EFE772A5F4200005BDB6A /* Main.storyboard */,
+				E98AAFA92AA0B3A600AD70CD /* Stotyboards */,
 			);
 			path = "ImageFeed-ios";
 			sourceTree = "<group>";

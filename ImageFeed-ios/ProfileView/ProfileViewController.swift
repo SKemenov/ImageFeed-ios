@@ -51,10 +51,9 @@ final  class ProfileViewController: UIViewController {
       ) { [weak self] notification in
         self?.updateAvatar(notification: notification)
       }
-//    ) { [weak self] _ in
-//      self?.updateAvatar()
-//    }
-
+    //    ) { [weak self] _ in
+    //      self?.updateAvatar()
+    //    }
 
     makeProfilePhotoImage()
     makeProfileFullNameLabel()
@@ -94,7 +93,9 @@ private extension ProfileViewController {
 
   func updateAvatar() {
 
-    guard let profileImageURL = profileImageService.avatarURL else { preconditionFailure("Cannot take profileImageURL") }
+    guard let profileImageURL = profileImageService.avatarURL else {
+      preconditionFailure("Cannot take profileImageURL")
+    }
     updateAvatar(url: profileImageURL)
   }
 
