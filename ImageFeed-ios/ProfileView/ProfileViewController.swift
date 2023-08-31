@@ -39,30 +39,22 @@ final  class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-
-    if profileService.profile != nil {
-      print("ITS LIT \(String(describing: profileService.profile))")
-    } else {
-      print("ITS LIT profileService.profile is nil")
-    }
-
-    if profileImageService.avatarURL != nil {
-      print("ITS LIT \(String(describing: profileImageService.avatarURL))")
-    } else {
-      print("ITS LIT profileImageService.avatarURL is nil")
-    }
-
     if let url = profileImageService.avatarURL {
       updateAvatar(url: url)
     }
 
-    profileImageServiceObserver = NotificationCenter.default.addObserver(
-      forName: ProfileImageService.didChangeNotification,
-      object: nil,
-      queue: .main
-    ) { [weak self] notification in
-      self?.updateAvatar(notification: notification)
-    }
+    profileImageServiceObserver = NotificationCenter.default
+      .addObserver(
+        forName: ProfileImageService.didChangeNotification,
+        object: nil,
+        queue: .main
+      ) { [weak self] notification in
+        self?.updateAvatar(notification: notification)
+      }
+//    ) { [weak self] _ in
+//      self?.updateAvatar()
+//    }
+
 
     makeProfilePhotoImage()
     makeProfileFullNameLabel()
@@ -93,11 +85,17 @@ private extension ProfileViewController {
     guard
       isViewLoaded,
       let userInfo = notification.userInfo,
-      let profileImageURL = userInfo["URL"] as? String,
+      let profileImageURL = userInfo[Notification.userInfoImageURLKey] as? String,
       let url = URL(string: profileImageURL)
     else { return }
 
     updateAvatar(url: url)
+  }
+
+  func updateAvatar() {
+
+    guard let profileImageURL = profileImageService.avatarURL else { preconditionFailure("Cannot take profileImageURL") }
+    updateAvatar(url: profileImageURL)
   }
 
   func updateAvatar(url: URL) {
