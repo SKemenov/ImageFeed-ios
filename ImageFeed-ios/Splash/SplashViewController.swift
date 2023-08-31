@@ -100,6 +100,7 @@ private extension SplashViewController {
     alertPresenter.showAlert(
       title: "Что-то пошло не так (",
       message: "Не удалось войти в систему \(error.localizedDescription)") {
+        // FIXME: run away without pushing button
         self.performSegue(withIdentifier: self.showAuthViewSegueIdentifier, sender: nil)
     }
   }

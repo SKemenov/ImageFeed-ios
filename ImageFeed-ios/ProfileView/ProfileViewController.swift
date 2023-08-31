@@ -40,7 +40,8 @@ final  class ProfileViewController: UIViewController {
     super.viewDidLoad()
 
     if let url = profileImageService.avatarURL {
-      updateAvatar(url: url)
+//      updateAvatar(url: url)
+      updateAvatar()
     }
 
     profileImageServiceObserver = NotificationCenter.default
@@ -76,6 +77,11 @@ private extension ProfileViewController {
 
     // just to check the SplashViewController flow
     resetToken()
+    self.profileFullNameLabel.text = ""
+    self.profileLoginNameLabel.text = ""
+    self.profileBioLabel.text = ""
+    self.profilePhotoImage.image = UIImage()
+
     switchToSplashViewController()
   }
 
@@ -88,7 +94,9 @@ private extension ProfileViewController {
       let url = URL(string: profileImageURL)
     else { return }
 
-    updateAvatar(url: url)
+//    updateAvatar(url: url)
+    print("ITS LIT \(url)")
+    updateAvatar()
   }
 
   func updateAvatar() {
@@ -96,7 +104,20 @@ private extension ProfileViewController {
     guard let profileImageURL = profileImageService.avatarURL else {
       preconditionFailure("Cannot take profileImageURL")
     }
-    updateAvatar(url: profileImageURL)
+
+    let request = URLRequest(url: profileImageURL)
+    URLSession.shared.dataTask(with: request) {
+      [weak self] data, _, _ in
+
+      guard let self else { return }
+
+      if let data = data,
+         let image = UIImage(data: data) {
+        DispatchQueue.main.async {
+          self.profilePhotoImage.image = image
+        }
+      }
+    }.resume()
   }
 
   func updateAvatar(url: URL) {
@@ -116,7 +137,6 @@ private extension ProfileViewController {
 
   func makeProfilePhotoImage() {
 
-    profilePhotoImage.image = UIImage(named: profilePhoto)
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
 
     view.addSubview(profilePhotoImage)
@@ -131,7 +151,6 @@ private extension ProfileViewController {
 
   func makeProfileFullNameLabel() {
 
-    //    profileFullNameLabel.text = profileUserName
     profileFullNameLabel.textColor = .ypWhite
     profileFullNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
     profileFullNameLabel.lineBreakMode = .byWordWrapping
@@ -149,7 +168,6 @@ private extension ProfileViewController {
 
   func makeProfileLoginNameLabel() {
 
-    //    profileLoginNameLabel.text = profileLoginName
     profileLoginNameLabel.textColor = .ypGray
     profileLoginNameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
 
@@ -165,7 +183,6 @@ private extension ProfileViewController {
 
   func makeProfileBioLabel() {
 
-    //    profileBioLabel.text = profileBio
     profileBioLabel.textColor = .ypWhite
     profileBioLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
     profileBioLabel.lineBreakMode = .byWordWrapping
