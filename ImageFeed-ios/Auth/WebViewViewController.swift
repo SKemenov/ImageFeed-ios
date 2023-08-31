@@ -17,7 +17,9 @@ protocol WebViewViewControllerDelegate: AnyObject {
 // MARK: - Class
 
 final class WebViewViewController: UIViewController {
-  // MARK: - Private enums
+  // MARK: - Private properties
+
+  private var estimatedProgressObservation: NSKeyValueObservation?
 
   private enum WebElements {
     static let clientId = "client_id"
@@ -47,6 +49,7 @@ final class WebViewViewController: UIViewController {
 
     webView.navigationDelegate = self
     setupProgress()
+    setupWebViewObserve()
     setupUnsplashAuthWebView()
   }
 
@@ -57,46 +60,17 @@ final class WebViewViewController: UIViewController {
   }
 }
 
-// MARK: - Progress observer methods
-
-extension WebViewViewController {
-
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(true)
-
-    webView.addObserver(
-      self,
-      forKeyPath: #keyPath(WKWebView.estimatedProgress),
-      options: .new,
-      context: nil
-    )
-    updateProgress()
-  }
-
-  override func viewDidDisappear(_ animated: Bool) {
-    super.viewDidDisappear(true)
-    webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
-  }
-
-  // swiftlint:disable:next block_based_kvo
-  override func observeValue(
-    forKeyPath keyPath: String?,
-    of object: Any?,
-    change: [NSKeyValueChangeKey: Any]?,
-    context: UnsafeMutableRawPointer?
-  ) {
-    if keyPath == #keyPath(WKWebView.estimatedProgress) {
-      updateProgress()
-    } else {
-      super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-    }
-  }
-}
-
-
 // MARK: - Private methods
 
 private extension WebViewViewController {
+
+  func setupWebViewObserve() {
+    estimatedProgressObservation = webView.observe(\.estimatedProgress, options: []) {
+      [weak self ] _, _ in
+      guard let self else { return }
+      self.updateProgress()
+    }
+  }
 
   func setupUnsplashAuthWebView() {
 
