@@ -10,11 +10,11 @@ import UIKit
 final class SplashViewController: UIViewController {
   // MARK: - Private properties
 
-  private let showAuthViewSegueIdentifier = "ShowAuthView"
+  private var unsplashLogoImage = UIImageView()
   private let oAuth2Service = OAuth2Service.shared
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
-  private let alertPresenter = AlertPresenter()
+  private var alertPresenter: AlertPresenting?
   private var wasChecked = false
 
   // MARK: - Public properties
@@ -25,28 +25,21 @@ final class SplashViewController: UIViewController {
 
   // MARK: - Lifecycle
 
+  override func loadView() {
+    view = UIView()
+    view.backgroundColor = .ypBackground
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    alertPresenter.delegate = self
+    alertPresenter = AlertPresenter(viewController: self)
+    setupSplashViewController()
     UIBlockingProgressHUD.setup()
   }
 
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(true)
     checkAuthStatus()
-  }
-
-  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    if segue.identifier == showAuthViewSegueIdentifier {
-      guard
-        let navigationController = segue.destination as? UINavigationController,
-        let viewController = navigationController.viewControllers[0] as? AuthViewController else {
-        preconditionFailure("Error with \(showAuthViewSegueIdentifier)")
-      }
-      viewController.delegate = self
-    } else {
-      super.prepare(for: segue, sender: sender)
-    }
   }
 }
 
@@ -55,7 +48,6 @@ final class SplashViewController: UIViewController {
 private extension SplashViewController {
 
   func checkAuthStatus() {
-
     guard !wasChecked else { return }
     wasChecked = true
     if oAuth2Service.isAuthenticated {
@@ -67,14 +59,27 @@ private extension SplashViewController {
       }
     } else {
       showAuthViewController()
-      //      performSegue(withIdentifier: showAuthViewSegueIdentifier, sender: nil)
     }
   }
 
-  func showAuthViewController() {
+  func showLoginAlert(error: Error) {
+    let alertModel = AlertModel(
+      title: "Что-то пошло не так (",
+      message: "Не удалось войти в систему \(error.localizedDescription)",
+      buttonText: "Ok",
+      completion: nil
+    )
+    alertPresenter?.showAlert(for: alertModel)
+  }
+}
 
+// MARK: - Private methods to make UI
+
+private extension SplashViewController {
+
+  func showAuthViewController() {
     let storyboard = UIStoryboard(name: "Main", bundle: .main)
-    let viewController = storyboard.instantiateViewController(withIdentifier: "AuthViewControllerID")
+    let viewController = storyboard.instantiateViewController(withIdentifier: "AuthViewController")
     guard let viewController = viewController as? AuthViewController else { return }
     viewController.delegate = self
     viewController.modalPresentationStyle = .fullScreen
@@ -82,7 +87,6 @@ private extension SplashViewController {
   }
 
   func switchToTabBarController() {
-
     guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
     let tabBarController = UIStoryboard(name: "Main", bundle: .main)
       .instantiateViewController(withIdentifier: "TabBarViewController")
@@ -90,27 +94,28 @@ private extension SplashViewController {
   }
 
   func setupSplashViewController() {
+    unsplashLogoImage.image = UIImage(named: "logo")
+    unsplashLogoImage.translatesAutoresizingMaskIntoConstraints = false
 
-    let storyboard = UIStoryboard(name: "Main", bundle: .main)
-    storyboard.instantiateInitialViewController() // use it for "is Initial VC"
+    view.addSubview(unsplashLogoImage)
+
+    NSLayoutConstraint.activate([
+      unsplashLogoImage.widthAnchor.constraint(equalToConstant: 75),
+      unsplashLogoImage.heightAnchor.constraint(equalToConstant: 77),
+      unsplashLogoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
+      unsplashLogoImage.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 0)
+    ])
   }
+}
 
-  func showLoginAlert(error: Error) {
+// MARK: - Private fetch methods
 
-    alertPresenter.showAlert(
-      title: "Что-то пошло не так (",
-      message: "Не удалось войти в систему \(error.localizedDescription)") {
-        // FIXME: run away without pushing button
-        self.performSegue(withIdentifier: self.showAuthViewSegueIdentifier, sender: nil)
-    }
-  }
+private extension SplashViewController {
 
   func fetchAuthToken(with code: String) {
-
     UIBlockingProgressHUD.show()
 
     oAuth2Service.fetchAuthToken(with: code) { [weak self] authResult in
-
       guard let self else { preconditionFailure("Cannot fetch auth token") }
 
       switch authResult {
@@ -130,7 +135,6 @@ private extension SplashViewController {
   func fetchProfile(completion: @escaping () -> Void) {
 
     profileService.fetchProfile { [weak self] profileResult in
-
       guard let self else { preconditionFailure("Cannot fetch profileResult") }
 
       switch profileResult {
@@ -164,9 +168,7 @@ private extension SplashViewController {
 // MARK: - AuthViewControllerDelegate
 
 extension SplashViewController: AuthViewControllerDelegate {
-
   func authViewController(_ viewController: AuthViewController, didAuthenticateWithCode code: String) {
-
     dismiss(animated: true) {
       [weak self] in
       guard let self else { return }
@@ -174,3 +176,4 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
   }
 }
+

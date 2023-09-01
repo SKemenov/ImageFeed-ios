@@ -23,6 +23,7 @@
 		E98B44842A8B549100B614DE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B44832A8B549100B614DE /* SplashViewController.swift */; };
 		E995541C2A9E3430006B2F35 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995541B2A9E3430006B2F35 /* AlertPresenter.swift */; };
 		E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57C82AA205D9002D3FA0 /* TabBarController.swift */; };
+		E99C57CD2AA27F53002D3FA0 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */; };
 		E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE712A5F4200005BDB6A /* AppDelegate.swift */; };
 		E99EFE742A5F4200005BDB6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */; };
 		E99EFE762A5F4200005BDB6A /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */; };
@@ -54,6 +55,7 @@
 		E98B44832A8B549100B614DE /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		E995541B2A9E3430006B2F35 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
 		E99C57C82AA205D9002D3FA0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		E99EFE6E2A5F4200005BDB6A /* ImageFeed-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageFeed-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99EFE712A5F4200005BDB6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				E97C68CF2A9C734F00163B77 /* ProfileService.swift */,
-				E97C68D22A9C952F00163B77 /* ProfileStructures.swift */,
 				E9FCE8D62A9E83C300CDCFC4 /* ProfileImageService.swift */,
 			);
 			path = Profile;
@@ -181,6 +182,24 @@
 			path = TabBarView;
 			sourceTree = "<group>";
 		};
+		E99C57CA2AA20ED6002D3FA0 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				E99EFE712A5F4200005BDB6A /* AppDelegate.swift */,
+				E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		E99C57CB2AA27F3F002D3FA0 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E97C68D22A9C952F00163B77 /* ProfileStructures.swift */,
+				E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		E99EFE652A5F4200005BDB6A = {
 			isa = PBXGroup;
 			children = (
@@ -200,10 +219,10 @@
 		E99EFE702A5F4200005BDB6A /* ImageFeed-ios */ = {
 			isa = PBXGroup;
 			children = (
-				E99EFE712A5F4200005BDB6A /* AppDelegate.swift */,
-				E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */,
+				E99C57CA2AA20ED6002D3FA0 /* Application */,
 				E995541D2A9E3439006B2F35 /* Alert */,
 				E9F0BD9A2A89293900A7D71D /* ServiceAccessLayer */,
+				E99C57CB2AA27F3F002D3FA0 /* Models */,
 				E99C57C62AA20573002D3FA0 /* Screens */,
 				E938F9032A7B7A9B00789F5E /* API */,
 				E90EA1672A78DBB000EC34FD /* Helpers */,
@@ -367,6 +386,7 @@
 				E9292ADA2A664AEA004D9234 /* ProfileViewController.swift in Sources */,
 				E9F0BD952A87F66900A7D71D /* URLSession+Extensions.swift in Sources */,
 				E97C68D32A9C952F00163B77 /* ProfileStructures.swift in Sources */,
+				E99C57CD2AA27F53002D3FA0 /* AlertModel.swift in Sources */,
 				E995541C2A9E3430006B2F35 /* AlertPresenter.swift in Sources */,
 				E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */,
 				E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */,
