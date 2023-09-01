@@ -138,8 +138,7 @@ private extension ProfileViewController {
   func loadProfile() {
 
     guard let profile = profileService.profile else {
-//      preconditionFailure("Cannot take profile")
-      return
+      return //      preconditionFailure("Cannot take profile")
     }
 
     self.profileFullNameLabel.text = profile.name

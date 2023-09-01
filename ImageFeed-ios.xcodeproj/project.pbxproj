@@ -22,6 +22,7 @@
 		E98AAFAC2AA1304500AD70CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E98AAFAB2AA1304500AD70CD /* Kingfisher */; };
 		E98B44842A8B549100B614DE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B44832A8B549100B614DE /* SplashViewController.swift */; };
 		E995541C2A9E3430006B2F35 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995541B2A9E3430006B2F35 /* AlertPresenter.swift */; };
+		E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57C82AA205D9002D3FA0 /* TabBarController.swift */; };
 		E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE712A5F4200005BDB6A /* AppDelegate.swift */; };
 		E99EFE742A5F4200005BDB6A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */; };
 		E99EFE762A5F4200005BDB6A /* ImageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */; };
@@ -52,6 +53,7 @@
 		E98AAFA72AA0A76600AD70CD /* Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extensions.swift"; sourceTree = "<group>"; };
 		E98B44832A8B549100B614DE /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		E995541B2A9E3430006B2F35 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		E99C57C82AA205D9002D3FA0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E99EFE6E2A5F4200005BDB6A /* ImageFeed-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageFeed-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E99EFE712A5F4200005BDB6A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 		E90EA1672A78DBB000EC34FD /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				E9CA13CF2A9BAB4C0087FD90 /* UIBlockingProgressHUD.swift */,
 				E90EA1652A78DBA800EC34FD /* UIColor+Extensions.swift */,
 				E9F0BD922A86C6C600A7D71D /* URLRequest+Extensions.swift */,
 				E9F0BD942A87F66900A7D71D /* URLSession+Extensions.swift */,
@@ -98,9 +101,9 @@
 		E9190A5C2A7FF18E008FE2FF /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */,
 				E9190A5A2A7FF144008FE2FF /* AuthViewController.swift */,
 				E9190A5D2A7FF32C008FE2FF /* WebViewViewController.swift */,
-				E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -157,6 +160,27 @@
 			path = Alert;
 			sourceTree = "<group>";
 		};
+		E99C57C62AA20573002D3FA0 /* Screens */ = {
+			isa = PBXGroup;
+			children = (
+				E9F0BD962A87F85800A7D71D /* Splash */,
+				E9190A5C2A7FF18E008FE2FF /* Auth */,
+				E99C57C72AA20598002D3FA0 /* TabBarView */,
+			);
+			path = Screens;
+			sourceTree = "<group>";
+		};
+		E99C57C72AA20598002D3FA0 /* TabBarView */ = {
+			isa = PBXGroup;
+			children = (
+				E99C57C82AA205D9002D3FA0 /* TabBarController.swift */,
+				E9292ADD2A6978DD004D9234 /* ProfileView */,
+				E99EFE882A5F4B54005BDB6A /* ImageList */,
+				E9C8E9262A6AAF91008F418B /* SingleImageView */,
+			);
+			path = TabBarView;
+			sourceTree = "<group>";
+		};
 		E99EFE652A5F4200005BDB6A = {
 			isa = PBXGroup;
 			children = (
@@ -180,13 +204,9 @@
 				E99EFE732A5F4200005BDB6A /* SceneDelegate.swift */,
 				E995541D2A9E3439006B2F35 /* Alert */,
 				E9F0BD9A2A89293900A7D71D /* ServiceAccessLayer */,
-				E9F0BD962A87F85800A7D71D /* Splash */,
-				E9190A5C2A7FF18E008FE2FF /* Auth */,
+				E99C57C62AA20573002D3FA0 /* Screens */,
 				E938F9032A7B7A9B00789F5E /* API */,
 				E90EA1672A78DBB000EC34FD /* Helpers */,
-				E9292ADD2A6978DD004D9234 /* ProfileView */,
-				E99EFE882A5F4B54005BDB6A /* ImageList */,
-				E9C8E9262A6AAF91008F418B /* SingleImageView */,
 				E9292ADE2A69792A004D9234 /* Resources */,
 				E98AAFA92AA0B3A600AD70CD /* Stotyboards */,
 			);
@@ -214,7 +234,6 @@
 			isa = PBXGroup;
 			children = (
 				E98B44832A8B549100B614DE /* SplashViewController.swift */,
-				E9CA13CF2A9BAB4C0087FD90 /* UIBlockingProgressHUD.swift */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -349,6 +368,7 @@
 				E9F0BD952A87F66900A7D71D /* URLSession+Extensions.swift in Sources */,
 				E97C68D32A9C952F00163B77 /* ProfileStructures.swift in Sources */,
 				E995541C2A9E3430006B2F35 /* AlertPresenter.swift in Sources */,
+				E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */,
 				E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */,
 				E90EA1662A78DBA900EC34FD /* UIColor+Extensions.swift in Sources */,
 				E9FCE8D72A9E83C300CDCFC4 /* ProfileImageService.swift in Sources */,
