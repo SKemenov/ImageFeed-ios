@@ -129,13 +129,11 @@ private extension SplashViewController {
       switch authResult {
         // swiftlint:disable:next empty_enum_arguments
       case .success(_):
-        print("ITS LIT has token")
         self.fetchProfile(completion: {
           UIBlockingProgressHUD.dismiss()
         })
       case .failure(let error):
         self.showLoginAlert(error: error)
-        print("ITS LIT 136 \(error)")
         UIBlockingProgressHUD.dismiss()
       }
     }
@@ -152,7 +150,6 @@ private extension SplashViewController {
         self.fetchProfileImage(userName: userName)
         self.switchToTabBarController()
       case .failure(let error):
-        print("ITS LIT 152 \(error)")
         self.showLoginAlert(error: error)
       }
       completion()
@@ -170,7 +167,6 @@ private extension SplashViewController {
         print("ITS LIT \(mediumPhoto)")
       case .failure(let error):
         self.showLoginAlert(error: error)
-        print("ITS LIT 171\(error)")
       }
     }
   }

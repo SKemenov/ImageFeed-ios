@@ -25,10 +25,6 @@ final  class ProfileViewController: UIViewController {
   // FIXME: Disable after check SplashViewController flow
   private let storage = OAuth2TokenStorage.shared
 
-
-  // MARK: - Mock data
-  private let profilePhoto = "photo_mock"
-
   // MARK: - Public properties
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -85,25 +81,6 @@ private extension ProfileViewController {
     }
   }
 
-  // FIXME: delete before PR
-  func updateAvatar() {
-    guard let profileImageURL = profileImageService.avatarURL else {
-      preconditionFailure("Cannot take profileImageURL")
-    }
-
-    let request = URLRequest(url: profileImageURL)
-    let task = URLSession.shared.dataTask(with: request) {
-      [weak self] data, _, _ in
-      guard let self else { return }
-      if let data = data, let image = UIImage(data: data) {
-        DispatchQueue.main.async {
-          self.profilePhotoImage.image = image
-        }
-      }
-    }
-    task.resume()
-  }
-
   func updateAvatar(url: URL) {
     profilePhotoImage.kf.indicatorType = .activity
     let processor = RoundCornerImageProcessor(cornerRadius: 35)
@@ -128,7 +105,7 @@ private extension ProfileViewController {
   func loadProfile() {
 
     guard let profile = profileService.profile else {
-      return //      preconditionFailure("Cannot take profile")
+      return
     }
 
     self.profileFullNameLabel.text = profile.name

@@ -44,6 +44,5 @@ extension AlertPresenter: AlertPresenting {
       }
       topController.present(alert, animated: true)
     }
-    //    viewController?.presentedViewController?.present(alert, animated: true)
   }
 }
