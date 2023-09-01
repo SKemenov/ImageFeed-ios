@@ -10,21 +10,31 @@ import UIKit
 // MARK: - Protocol
 
 protocol AlertPresenting: AnyObject {
-  func showAlert(title: String, message: String, completion: @escaping () -> Void)
+  func showAlert(for result: AlertModel)
 }
 
 // MARK: - Class
 
-final class AlertPresenter: AlertPresenting {
+final class AlertPresenter {
 
-  weak var delegate: UIViewController?
+  private weak var viewController: UIViewController?
 
-  func showAlert(title: String, message: String, completion: @escaping () -> Void) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    let alertAction = UIAlertAction(title: "OK", style: .default) { _ in
-      completion()
+  init(viewController: UIViewController?) {
+    self.viewController = viewController
+  }
+}
+
+// MARK: - AlertPresenting
+
+extension AlertPresenter: AlertPresenting {
+
+  func showAlert(for result: AlertModel) {
+    let alert = UIAlertController(title: result.title, message: result.message, preferredStyle: .alert)
+    let alertAction = UIAlertAction(title: result.buttonText, style: .default) { _ in
+      result.completion?()
+      print("ITS LIT in alert Action")
     }
     alert.addAction(alertAction)
-    delegate?.present(alert, animated: true)
+    viewController?.present(alert, animated: true)
   }
 }
