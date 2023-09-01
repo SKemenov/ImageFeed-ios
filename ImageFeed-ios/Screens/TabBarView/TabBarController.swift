@@ -9,6 +9,8 @@ import UIKit
 
 final class TabBarController: UITabBarController {
 
+
+
   override func awakeFromNib() {
     super.awakeFromNib()
 
@@ -16,8 +18,22 @@ final class TabBarController: UITabBarController {
 
     let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
 
-    let profileViewController = storyboard.instantiateViewController(withIdentifier: "ProfileViewController")
+    let profileViewController = ProfileViewController()
+    setupTabBarItem(for: profileViewController, image: "tab_profile_active")
+
+//    let imagesListViewController = ImagesListViewController()
+//    setupTabBarItem(for: imagesListViewController, image: "tab_editorial_active")
 
     self.viewControllers = [imagesListViewController, profileViewController]
+  }
+}
+
+private extension TabBarController {
+  func setupTabBarItem(for viewController: ProfileViewController, image: String) {
+    viewController.tabBarItem = UITabBarItem(
+      title: nil,
+      image: UIImage(named: image),
+      selectedImage: nil
+    )
   }
 }
