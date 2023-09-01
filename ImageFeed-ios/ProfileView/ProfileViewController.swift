@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 final  class ProfileViewController: UIViewController {
 
@@ -39,22 +40,9 @@ final  class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    if let url = profileImageService.avatarURL {
-//      updateAvatar(url: url)
-      updateAvatar()
-    }
+    checkAvatar()
 
-    profileImageServiceObserver = NotificationCenter.default
-      .addObserver(
-        forName: ProfileImageService.didChangeNotification,
-        object: nil,
-        queue: .main
-      ) { [weak self] notification in
-        self?.updateAvatar(notification: notification)
-      }
-    //    ) { [weak self] _ in
-    //      self?.updateAvatar()
-    //    }
+    setupNotificationObserver()
 
     makeProfilePhotoImage()
     makeProfileFullNameLabel()
@@ -74,61 +62,85 @@ final  class ProfileViewController: UIViewController {
 private extension ProfileViewController {
 
   @objc func didTapButton() {
-
     // just to check the SplashViewController flow
     resetToken()
-    self.profileFullNameLabel.text = ""
-    self.profileLoginNameLabel.text = ""
-    self.profileBioLabel.text = ""
-    self.profilePhotoImage.image = UIImage()
+    resetView()
 
     switchToSplashViewController()
   }
 
   @objc func updateAvatar(notification: Notification) {
-
     guard
       isViewLoaded,
       let userInfo = notification.userInfo,
       let profileImageURL = userInfo[Notification.userInfoImageURLKey] as? String,
       let url = URL(string: profileImageURL)
     else { return }
-
-//    updateAvatar(url: url)
-    print("ITS LIT \(url)")
-    updateAvatar()
+    updateAvatar(url: url)
   }
 
-  func updateAvatar() {
+  func checkAvatar() {
+    if let url = profileImageService.avatarURL {
+      updateAvatar(url: url)
+    }
+  }
 
+  // FIXME: delete before PR
+  func updateAvatar() {
     guard let profileImageURL = profileImageService.avatarURL else {
       preconditionFailure("Cannot take profileImageURL")
     }
 
     let request = URLRequest(url: profileImageURL)
-    URLSession.shared.dataTask(with: request) {
+    let task = URLSession.shared.dataTask(with: request) {
       [weak self] data, _, _ in
-
       guard let self else { return }
-
-      if let data = data,
-         let image = UIImage(data: data) {
+      if let data = data, let image = UIImage(data: data) {
         DispatchQueue.main.async {
           self.profilePhotoImage.image = image
         }
       }
-    }.resume()
+    }
+    task.resume()
   }
 
   func updateAvatar(url: URL) {
-    //    profileImage.kf.indicatiorType = .activity
-    //    let processor = RoundCornerImageProcessor(cornerRadius: 61)
-    //    profileImage.kf.setImage(with: url, options: [.processor(processor)])
+    profilePhotoImage.kf.indicatorType = .activity
+    let processor = RoundCornerImageProcessor(cornerRadius: 35)
+    profilePhotoImage.kf.setImage(
+      with: url,
+      placeholder: UIImage(named: "person.crop.circle.fill"),
+      options: [.processor(processor)]
+    )
+  }
+
+  func setupNotificationObserver() {
+    profileImageServiceObserver = NotificationCenter.default
+      .addObserver(
+        forName: ProfileImageService.didChangeNotification,
+        object: nil,
+        queue: .main
+      ) { [weak self] notification in
+        self?.updateAvatar(notification: notification)
+      }
+  }
+
+  func resetView() {
+    self.profileFullNameLabel.text = ""
+    self.profileLoginNameLabel.text = ""
+    self.profileBioLabel.text = ""
+    self.profilePhotoImage.image = UIImage()
+//    let cache = ImageCache.default
+//    cache.clearMemoryCache()
+//    cache.clearDiskCache()
   }
 
   func loadProfile() {
 
-    guard let profile = profileService.profile else { preconditionFailure("Cannot take profile") }
+    guard let profile = profileService.profile else {
+//      preconditionFailure("Cannot take profile")
+      return
+    }
 
     self.profileFullNameLabel.text = profile.name
     self.profileLoginNameLabel.text = profile.loginName
@@ -138,6 +150,7 @@ private extension ProfileViewController {
   func makeProfilePhotoImage() {
 
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
+    profilePhotoImage.layer.cornerRadius = 35
 
     view.addSubview(profilePhotoImage)
 
