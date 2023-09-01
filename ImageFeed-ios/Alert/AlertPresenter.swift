@@ -29,12 +29,21 @@ final class AlertPresenter {
 extension AlertPresenter: AlertPresenting {
 
   func showAlert(for result: AlertModel) {
-    let alert = UIAlertController(title: result.title, message: result.message, preferredStyle: .alert)
+    let alert = UIAlertController(
+      title: result.title,
+      message: result.message,
+      preferredStyle: .alert)
     let alertAction = UIAlertAction(title: result.buttonText, style: .default) { _ in
       result.completion?()
-      print("ITS LIT in alert Action")
     }
     alert.addAction(alertAction)
-    viewController?.present(alert, animated: true)
+
+    if var topController = UIApplication.shared.windows[0].rootViewController {
+      while let presentedViewController = topController.presentedViewController {
+        topController = presentedViewController
+      }
+      topController.present(alert, animated: true)
+    }
+    //    viewController?.presentedViewController?.present(alert, animated: true)
   }
 }

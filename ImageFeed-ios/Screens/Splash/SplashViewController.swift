@@ -63,13 +63,21 @@ private extension SplashViewController {
   }
 
   func showLoginAlert(error: Error) {
-    let alertModel = AlertModel(
-      title: "Что-то пошло не так (",
-      message: "Не удалось войти в систему \(error.localizedDescription)",
-      buttonText: "Ok",
-      completion: nil
-    )
-    alertPresenter?.showAlert(for: alertModel)
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      let alertModel = AlertModel(
+        title: "Что-то пошло не так :(",
+        message: "Не удалось войти в систему: \(error.localizedDescription)",
+        buttonText: "Ok") {
+          self.wasChecked = false
+          guard OAuth2TokenStorage.shared.removeToken() else {
+            assertionFailure("Cannot remove token")
+            return
+          }
+          self.checkAuthStatus()
+      }
+      self.alertPresenter?.showAlert(for: alertModel)
+    }
   }
 }
 
@@ -127,6 +135,7 @@ private extension SplashViewController {
         })
       case .failure(let error):
         self.showLoginAlert(error: error)
+        print("ITS LIT 136 \(error)")
         UIBlockingProgressHUD.dismiss()
       }
     }
@@ -143,6 +152,7 @@ private extension SplashViewController {
         self.fetchProfileImage(userName: userName)
         self.switchToTabBarController()
       case .failure(let error):
+        print("ITS LIT 152 \(error)")
         self.showLoginAlert(error: error)
       }
       completion()
@@ -160,6 +170,7 @@ private extension SplashViewController {
         print("ITS LIT \(mediumPhoto)")
       case .failure(let error):
         self.showLoginAlert(error: error)
+        print("ITS LIT 171\(error)")
       }
     }
   }
@@ -176,4 +187,3 @@ extension SplashViewController: AuthViewControllerDelegate {
     }
   }
 }
-
