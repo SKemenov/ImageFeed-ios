@@ -125,16 +125,6 @@ private extension ProfileViewController {
       }
   }
 
-  func resetView() {
-    self.profileFullNameLabel.text = ""
-    self.profileLoginNameLabel.text = ""
-    self.profileBioLabel.text = ""
-    self.profilePhotoImage.image = UIImage()
-//    let cache = ImageCache.default
-//    cache.clearMemoryCache()
-//    cache.clearDiskCache()
-  }
-
   func loadProfile() {
 
     guard let profile = profileService.profile else {
@@ -145,6 +135,11 @@ private extension ProfileViewController {
     self.profileLoginNameLabel.text = profile.loginName
     self.profileBioLabel.text = profile.bio
   }
+}
+
+// MARK: - Private methods to make UI
+
+private extension ProfileViewController {
 
   func makeProfilePhotoImage() {
 
@@ -245,11 +240,20 @@ private extension ProfileViewController {
     }
   }
 
+  func resetView() {
+    self.profileFullNameLabel.text = ""
+    self.profileLoginNameLabel.text = ""
+    self.profileBioLabel.text = ""
+    self.profilePhotoImage.image = UIImage()
+    //    let cache = ImageCache.default
+    //    cache.clearMemoryCache()
+    //    cache.clearDiskCache()
+  }
+
   func switchToSplashViewController() {
 
     guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
-    let splashViewController = UIStoryboard(name: "Main", bundle: .main)
-      .instantiateViewController(withIdentifier: "SplashViewControllerID")
+    let splashViewController = SplashViewController()
     window.rootViewController = splashViewController
   }
 }
