@@ -10,7 +10,13 @@ import UIKit
 final class SplashViewController: UIViewController {
   // MARK: - Private properties
 
-  private var unsplashLogoImage = UIImageView()
+  private lazy var unsplashLogoImage: UIImageView = {
+    let imageView = UIImageView()
+    imageView.image = UIImage(named: "logo")
+    imageView.translatesAutoresizingMaskIntoConstraints = false
+    return imageView
+  }()
+
   private let oAuth2Service = OAuth2Service.shared
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
@@ -24,11 +30,6 @@ final class SplashViewController: UIViewController {
   }
 
   // MARK: - Lifecycle
-
-  override func loadView() {
-    view = UIView()
-    view.backgroundColor = .ypBackground
-  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -102,8 +103,7 @@ private extension SplashViewController {
   }
 
   func setupSplashViewController() {
-    unsplashLogoImage.image = UIImage(named: "logo")
-    unsplashLogoImage.translatesAutoresizingMaskIntoConstraints = false
+    view.backgroundColor = .ypBackground
 
     view.addSubview(unsplashLogoImage)
 

@@ -25,6 +25,8 @@ final class ProfileImageService {
 
   private var currentTask: URLSessionTask?
   private (set) var avatarURL: URL?
+
+  private init() { }
 }
 
 // MARK: - Private methods

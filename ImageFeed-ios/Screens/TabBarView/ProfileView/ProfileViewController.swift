@@ -83,11 +83,9 @@ private extension ProfileViewController {
 
   func updateAvatar(url: URL) {
     profilePhotoImage.kf.indicatorType = .activity
-    let processor = RoundCornerImageProcessor(cornerRadius: 35)
     profilePhotoImage.kf.setImage(
       with: url,
-      placeholder: UIImage(named: "person.crop.circle.fill"),
-      options: [.processor(processor)]
+      placeholder: UIImage(named: "person.crop.circle.fill")
     )
   }
 
@@ -122,6 +120,7 @@ private extension ProfileViewController {
 
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
     profilePhotoImage.layer.cornerRadius = 35
+    profilePhotoImage.layer.masksToBounds = true
 
     view.addSubview(profilePhotoImage)
 
