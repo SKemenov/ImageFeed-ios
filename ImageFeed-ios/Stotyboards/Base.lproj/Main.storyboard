@@ -10,26 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Tab Bar Controller-->
-        <scene sceneID="Tuc-bl-ltV">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="I1m-SR-yvP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <tabBarController storyboardIdentifier="TabBarViewController" modalPresentationStyle="fullScreen" id="R5g-Mp-u9b" customClass="TabBarController" customModule="ImageFeed_ios" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="Xhx-Ui-Yhw"/>
-                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Egi-43-18C">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" name="YP White"/>
-                        <color key="barTintColor" name="YP White"/>
-                        <color key="selectedImageTintColor" name="YP White"/>
-                        <tabBarAppearance key="standardAppearance">
-                            <color key="backgroundColor" name="YP Black"/>
-                        </tabBarAppearance>
-                    </tabBar>
-                </tabBarController>
-            </objects>
-            <point key="canvasLocation" x="-718" y="-13"/>
-        </scene>
         <!--ImageList-->
         <scene sceneID="tne-QT-ifu">
             <objects>
