@@ -32,7 +32,7 @@ struct ProfileResult: Codable {
 }
 
 
-// MARK: - Init for ProfileResult
+// MARK: - Init for Profile with ProfileResult
 
 extension Profile {
 
