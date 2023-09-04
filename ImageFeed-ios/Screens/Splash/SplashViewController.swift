@@ -92,7 +92,7 @@ private extension SplashViewController {
     guard let viewController = viewController as? AuthViewController else { return }
     viewController.delegate = self
     viewController.modalPresentationStyle = .fullScreen
-    present(viewController, animated: true)
+    present(viewController, animated: false)
   }
 
   func switchToTabBarController() {
