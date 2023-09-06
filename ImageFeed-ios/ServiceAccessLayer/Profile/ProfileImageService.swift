@@ -53,8 +53,8 @@ extension ProfileImageService: ProfileImageLoading {
       completion(.failure(NetworkError.invalidRequest))
       return
     }
-
-    print("ITS LIT \(request)")
+    // FIXME: Remove before PR Sprint 12
+    print("ITS LIT PIS 57 \(request)")
 
     let task = session.objectTask(for: request) {
       [weak self] (result: Result<ProfileResult, Error>) in
@@ -65,7 +65,7 @@ extension ProfileImageService: ProfileImageLoading {
       case .success(let profileResult):
         guard let mediumPhoto = profileResult.profileImage?.medium else { return }
         self.avatarURL = URL(string: mediumPhoto)
-        print("ITS LIT \(mediumPhoto)")
+        print("ITS LIT PIS 68 \(mediumPhoto)")
         completion(.success(mediumPhoto))
         NotificationCenter.default.post(
           name: ProfileImageService.didChangeNotification,
