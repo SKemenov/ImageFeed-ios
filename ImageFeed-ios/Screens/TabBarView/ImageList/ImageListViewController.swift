@@ -24,6 +24,8 @@ final class ImagesListViewController: UIViewController {
     return formatter
   }()
 
+  private let imageListService = ImageListService.shared
+
   // MARK: - Public properties
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -97,7 +99,7 @@ extension ImagesListViewController: UITableViewDataSource {
     }
 
     let image = UIImage(named: photosName[indexPath.row])
-    let date = dateFormatter.string(from: Date())
+    let date = Constants.dateFormatter.string(from: Date())
     let isLiked = indexPath.row % 2 == 0
 
     cell.config(image: image, date: date, isLiked: isLiked)
@@ -116,5 +118,11 @@ extension ImagesListViewController: UITableViewDataSource {
     let scale = imageViewWidth / imageWidth
     let cellHeight = image.size.height * scale + imageInsets.top + imageInsets.bottom
     return cellHeight
+  }
+
+  func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    if indexPath.row + 1 == imageListService.photos.count {
+      imageListService.fetchPhotosNextPage()
+    }
   }
 }
