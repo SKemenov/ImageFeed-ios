@@ -61,7 +61,7 @@ private extension ProfileViewController {
     // just to check the SplashViewController flow
     resetToken()
     resetView()
-
+    resetImageCache()
     switchToSplashViewController()
   }
 
@@ -83,10 +83,7 @@ private extension ProfileViewController {
 
   func updateAvatar(url: URL) {
     profilePhotoImage.kf.indicatorType = .activity
-    profilePhotoImage.kf.setImage(
-      with: url,
-      placeholder: UIImage(named: "person.crop.circle.fill")
-    )
+    profilePhotoImage.kf.setImage(with: url, placeholder: UIImage(named: "person.crop.circle.fill"))
   }
 
   func setupNotificationObserver() {
@@ -221,9 +218,12 @@ private extension ProfileViewController {
     self.profileLoginNameLabel.text = ""
     self.profileBioLabel.text = ""
     self.profilePhotoImage.image = UIImage()
-    //    let cache = ImageCache.default
-    //    cache.clearMemoryCache()
-    //    cache.clearDiskCache()
+  }
+
+  func resetImageCache() {
+    let cache = ImageCache.default
+    cache.clearMemoryCache()
+    cache.clearDiskCache()
   }
 
   func switchToSplashViewController() {
