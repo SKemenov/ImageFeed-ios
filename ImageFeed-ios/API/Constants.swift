@@ -41,4 +41,10 @@ enum Constants {
   static let tokenRequestGrantTypeString = "authorization_code"
   static let code = "code"
   static let bearerToken = "bearerToken"
+
+  static let dateFormatter: DateFormatter = {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "dd.MM.YY HH:mm"
+    return dateFormatter
+  }()
 }
