@@ -30,7 +30,11 @@ final class ImageListService {
     photos.count / imagesPerPage
   }
 
-  private (set) var photos: [Photo] = []
+  private (set) var photos: [Photo] = [] {
+    didSet {
+      NotificationCenter.default.post(name: ImageListService.didChangeNotification, object: self)
+    }
+  }
 
   private init() { }
 }
