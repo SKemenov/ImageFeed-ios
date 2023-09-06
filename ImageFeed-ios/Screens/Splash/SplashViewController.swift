@@ -20,6 +20,9 @@ final class SplashViewController: UIViewController {
   private let oAuth2Service = OAuth2Service.shared
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
+
+  private let imageListService = ImageListService.shared
+
   private var alertPresenter: AlertPresenting?
   private var wasChecked = false
 
@@ -146,9 +149,14 @@ private extension SplashViewController {
       switch profileResult {
       case .success(let profile):
         let userName = profile.username
+        // FIXME: Remove before PR Sprint 12
+        print("ITS LIT SVC 152 run fetchProfileImage \(userName)")
         self.fetchProfileImage(userName: userName)
+        print("ITS LIT SVC 154 run fetchPhotosNextPage")
+        self.fetchPhotosNextPage()
         self.switchToTabBarController()
       case .failure(let error):
+        print("ITS LIT SVC 158 \(error)")
         self.showLoginAlert(error: error)
       }
       completion()
@@ -163,11 +171,21 @@ private extension SplashViewController {
 
       switch profileImageUrl {
       case .success(let mediumPhoto):
-        print("ITS LIT \(mediumPhoto)")
+        print("ITS LIT SVC 166\(mediumPhoto)")
       case .failure(let error):
         self.showLoginAlert(error: error)
       }
     }
+  }
+
+  func fetchPhotosNextPage() {
+    imageListService.fetchPhotosNextPage()
+    print("ITS LIT SVC 183 \(imageListService.photos)")
+    imageListService.fetchPhotosNextPage()
+    print("ITS LIT SVC 183 \(imageListService.photos)")
+    imageListService.fetchPhotosNextPage()
+    print("ITS LIT SVC 183 \(imageListService.photos)")
+        // TODO: Make showLoadingAlert(error:) method
   }
 }
 
