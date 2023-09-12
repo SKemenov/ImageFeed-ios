@@ -22,9 +22,6 @@ final  class ProfileViewController: UIViewController {
 
   private var profileImageServiceObserver: NSObjectProtocol?
 
-  // FIXME: Disable after check SplashViewController flow
-  private let storage = OAuth2TokenStorage.shared
-
   // MARK: - Public properties
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -62,6 +59,7 @@ private extension ProfileViewController {
     resetToken()
     resetView()
     resetImageCache()
+    resetPhotos()
     switchToSplashViewController()
   }
 
@@ -98,7 +96,6 @@ private extension ProfileViewController {
   }
 
   func loadProfile() {
-
     guard let profile = profileService.profile else {
       return
     }
@@ -107,6 +104,12 @@ private extension ProfileViewController {
     self.profileLoginNameLabel.text = profile.loginName
     self.profileBioLabel.text = profile.bio
   }
+
+  func switchToSplashViewController() {
+    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
+    let splashViewController = SplashViewController()
+    window.rootViewController = splashViewController
+  }
 }
 
 // MARK: - Private methods to make UI
@@ -114,7 +117,6 @@ private extension ProfileViewController {
 private extension ProfileViewController {
 
   func makeProfilePhotoImage() {
-
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
     profilePhotoImage.layer.cornerRadius = 35
     profilePhotoImage.layer.masksToBounds = true
@@ -130,7 +132,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileFullNameLabel() {
-
     profileFullNameLabel.textColor = .ypWhite
     profileFullNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
     profileFullNameLabel.lineBreakMode = .byWordWrapping
@@ -147,7 +148,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileLoginNameLabel() {
-
     profileLoginNameLabel.textColor = .ypGray
     profileLoginNameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
 
@@ -162,7 +162,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileBioLabel() {
-
     profileBioLabel.textColor = .ypWhite
     profileBioLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
     profileBioLabel.lineBreakMode = .byWordWrapping
@@ -179,7 +178,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileExitButton() {
-
     let profileExitButtonImage = UIImage(named: "ipad.and.arrow.forward") ?? UIImage()
 
     exitButton = UIButton.systemButton(
@@ -201,13 +199,12 @@ private extension ProfileViewController {
   }
 }
 
-// MARK: - Private methods to check SplashViewController flow
+// MARK: - Private methods to reset data before logout
 
 private extension ProfileViewController {
 
   func resetToken() {
-
-    guard storage.removeToken() else {
+    guard OAuth2TokenStorage.shared.removeToken() else {
       assertionFailure("Cannot remove token")
       return
     }
@@ -217,7 +214,7 @@ private extension ProfileViewController {
     self.profileFullNameLabel.text = ""
     self.profileLoginNameLabel.text = ""
     self.profileBioLabel.text = ""
-    self.profilePhotoImage.image = UIImage()
+    self.profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
   }
 
   func resetImageCache() {
@@ -226,10 +223,7 @@ private extension ProfileViewController {
     cache.clearDiskCache()
   }
 
-  func switchToSplashViewController() {
-
-    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
-    let splashViewController = SplashViewController()
-    window.rootViewController = splashViewController
+  func resetPhotos() {
+    ImageListService.shared.resetPhotos()
   }
 }
