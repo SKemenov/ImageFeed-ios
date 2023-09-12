@@ -181,11 +181,7 @@ private extension SplashViewController {
   func fetchPhotosNextPage() {
     imageListService.fetchPhotosNextPage()
     print("ITS LIT SVC 183 \(imageListService.photos)")
-    imageListService.fetchPhotosNextPage()
-    print("ITS LIT SVC 183 \(imageListService.photos)")
-    imageListService.fetchPhotosNextPage()
-    print("ITS LIT SVC 183 \(imageListService.photos)")
-        // TODO: Make showLoadingAlert(error:) method
+  // TODO: Make showLoadingAlert(error:) method
   }
 }
 
