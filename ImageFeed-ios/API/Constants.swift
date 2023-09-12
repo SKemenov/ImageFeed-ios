@@ -44,7 +44,7 @@ enum Constants {
 
   static let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd MMMM YYYY"
+    dateFormatter.dateFormat = "d MMMM YYYY"
     return dateFormatter
   }()
 }
