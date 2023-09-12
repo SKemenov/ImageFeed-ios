@@ -41,7 +41,7 @@ extension URLSession {
             let decoder = SnakeCaseJSONDecoder()
             let result = try decoder.decode(T.self, from: data)
             // FIXME: Remove before PR Sprint 12
-            print("ITS LIT URLS 43 \(result)")
+            // print("ITS LIT URLS 43 \(result)")
             completionOnMainQueue(.success(result))
           } catch {
             completionOnMainQueue(.failure(NetworkError.decodingError(error)))
