@@ -27,11 +27,7 @@ final class ImageListService {
 
   private var currentTask: URLSessionTask?
   private var lastLoadedPage: Int?
-  private (set) var photos: [Photo] = [] {
-    didSet {
-      NotificationCenter.default.post(name: ImageListService.didChangeNotification, object: self)
-    }
-  }
+  private (set) var photos: [Photo] = []
 
   private init() { }
 }
@@ -96,6 +92,7 @@ extension ImageListService: ImageListLoading {
             photos.append(self.convert(result: photo))
           }
           self.photos += photos
+          NotificationCenter.default.post(name: ImageListService.didChangeNotification, object: self)
           self.lastLoadedPage = nextPage
         }
       case .failure(let error):
