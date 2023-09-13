@@ -120,6 +120,7 @@ extension ImagesListViewController: UITableViewDataSource {
     ) as? ImagesListCell else {
       return UITableViewCell()
     }
+    cell.delegate = self
 
     if cell.loadCell(from: photos[indexPath.row]) {
       tableView.reloadRows(at: [indexPath], with: .automatic)
@@ -140,6 +141,29 @@ extension ImagesListViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     if indexPath.row + 1 == photos.count {
       imageListService.fetchPhotosNextPage()
+    }
+  }
+}
+
+// MARK: - ImagesListCellDelegate
+
+extension ImagesListViewController: ImagesListCellDelegate {
+  func imagesListCellDidTapLike(_ cell: ImagesListCell) {
+    guard let indexPath = tableView.indexPath(for: cell) else { return }
+    let photo = photos[indexPath.row]
+    UIBlockingProgressHUD.show()
+    imageListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self ] result in
+      guard let self else { return }
+      switch result {
+      case .success(let isLiked):
+        self.photos[indexPath.row].isLiked = isLiked
+        cell.setIsLiked(isLiked)
+        UIBlockingProgressHUD.dismiss()
+      case .failure(let error):
+        UIBlockingProgressHUD.dismiss()
+        print("\(error.localizedDescription)")
+        // TODO: Make & show alert
+      }
     }
   }
 }
