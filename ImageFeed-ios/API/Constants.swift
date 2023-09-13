@@ -36,6 +36,7 @@ enum Constants {
   // MARK: - Request method's strings
   static let postMethodString = "POST"
   static let getMethodString = "GET"
+  static let deleteMethodString = "DELETE"
 
   // MARK: - Storage constants
   static let tokenRequestGrantTypeString = "authorization_code"
