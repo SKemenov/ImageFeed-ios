@@ -16,13 +16,21 @@ struct Photo {
   let welcomeDescription: String?
   let thumbImageURL: String
   let largeImageURL: String
-  let isLiked: Bool
+  var isLiked: Bool
   let thumbSize: CGSize
 }
 
 struct UrlsResult: Codable {
   let thumb: String
   let full: String
+}
+
+struct LikeResult: Codable {
+  let photo: PhotoLikeResult
+}
+
+struct PhotoLikeResult: Codable {
+  let likedByUser: Bool
 }
 
 // TODO: Use SnakeCaseJSONDecoder instead of SJONDecoder with CodingKeys enum
@@ -32,6 +40,6 @@ struct PhotoResult: Codable {
   let height: Int
   let createdAt: String?
   let description: String?
-  let likedByUser: Bool
+  var likedByUser: Bool
   let urls: UrlsResult
 }
