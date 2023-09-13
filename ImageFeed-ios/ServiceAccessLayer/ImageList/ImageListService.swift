@@ -12,6 +12,7 @@ import Foundation
 protocol ImageListLoading: AnyObject {
   func fetchPhotosNextPage()
   func resetPhotos()
+  func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 // MARK: - Class
@@ -36,11 +37,8 @@ final class ImageListService {
 
 private extension ImageListService {
 
-  func makePhotoRequest(id: String) -> URLRequest? {
-    let request = requestBuilder.makeHTTPRequest(path: "/photos/\(id)")
-    // FIXME: Remove prints before PR Sprint 12
-    print("ITS LIT ILS 46 \(String(describing: request))")
-    return request
+  func makeLikeRequest(for id: String, with method: String) -> URLRequest? {
+    requestBuilder.makeHTTPRequest(path: "/photos/\(id)/like", httpMethod: method)
   }
 
   func makePhotosListRequest(page: Int) -> URLRequest? {
@@ -55,25 +53,85 @@ private extension ImageListService {
     guard let lastLoadedPage else { return 1 }
     return lastLoadedPage + 1
   }
+
+  func convert(result photoResult: PhotoResult) -> Photo {
+    let thumbWidth = 200.0
+    let aspectRatio = Double(photoResult.width) / Double(photoResult.height)
+    let thumbHeight = thumbWidth / aspectRatio
+    return Photo(
+      id: photoResult.id,
+      size: CGSize(width: Double(photoResult.width), height: Double(photoResult.height)),
+      createdAt: ISO8601DateFormatter().date(from: photoResult.createdAt ?? ""),
+      welcomeDescription: photoResult.description,
+      thumbImageURL: photoResult.urls.thumb,
+      largeImageURL: photoResult.urls.full,
+      isLiked: photoResult.likedByUser,
+      thumbSize: CGSize(width: thumbWidth, height: thumbHeight)
+    )
+  }
 }
 
 // MARK: - ImageListLoading
 
 extension ImageListService: ImageListLoading {
 
+  func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+    assert(Thread.isMainThread)
+    guard currentTask == nil else {
+      print("ITS LIT ILS 69 Race Condition - reject repeated photos request")
+      return
+    }
+    let method = isLike ? Constants.postMethodString : Constants.deleteMethodString
+
+    guard let request = makeLikeRequest(for: photoId, with: method) else {
+      assertionFailure("Invalid request")
+      print(NetworkError.invalidRequest)
+      return
+    }
+
+    let task = session.objectTask(for: request) { [weak self] (result: Result<LikeResult, Error>) in
+      DispatchQueue.main.async { [weak self] in
+        guard let self else { return }
+        switch result {
+        case .success(let photoLiked):
+          let likedByUser = photoLiked.photo.likedByUser
+          if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+            let photo = self.photos[index]
+            let newPhoto = Photo(
+              id: photo.id,
+              size: photo.size,
+              createdAt: photo.createdAt,
+              welcomeDescription: photo.welcomeDescription,
+              thumbImageURL: photo.thumbImageURL,
+              largeImageURL: photo.largeImageURL,
+              isLiked: likedByUser,
+              thumbSize: photo.thumbSize
+            )
+            self.photos[index] = newPhoto
+          }
+          completion(.success(likedByUser))
+          self.currentTask = nil
+
+        case .failure(let error):
+          completion(.failure(error))
+        }
+      }
+    }
+    self.currentTask = task
+    task.resume()
+  }
+
   func resetPhotos() {
     photos = []
   }
 
   func fetchPhotosNextPage() {
-
     assert(Thread.isMainThread)
 
     guard currentTask == nil else {
       print("ITS LIT ILS 77 Race Condition - reject repeated photos request")
       return
     }
-
     let nextPage = makeNextPageNumber()
 
     guard let request = makePhotosListRequest(page: nextPage) else {
@@ -83,7 +141,7 @@ extension ImageListService: ImageListLoading {
     }
 
     let task = session.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
-      guard let self else { preconditionFailure("Cannot make weak link") }
+      guard let self else { preconditionFailure("ITS LIT ILS Cannot make weak link") }
       switch result {
       case .success(let photoResults):
         DispatchQueue.main.async {
@@ -102,25 +160,5 @@ extension ImageListService: ImageListLoading {
     }
     self.currentTask = task
     task.resume()
-  }
-}
-
-// MARK: - Make Photo from PhotoResult's data
-
-private extension ImageListService {
-  func convert(result photoResult: PhotoResult) -> Photo {
-    let thumbWidth = 200.0
-    let aspectRatio = Double(photoResult.width) / Double(photoResult.height)
-    let thumbHeight = thumbWidth / aspectRatio
-    return Photo(
-      id: photoResult.id,
-      size: CGSize(width: Double(photoResult.width), height: Double(photoResult.height)),
-      createdAt: ISO8601DateFormatter().date(from: photoResult.createdAt ?? ""),
-      welcomeDescription: photoResult.description,
-      thumbImageURL: photoResult.urls.thumb,
-      largeImageURL: photoResult.urls.full,
-      isLiked: photoResult.likedByUser,
-      thumbSize: CGSize(width: thumbWidth, height: thumbHeight)
-    )
   }
 }

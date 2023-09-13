@@ -120,6 +120,7 @@ private extension ProfileViewController {
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
     profilePhotoImage.layer.cornerRadius = 35
     profilePhotoImage.layer.masksToBounds = true
+    profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
 
     view.addSubview(profilePhotoImage)
 
