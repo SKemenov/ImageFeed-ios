@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+protocol ImagesListCellDelegate: AnyObject {
+  func imagesListCellDidTapLike(_ cell: ImagesListCell)
+}
+
 final class ImagesListCell: UITableViewCell {
   // MARK: - Outlets
 
@@ -20,16 +24,26 @@ final class ImagesListCell: UITableViewCell {
   // MARK: - Public properties
 
   static let reuseIdentifier = "ImagesListCell"
+  weak var delegate: ImagesListCellDelegate?
 
   override func prepareForReuse() {
     super.prepareForReuse()
     imageCell.kf.cancelDownloadTask()
+  }
+
+  @IBAction func didTapLikeButton(_ sender: Any) {
+    delegate?.imagesListCellDidTapLike(self)
   }
 }
 
 // MARK: - Methods
 
 extension ImagesListCell {
+
+  func setIsLiked(_ isLiked: Bool) {
+    let likedImage = isLiked ? UIImage(named: "like_active_on") : UIImage(named: "like_active_off")
+    likeButton.setImage(likedImage, for: .normal)
+  }
 
   func loadCell(from photo: Photo) -> Bool {
     var status = false
@@ -38,8 +52,7 @@ extension ImagesListCell {
       dateLabel.text = Constants.dateFormatter.string(from: photoDate)
     }
 
-    let likedImage = photo.isLiked ? UIImage(named: "like_active_on") : UIImage(named: "like_active_off")
-    likeButton.setImage(likedImage, for: .normal)
+    setIsLiked(photo.isLiked)
 
     guard let photoURL = URL(string: photo.thumbImageURL) else { return status }
 

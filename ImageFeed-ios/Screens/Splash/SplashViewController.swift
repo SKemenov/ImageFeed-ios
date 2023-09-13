@@ -149,14 +149,8 @@ private extension SplashViewController {
       switch profileResult {
       case .success(let profile):
         let userName = profile.username
-        // FIXME: Remove before PR Sprint 12
-        print("ITS LIT SVC 152 run fetchProfileImage \(userName)")
         self.fetchProfileImage(userName: userName)
-        print("ITS LIT SVC 154 run fetchPhotosNextPage")
-        self.fetchPhotosNextPage()
-        self.switchToTabBarController()
       case .failure(let error):
-        print("ITS LIT SVC 158 \(error)")
         self.showLoginAlert(error: error)
       }
       completion()
@@ -170,18 +164,13 @@ private extension SplashViewController {
       guard let self else { return }
 
       switch profileImageUrl {
-      case .success(let mediumPhoto):
-        print("ITS LIT SVC 166\(mediumPhoto)")
+        // swiftlint:disable:next empty_enum_arguments
+      case .success(_):
+        self.switchToTabBarController()
       case .failure(let error):
         self.showLoginAlert(error: error)
       }
     }
-  }
-
-  func fetchPhotosNextPage() {
-    imageListService.fetchPhotosNextPage()
-    print("ITS LIT SVC 183 \(imageListService.photos)")
-  // TODO: Make showLoadingAlert(error:) method
   }
 }
 
