@@ -20,7 +20,7 @@ final  class ProfileViewController: UIViewController {
 
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
-
+  private var alertPresenter: AlertPresenting?
   private var profileImageServiceObserver: NSObjectProtocol?
 
   // MARK: - Public properties
@@ -33,6 +33,7 @@ final  class ProfileViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    alertPresenter = AlertPresenter(viewController: self)
 
     checkAvatar()
 
@@ -56,13 +57,7 @@ final  class ProfileViewController: UIViewController {
 private extension ProfileViewController {
 
   @objc func didTapButton() {
-    // just to check the SplashViewController flow
-    resetToken()
-    resetView()
-    resetImageCache()
-    resetPhotos()
-    resetCookies()
-    switchToSplashViewController()
+    showAlert()
   }
 
   @objc func updateAvatar(notification: Notification) {
@@ -105,6 +100,21 @@ private extension ProfileViewController {
     self.profileFullNameLabel.text = profile.name
     self.profileLoginNameLabel.text = profile.loginName
     self.profileBioLabel.text = profile.bio
+  }
+
+  func showAlert() {
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      let alertModel = AlertModel(
+        title: "Пока, пока!",
+        message: "Уверены, что хотите выйти?",
+        buttonText: "Да",
+        completion: { self.resetAccount() },
+        secondButtonText: "Нет",
+        secondCompletion: { self.dismiss(animated: true) }
+      )
+      self.alertPresenter?.showAlert(for: alertModel)
+    }
   }
 
   func switchToSplashViewController() {
@@ -205,6 +215,15 @@ private extension ProfileViewController {
 // MARK: - Private methods to reset data before logout
 
 private extension ProfileViewController {
+
+  func resetAccount() {
+    resetToken()
+    resetView()
+    resetImageCache()
+    resetPhotos()
+    resetCookies()
+    switchToSplashViewController()
+  }
 
   func resetToken() {
     guard OAuth2TokenStorage.shared.removeToken() else {
