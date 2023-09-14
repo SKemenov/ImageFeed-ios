@@ -39,7 +39,7 @@ extension AlertPresenter: AlertPresenting {
     alert.addAction(alertAction)
 
     if let secondButtonText = result.secondButtonText {
-      let secondAction = UIAlertAction(title: result.secondButtonText, style: .default) { _ in
+      let secondAction = UIAlertAction(title: secondButtonText, style: .default) { _ in
         result.secondCompletion?()
       }
       alert.addAction(secondAction)
