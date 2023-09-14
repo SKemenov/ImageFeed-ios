@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final  class ProfileViewController: UIViewController {
 
@@ -60,6 +61,7 @@ private extension ProfileViewController {
     resetView()
     resetImageCache()
     resetPhotos()
+    resetCookies()
     switchToSplashViewController()
   }
 
@@ -226,5 +228,14 @@ private extension ProfileViewController {
 
   func resetPhotos() {
     ImageListService.shared.resetPhotos()
+  }
+
+  func resetCookies() {
+    HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+    WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+      records.forEach { record in
+        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) { }
+      }
+    }
   }
 }

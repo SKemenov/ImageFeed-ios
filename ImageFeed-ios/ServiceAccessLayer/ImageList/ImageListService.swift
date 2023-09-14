@@ -63,7 +63,7 @@ private extension ImageListService {
       size: CGSize(width: Double(photoResult.width), height: Double(photoResult.height)),
       createdAt: ISO8601DateFormatter().date(from: photoResult.createdAt ?? ""),
       welcomeDescription: photoResult.description,
-      thumbImageURL: photoResult.urls.thumb,
+      thumbImageURL: photoResult.urls.small,
       largeImageURL: photoResult.urls.full,
       isLiked: photoResult.likedByUser,
       thumbSize: CGSize(width: thumbWidth, height: thumbHeight)
