@@ -54,8 +54,6 @@ extension ProfileImageService: ProfileImageLoading {
       return
     }
 
-    print("ITS LIT \(request)")
-
     let task = session.objectTask(for: request) {
       [weak self] (result: Result<ProfileResult, Error>) in
 
@@ -65,7 +63,6 @@ extension ProfileImageService: ProfileImageLoading {
       case .success(let profileResult):
         guard let mediumPhoto = profileResult.profileImage?.medium else { return }
         self.avatarURL = URL(string: mediumPhoto)
-        print("ITS LIT \(mediumPhoto)")
         completion(.success(mediumPhoto))
         NotificationCenter.default.post(
           name: ProfileImageService.didChangeNotification,

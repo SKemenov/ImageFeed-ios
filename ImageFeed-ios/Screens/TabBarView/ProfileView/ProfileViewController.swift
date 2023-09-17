@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import WebKit
 
 final  class ProfileViewController: UIViewController {
 
@@ -19,11 +20,8 @@ final  class ProfileViewController: UIViewController {
 
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
-
+  private var alertPresenter: AlertPresenting?
   private var profileImageServiceObserver: NSObjectProtocol?
-
-  // FIXME: Disable after check SplashViewController flow
-  private let storage = OAuth2TokenStorage.shared
 
   // MARK: - Public properties
 
@@ -35,6 +33,7 @@ final  class ProfileViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    alertPresenter = AlertPresenter(viewController: self)
 
     checkAvatar()
 
@@ -58,11 +57,7 @@ final  class ProfileViewController: UIViewController {
 private extension ProfileViewController {
 
   @objc func didTapButton() {
-    // just to check the SplashViewController flow
-    resetToken()
-    resetView()
-
-    switchToSplashViewController()
+    showAlert()
   }
 
   @objc func updateAvatar(notification: Notification) {
@@ -83,10 +78,7 @@ private extension ProfileViewController {
 
   func updateAvatar(url: URL) {
     profilePhotoImage.kf.indicatorType = .activity
-    profilePhotoImage.kf.setImage(
-      with: url,
-      placeholder: UIImage(named: "person.crop.circle.fill")
-    )
+    profilePhotoImage.kf.setImage(with: url, placeholder: UIImage(named: "person.crop.circle.fill"))
   }
 
   func setupNotificationObserver() {
@@ -101,7 +93,6 @@ private extension ProfileViewController {
   }
 
   func loadProfile() {
-
     guard let profile = profileService.profile else {
       return
     }
@@ -110,6 +101,27 @@ private extension ProfileViewController {
     self.profileLoginNameLabel.text = profile.loginName
     self.profileBioLabel.text = profile.bio
   }
+
+  func showAlert() {
+    DispatchQueue.main.async { [weak self] in
+      guard let self else { return }
+      let alertModel = AlertModel(
+        title: "Пока, пока!",
+        message: "Уверены, что хотите выйти?",
+        buttonText: "Да",
+        completion: { self.resetAccount() },
+        secondButtonText: "Нет",
+        secondCompletion: { self.dismiss(animated: true) }
+      )
+      self.alertPresenter?.showAlert(for: alertModel)
+    }
+  }
+
+  func switchToSplashViewController() {
+    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
+    let splashViewController = SplashViewController()
+    window.rootViewController = splashViewController
+  }
 }
 
 // MARK: - Private methods to make UI
@@ -117,10 +129,10 @@ private extension ProfileViewController {
 private extension ProfileViewController {
 
   func makeProfilePhotoImage() {
-
     profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
     profilePhotoImage.layer.cornerRadius = 35
     profilePhotoImage.layer.masksToBounds = true
+    profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
 
     view.addSubview(profilePhotoImage)
 
@@ -133,7 +145,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileFullNameLabel() {
-
     profileFullNameLabel.textColor = .ypWhite
     profileFullNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
     profileFullNameLabel.lineBreakMode = .byWordWrapping
@@ -150,7 +161,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileLoginNameLabel() {
-
     profileLoginNameLabel.textColor = .ypGray
     profileLoginNameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
 
@@ -165,7 +175,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileBioLabel() {
-
     profileBioLabel.textColor = .ypWhite
     profileBioLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
     profileBioLabel.lineBreakMode = .byWordWrapping
@@ -182,7 +191,6 @@ private extension ProfileViewController {
   }
 
   func makeProfileExitButton() {
-
     let profileExitButtonImage = UIImage(named: "ipad.and.arrow.forward") ?? UIImage()
 
     exitButton = UIButton.systemButton(
@@ -204,32 +212,50 @@ private extension ProfileViewController {
   }
 }
 
-// MARK: - Private methods to check SplashViewController flow
+// MARK: - Private methods to reset data before logout
 
 private extension ProfileViewController {
 
-  func resetToken() {
+  func resetAccount() {
+    resetToken()
+    resetView()
+    resetImageCache()
+    resetPhotos()
+    resetCookies()
+    switchToSplashViewController()
+  }
 
-    guard storage.removeToken() else {
+  func resetToken() {
+    guard OAuth2TokenStorage.shared.removeToken() else {
       assertionFailure("Cannot remove token")
       return
     }
   }
 
   func resetView() {
-    self.profileFullNameLabel.text = ""
-    self.profileLoginNameLabel.text = ""
-    self.profileBioLabel.text = ""
-    self.profilePhotoImage.image = UIImage()
-    //    let cache = ImageCache.default
-    //    cache.clearMemoryCache()
-    //    cache.clearDiskCache()
+    profileFullNameLabel.text = ""
+    profileLoginNameLabel.text = ""
+    profileBioLabel.text = ""
+
+    profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
   }
 
-  func switchToSplashViewController() {
+  func resetImageCache() {
+    // let cache = ImageCache.default
+    // cache.clearMemoryCache()
+    // cache.clearDiskCache()
+  }
 
-    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
-    let splashViewController = SplashViewController()
-    window.rootViewController = splashViewController
+  func resetPhotos() {
+    ImageListService.shared.resetPhotos()
+  }
+
+  func resetCookies() {
+    HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
+    WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
+      records.forEach { record in
+        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) { }
+      }
+    }
   }
 }

@@ -20,6 +20,9 @@ final class SplashViewController: UIViewController {
   private let oAuth2Service = OAuth2Service.shared
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
+
+  private let imageListService = ImageListService.shared
+
   private var alertPresenter: AlertPresenting?
   private var wasChecked = false
 
@@ -92,13 +95,12 @@ private extension SplashViewController {
     guard let viewController = viewController as? AuthViewController else { return }
     viewController.delegate = self
     viewController.modalPresentationStyle = .fullScreen
-    present(viewController, animated: true)
+    present(viewController, animated: false)
   }
 
   func switchToTabBarController() {
     guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
-    let tabBarController = UIStoryboard(name: "Main", bundle: .main)
-      .instantiateViewController(withIdentifier: "TabBarViewController")
+    let tabBarController = TabBarController()
     window.rootViewController = tabBarController
   }
 
@@ -148,7 +150,6 @@ private extension SplashViewController {
       case .success(let profile):
         let userName = profile.username
         self.fetchProfileImage(userName: userName)
-        self.switchToTabBarController()
       case .failure(let error):
         self.showLoginAlert(error: error)
       }
@@ -163,8 +164,9 @@ private extension SplashViewController {
       guard let self else { return }
 
       switch profileImageUrl {
-      case .success(let mediumPhoto):
-        print("ITS LIT \(mediumPhoto)")
+        // swiftlint:disable:next empty_enum_arguments
+      case .success(_):
+        self.switchToTabBarController()
       case .failure(let error):
         self.showLoginAlert(error: error)
       }

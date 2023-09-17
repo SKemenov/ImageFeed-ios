@@ -38,6 +38,13 @@ extension AlertPresenter: AlertPresenting {
     }
     alert.addAction(alertAction)
 
+    if let secondButtonText = result.secondButtonText {
+      let secondAction = UIAlertAction(title: secondButtonText, style: .default) { _ in
+        result.secondCompletion?()
+      }
+      alert.addAction(secondAction)
+    }
+
     if var topController = UIApplication.shared.windows[0].rootViewController {
       while let presentedViewController = topController.presentedViewController {
         topController = presentedViewController

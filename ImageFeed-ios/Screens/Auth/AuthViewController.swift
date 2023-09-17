@@ -38,7 +38,7 @@ final class AuthViewController: UIViewController {
 
     if segue.identifier == showWebViewSegueIdentifier {
       guard let webViewViewController = segue.destination as? WebViewViewController else {
-        preconditionFailure("Error with \(showWebViewSegueIdentifier)")
+        preconditionFailure("AVC 41 Error with \(showWebViewSegueIdentifier)")
       }
       webViewViewController.delegate = self
     } else {

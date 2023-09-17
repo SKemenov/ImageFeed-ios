@@ -7,10 +7,28 @@
 
 import UIKit
 
-final class TabBarController: UITabBarController {
+// MARK: - Class
 
-  override func awakeFromNib() {
-    super.awakeFromNib()
+final class TabBarController: UITabBarController {
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    setupTabBarView()
+    setupTabBarViewController()
+  }
+}
+
+// MARK: - Private methods to setup UI
+
+private extension TabBarController {
+
+  func setupTabBarView() {
+    tabBar.barStyle = .black
+    tabBar.tintColor = .ypWhite
+    tabBar.backgroundColor = .ypBlack // use this to make tabBar black, not translucent
+  }
+
+  func setupTabBarViewController() {
+    view.backgroundColor = .ypBackground
 
     let storyboard = UIStoryboard(name: "Main", bundle: .main)
 
@@ -19,16 +37,23 @@ final class TabBarController: UITabBarController {
     let profileViewController = ProfileViewController()
     setupTabBarItem(for: profileViewController, image: "tab_profile_active")
 
-    self.viewControllers = [imagesListViewController, profileViewController]
+    viewControllers = [imagesListViewController, profileViewController]
+    selectedIndex = 0
   }
-}
 
-private extension TabBarController {
-  func setupTabBarItem(for viewController: ProfileViewController, image: String) {
+  func setupTabBarItem(for viewController: UIViewController, image: String) {
     viewController.tabBarItem = UITabBarItem(
       title: nil,
       image: UIImage(named: image),
       selectedImage: nil
     )
+  }
+}
+
+// MARK: - UITabBarControllerDelegate
+
+extension TabBarController: UITabBarControllerDelegate {
+  func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+    selectedViewController = viewController
   }
 }
