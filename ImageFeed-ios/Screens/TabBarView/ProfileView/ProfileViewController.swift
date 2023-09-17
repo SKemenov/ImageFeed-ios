@@ -233,16 +233,17 @@ private extension ProfileViewController {
   }
 
   func resetView() {
-    self.profileFullNameLabel.text = ""
-    self.profileLoginNameLabel.text = ""
-    self.profileBioLabel.text = ""
-    self.profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
+    profileFullNameLabel.text = ""
+    profileLoginNameLabel.text = ""
+    profileBioLabel.text = ""
+
+    profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
   }
 
   func resetImageCache() {
-    let cache = ImageCache.default
-    cache.clearMemoryCache()
-    cache.clearDiskCache()
+    // let cache = ImageCache.default
+    // cache.clearMemoryCache()
+    // cache.clearDiskCache()
   }
 
   func resetPhotos() {

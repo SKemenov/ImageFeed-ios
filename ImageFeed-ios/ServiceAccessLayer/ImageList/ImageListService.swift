@@ -77,10 +77,7 @@ extension ImageListService: ImageListLoading {
 
   func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
     assert(Thread.isMainThread)
-    guard currentTask == nil else {
-      print("ITS LIT ILS 69 Race Condition - reject repeated photos request")
-      return
-    }
+    guard currentTask == nil else { return }
     let method = isLike ? Constants.postMethodString : Constants.deleteMethodString
 
     guard let request = makeLikeRequest(for: photoId, with: method) else {
@@ -117,7 +114,7 @@ extension ImageListService: ImageListLoading {
         }
       }
     }
-    self.currentTask = task
+    currentTask = task
     task.resume()
   }
 
@@ -158,7 +155,7 @@ extension ImageListService: ImageListLoading {
       }
       self.currentTask = nil
     }
-    self.currentTask = task
+    currentTask = task
     task.resume()
   }
 }
