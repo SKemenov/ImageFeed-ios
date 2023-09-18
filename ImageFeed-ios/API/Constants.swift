@@ -43,9 +43,13 @@ enum Constants {
   static let code = "code"
   static let bearerToken = "bearerToken"
 
+  // MARK: - Default date formatter
   static let dateFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "d MMMM YYYY"
     return dateFormatter
   }()
+
+  // MARK: - Scale width to share
+  static let scaledWidth = 768.0
 }
