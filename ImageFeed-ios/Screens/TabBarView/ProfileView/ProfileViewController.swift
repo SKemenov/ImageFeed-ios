@@ -221,7 +221,7 @@ private extension ProfileViewController {
     resetView()
     resetImageCache()
     resetPhotos()
-    resetCookies()
+    // resetCookies()
     switchToSplashViewController()
   }
 
@@ -241,9 +241,9 @@ private extension ProfileViewController {
   }
 
   func resetImageCache() {
-    // let cache = ImageCache.default
-    // cache.clearMemoryCache()
-    // cache.clearDiskCache()
+    let cache = ImageCache.default
+    cache.clearMemoryCache()
+    cache.clearDiskCache()
   }
 
   func resetPhotos() {
