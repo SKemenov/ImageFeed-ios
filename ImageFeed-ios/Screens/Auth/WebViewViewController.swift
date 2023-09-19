@@ -8,18 +8,23 @@
 import UIKit
 import WebKit
 
-// MARK: - Protocol
+// MARK: - Protocols
+
 protocol WebViewViewControllerDelegate: AnyObject {
   func webViewViewController(_ viewController: WebViewViewController, didAuthenticateWithCode code: String)
   func webViewViewControllerDidCancel(_ viewController: WebViewViewController)
 }
 
+protocol WebViewViewControllerProtocol: AnyObject {
+  var presenter: WebViewViewControllerProtocol? { get set }
+}
 // MARK: - Class
 
-final class WebViewViewController: UIViewController {
+final class WebViewViewController: UIViewController, WebViewViewControllerProtocol {
   // MARK: - Private properties
 
   private var estimatedProgressObservation: NSKeyValueObservation?
+  var presenter: WebViewViewControllerProtocol?
 
   private enum WebElements {
     static let clientId = "client_id"
