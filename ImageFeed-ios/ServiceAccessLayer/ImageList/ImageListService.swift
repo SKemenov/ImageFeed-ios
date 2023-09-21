@@ -26,7 +26,8 @@ final class ImageListService {
   private let requestBuilder = URLRequestBuilder.shared
   private let imagesPerPage = 10
 
-  private var currentTask: URLSessionTask?
+  private var currentPhotosTask: URLSessionTask?
+  private var currentLikeTask: URLSessionTask?
   private var lastLoadedPage: Int?
   private (set) var photos: [Photo] = []
 
@@ -77,7 +78,7 @@ extension ImageListService: ImageListLoading {
 
   func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
     assert(Thread.isMainThread)
-    guard currentTask == nil else { return }
+    guard currentLikeTask == nil else { return }
     let method = isLike ? Constants.postMethodString : Constants.deleteMethodString
 
     guard let request = makeLikeRequest(for: photoId, with: method) else {
@@ -107,14 +108,14 @@ extension ImageListService: ImageListLoading {
             self.photos[index] = newPhoto
           }
           completion(.success(likedByUser))
-          self.currentTask = nil
+          self.currentLikeTask = nil
 
         case .failure(let error):
           completion(.failure(error))
         }
       }
     }
-    currentTask = task
+    currentLikeTask = task
     task.resume()
   }
 
@@ -125,7 +126,7 @@ extension ImageListService: ImageListLoading {
   func fetchPhotosNextPage() {
     assert(Thread.isMainThread)
 
-    guard currentTask == nil else {
+    guard currentPhotosTask == nil else {
       print("ITS LIT ILS 77 Race Condition - reject repeated photos request")
       return
     }
@@ -153,9 +154,9 @@ extension ImageListService: ImageListLoading {
       case .failure(let error):
         print("ITS LIT ILS 102 \(String(describing: error))")
       }
-      self.currentTask = nil
+      self.currentPhotosTask = nil
     }
-    currentTask = task
+    currentPhotosTask = task
     task.resume()
   }
 }
