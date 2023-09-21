@@ -43,6 +43,7 @@ final class SingleImageViewController: UIViewController {
     alertPresenter = AlertPresenter(viewController: self)
     imageView.image = image
     setupScrollView()
+    setupGestureRecognizer()
     downloadImage()
     guard let image else { return }
     rescaleAndCenterImageInScrollView(image: image)
@@ -123,6 +124,19 @@ private extension SingleImageViewController {
       )
       self.alertPresenter?.showAlert(for: alertModel)
     }
+  }
+
+  func setupGestureRecognizer() {
+    let swipeGestureRecognizerDown = UISwipeGestureRecognizer(
+      target: self,
+      action: #selector(didSwipe(_:))
+    )
+    swipeGestureRecognizerDown.direction = .down
+    scrollView.addGestureRecognizer(swipeGestureRecognizerDown)
+  }
+
+  @objc func didSwipe(_ sender: UIGestureRecognizer) {
+    dismiss(animated: true)
   }
 }
 
