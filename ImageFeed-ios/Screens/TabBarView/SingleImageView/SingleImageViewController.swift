@@ -60,9 +60,7 @@ final class SingleImageViewController: UIViewController {
     let scaleImageRatio = Constants.scaledWidth / image.size.width
     let imageToShare = [ image.scalePreservingAspectRatio(targetSizeScale: scaleImageRatio) ]
     let shareViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
-    shareViewController.popoverPresentationController?.sourceView = self.view
-    shareViewController.isModalInPresentation = true
-    self.present(shareViewController, animated: true)
+    present(shareViewController, animated: true)
   }
 }
 
