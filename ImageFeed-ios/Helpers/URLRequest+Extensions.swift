@@ -20,7 +20,7 @@ final class URLRequestBuilder {
   func makeHTTPRequest(path: String, httpMethod: String? = nil, baseURLString: String? = nil) -> URLRequest? {
 
     guard
-      let url = URL(string: baseURLString ?? Constants.defaultApiBaseURLString),
+      let url = URL(string: baseURLString ?? AuthConfiguration.standard.apiURLString),
       let baseURL = URL(string: path, relativeTo: url)
     else { return nil }
 

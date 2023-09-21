@@ -17,7 +17,7 @@ import Foundation
 
 enum Constants {
 
-  // MARK: - Unsplash API constants for app
+  // MARK: - Unsplash API standart constants for app
   static let accessKey = "IgH-MbheyUstaJWCnPaQc2gtrMXJyISlRHyzSdpZI5E"
   static let secureKey = "H64ks3MlhldqtzwBGDXiLN6OdvL8ML0isXVDwI0hzb4"
   static let redirectURI = "urn:ietf:wg:oauth:2.0:oob"

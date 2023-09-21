@@ -63,13 +63,13 @@ private extension OAuth2Service {
   func makeAuthTokenRequest(with code: String) -> URLRequest? {
     return requestBuilder.makeHTTPRequest(
       path: Constants.tokenRequestPathString
-      + "?client_id=\(Constants.accessKey)"
-      + "&&client_secret=\(Constants.secureKey)"
-      + "&&redirect_uri=\(Constants.redirectURI)"
+      + "?client_id=\(AuthConfiguration.standard.accessKey)"
+      + "&&client_secret=\(AuthConfiguration.standard.secretKey)"
+      + "&&redirect_uri=\(AuthConfiguration.standard.redirectURI)"
       + "&&code=\(code)"
       + "&&grant_type=\(Constants.tokenRequestGrantTypeString)",
       httpMethod: Constants.postMethodString,
-      baseURLString: Constants.baseURLString)
+      baseURLString: AuthConfiguration.standard.baseURLString)
   }
 }
 

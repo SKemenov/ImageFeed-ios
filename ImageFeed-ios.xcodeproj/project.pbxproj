@@ -23,6 +23,7 @@
 		E98AAFAC2AA1304500AD70CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = E98AAFAB2AA1304500AD70CD /* Kingfisher */; };
 		E98B44842A8B549100B614DE /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98B44832A8B549100B614DE /* SplashViewController.swift */; };
 		E995541C2A9E3430006B2F35 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995541B2A9E3430006B2F35 /* AlertPresenter.swift */; };
+		E99BF46D2ABB294F009A54FF /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99BF46C2ABB294F009A54FF /* AuthConfiguration.swift */; };
 		E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57C82AA205D9002D3FA0 /* TabBarController.swift */; };
 		E99C57CD2AA27F53002D3FA0 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */; };
 		E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE712A5F4200005BDB6A /* AppDelegate.swift */; };
@@ -70,6 +71,7 @@
 		E98AAFA72AA0A76600AD70CD /* Notification+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extensions.swift"; sourceTree = "<group>"; };
 		E98B44832A8B549100B614DE /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		E995541B2A9E3430006B2F35 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		E99BF46C2ABB294F009A54FF /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
 		E99C57C82AA205D9002D3FA0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		E99EFE6E2A5F4200005BDB6A /* ImageFeed-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ImageFeed-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +161,7 @@
 			isa = PBXGroup;
 			children = (
 				E938F9042A7B7AB200789F5E /* Constants.swift */,
+				E99BF46C2ABB294F009A54FF /* AuthConfiguration.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -462,6 +465,7 @@
 				E9F0BD982A87F87B00A7D71D /* SnakeCaseJSONDecoder.swift in Sources */,
 				E99EFE872A5F4B4C005BDB6A /* ImageListCell.swift in Sources */,
 				E9292ADA2A664AEA004D9234 /* ProfileViewController.swift in Sources */,
+				E99BF46D2ABB294F009A54FF /* AuthConfiguration.swift in Sources */,
 				E9F0BD952A87F66900A7D71D /* URLSession+Extensions.swift in Sources */,
 				E97C68D32A9C952F00163B77 /* ProfileStructures.swift in Sources */,
 				E99C57CD2AA27F53002D3FA0 /* AlertModel.swift in Sources */,

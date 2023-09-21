@@ -59,14 +59,14 @@ private extension WebViewPresenter {
   }
 
   func setupUnsplashAuthWebView() {
-    guard var urlComponents = URLComponents(string: Constants.authorizeURLString) else {
-      preconditionFailure("Incorrect \(Constants.authorizeURLString) string")
+    guard var urlComponents = URLComponents(string: AuthConfiguration.standard.authURLString) else {
+      preconditionFailure("Incorrect \(AuthConfiguration.standard.authURLString) string")
     }
     urlComponents.queryItems = [
-      URLQueryItem(name: WebElements.clientId, value: Constants.accessKey),
-      URLQueryItem(name: WebElements.redirectUri, value: Constants.redirectURI),
+      URLQueryItem(name: WebElements.clientId, value: AuthConfiguration.standard.accessKey),
+      URLQueryItem(name: WebElements.redirectUri, value: AuthConfiguration.standard.redirectURI),
       URLQueryItem(name: WebElements.responseType, value: Constants.code),
-      URLQueryItem(name: WebElements.scope, value: Constants.accessScope)
+      URLQueryItem(name: WebElements.scope, value: AuthConfiguration.standard.accessSCope)
     ]
     guard let url = urlComponents.url else {
       print(CancellationError())
