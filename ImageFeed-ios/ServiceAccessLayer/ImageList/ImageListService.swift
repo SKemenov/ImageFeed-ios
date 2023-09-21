@@ -12,7 +12,7 @@ import Foundation
 protocol ImageListLoading: AnyObject {
   func fetchPhotosNextPage()
   func resetPhotos()
-  func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void)
+  func changeLike(photoId: String, indexPath: IndexPath, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void)
 }
 
 // MARK: - Class
@@ -76,7 +76,7 @@ private extension ImageListService {
 
 extension ImageListService: ImageListLoading {
 
-  func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+  func changeLike(photoId: String, indexPath: IndexPath, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
     assert(Thread.isMainThread)
     guard currentLikeTask == nil else { return }
     let method = isLike ? Constants.postMethodString : Constants.deleteMethodString
@@ -93,20 +93,21 @@ extension ImageListService: ImageListLoading {
         switch result {
         case .success(let photoLiked):
           let likedByUser = photoLiked.photo.likedByUser
-          if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
-            let photo = self.photos[index]
-            let newPhoto = Photo(
-              id: photo.id,
-              size: photo.size,
-              createdAt: photo.createdAt,
-              welcomeDescription: photo.welcomeDescription,
-              thumbImageURL: photo.thumbImageURL,
-              largeImageURL: photo.largeImageURL,
-              isLiked: likedByUser,
-              thumbSize: photo.thumbSize
-            )
-            self.photos[index] = newPhoto
-          }
+          // if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+          //  let photo = self.photos[index]
+          //  let newPhoto = Photo(
+          //    id: photo.id,
+          //    size: photo.size,
+          //    createdAt: photo.createdAt,
+          //    welcomeDescription: photo.welcomeDescription,
+          //    thumbImageURL: photo.thumbImageURL,
+          //    largeImageURL: photo.largeImageURL,
+          //    isLiked: likedByUser,
+          //    thumbSize: photo.thumbSize
+          //  )
+          //  self.photos[index] = newPhoto
+          // }
+          self.photos[indexPath.row].isLiked = likedByUser
           completion(.success(likedByUser))
           self.currentLikeTask = nil
 
