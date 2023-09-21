@@ -129,8 +129,7 @@ private extension SplashViewController {
       guard let self else { preconditionFailure("Cannot fetch auth token") }
 
       switch authResult {
-        // swiftlint:disable:next empty_enum_arguments
-      case .success(_):
+      case .success:
         self.fetchProfile(completion: {
           UIBlockingProgressHUD.dismiss()
         })
@@ -164,8 +163,7 @@ private extension SplashViewController {
       guard let self else { return }
 
       switch profileImageUrl {
-        // swiftlint:disable:next empty_enum_arguments
-      case .success(_):
+      case .success:
         self.switchToTabBarController()
       case .failure(let error):
         self.showLoginAlert(error: error)
