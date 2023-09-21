@@ -21,13 +21,13 @@ protocol WebViewViewControllerProtocol: AnyObject {
   func setProgressValue(_ newValue: Float)
   func setProgressHidden(_ flag: Bool)
 }
+
 // MARK: - Class
 
 final class WebViewViewController: UIViewController {
   // MARK: - Private properties
 
   private var estimatedProgressObservation: NSKeyValueObservation?
-  var presenter: WebViewPresenterProtocol?
 
   // MARK: - Outlets
 
@@ -37,6 +37,7 @@ final class WebViewViewController: UIViewController {
   // MARK: - Public properties
 
   weak var delegate: WebViewViewControllerDelegate?
+  var presenter: WebViewPresenterProtocol?
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .darkContent
@@ -86,6 +87,7 @@ private extension WebViewViewController {
     progressView.progressTintColor = .ypBlack
     progressView.trackTintColor = .ypGray
     progressView.progressViewStyle = .bar
+    progressView.setProgress(0, animated: true)
   }
 }
 
@@ -97,7 +99,7 @@ extension WebViewViewController: WebViewViewControllerProtocol {
   }
 
   func setProgressValue(_ newValue: Float) {
-    progressView.progress = newValue
+    progressView.setProgress(newValue, animated: true)
   }
 
   func setProgressHidden(_ flag: Bool) {

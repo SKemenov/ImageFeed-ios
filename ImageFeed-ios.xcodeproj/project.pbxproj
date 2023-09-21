@@ -33,6 +33,7 @@
 		E99EFE7B2A5F4202005BDB6A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E99EFE7A2A5F4202005BDB6A /* Assets.xcassets */; };
 		E99EFE7E2A5F4202005BDB6A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E99EFE7C2A5F4202005BDB6A /* LaunchScreen.storyboard */; };
 		E99EFE872A5F4B4C005BDB6A /* ImageListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */; };
+		E9A7E5822ABCB755000B101A /* AuthHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7E5812ABCB755000B101A /* AuthHelper.swift */; };
 		E9B754DE2AB83C4D00D49B99 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9B754DD2AB83C4D00D49B99 /* UIImage+Extensions.swift */; };
 		E9BAEFE52A8D0C94001C49EC /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */; };
 		E9BFBEF02AA64CCC0088EF70 /* ImageListService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9BFBEEF2AA64CCC0088EF70 /* ImageListService.swift */; };
@@ -83,6 +84,7 @@
 		E99EFE7D2A5F4202005BDB6A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E99EFE7F2A5F4202005BDB6A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListCell.swift; sourceTree = "<group>"; };
+		E9A7E5812ABCB755000B101A /* AuthHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthHelper.swift; sourceTree = "<group>"; };
 		E9B754DD2AB83C4D00D49B99 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		E9BAEFE42A8D0C93001C49EC /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		E9BFBEEF2AA64CCC0088EF70 /* ImageListService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListService.swift; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 				E9F0BD972A87F87B00A7D71D /* SnakeCaseJSONDecoder.swift */,
 				E98AAFA72AA0A76600AD70CD /* Notification+Extensions.swift */,
 				E9B754DD2AB83C4D00D49B99 /* UIImage+Extensions.swift */,
+				E9A7E5812ABCB755000B101A /* AuthHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -486,6 +489,7 @@
 				E938F9052A7B7AB200789F5E /* Constants.swift in Sources */,
 				E9BFBEF02AA64CCC0088EF70 /* ImageListService.swift in Sources */,
 				E98B44842A8B549100B614DE /* SplashViewController.swift in Sources */,
+				E9A7E5822ABCB755000B101A /* AuthHelper.swift in Sources */,
 				E9CA13D02A9BAB4C0087FD90 /* UIBlockingProgressHUD.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
