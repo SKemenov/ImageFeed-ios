@@ -50,6 +50,18 @@ final  class ProfileViewController: UIViewController {
     super.viewWillAppear(animated)
     loadProfile()
   }
+
+  // MARK: - public methods
+  // shake the device to logout
+  override func becomeFirstResponder() -> Bool {
+    true
+  }
+
+  override func motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+    if motion == .motionShake {
+      showAlert()
+    }
+  }
 }
 
 // MARK: - Private methods
