@@ -7,9 +7,10 @@
 
 import Foundation
 
-// MARK: - Protocol // Why in the textbook this protocol is public?
+// MARK: - Protocol
 
-protocol WebViewPresenterProtocol {
+// this protocol is public for Unit testing
+public protocol WebViewPresenterProtocol {
   var view: WebViewViewControllerProtocol? { get set }
   func viewDidLoad()
   func didUpdateProgressValue(_ newValue: Double)

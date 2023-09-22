@@ -15,7 +15,8 @@ protocol WebViewViewControllerDelegate: AnyObject {
   func webViewViewControllerDidCancel(_ viewController: WebViewViewController)
 }
 
-protocol WebViewViewControllerProtocol: AnyObject {
+// this protocol is public for Unit testing
+public protocol WebViewViewControllerProtocol: AnyObject {
   var presenter: WebViewPresenterProtocol? { get set }
   func load(request: URLRequest)
   func setProgressValue(_ newValue: Float)
