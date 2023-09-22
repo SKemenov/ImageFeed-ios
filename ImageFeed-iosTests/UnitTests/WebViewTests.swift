@@ -41,7 +41,7 @@ final class WebViewTests: XCTestCase {
   func testPresenterCallsLoadRequest() {
 
     // given
-    let viewController = WebViewVewControllerSpy()
+    let viewController = WebViewViewControllerSpy()
     let authHelper = AuthHelper()
     let presenter = WebViewPresenter(authHelper: authHelper)
     viewController.presenter = presenter

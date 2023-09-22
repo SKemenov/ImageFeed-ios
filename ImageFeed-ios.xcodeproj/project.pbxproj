@@ -15,7 +15,7 @@
 		E938F9052A7B7AB200789F5E /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E938F9042A7B7AB200789F5E /* Constants.swift */; };
 		E94F4F722ABCE3CB00836E7C /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F712ABCE3CB00836E7C /* WebViewTests.swift */; };
 		E94F4F7E2ABCE7BF00836E7C /* WebViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F7D2ABCE7BF00836E7C /* WebViewPresenterSpy.swift */; };
-		E94F4F802ABD60BF00836E7C /* WebViewVewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F7F2ABD60BF00836E7C /* WebViewVewControllerSpy.swift */; };
+		E94F4F802ABD60BF00836E7C /* WebViewViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F7F2ABD60BF00836E7C /* WebViewViewControllerSpy.swift */; };
 		E96D1DA62A83614800FDE082 /* OAuth2Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D1DA52A83614800FDE082 /* OAuth2Service.swift */; };
 		E96D1DA82A8365FB00FDE082 /* OAuth2TokenStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96D1DA72A8365FB00FDE082 /* OAuth2TokenStorage.swift */; };
 		E97C68D02A9C734F00163B77 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C68CF2A9C734F00163B77 /* ProfileService.swift */; };
@@ -69,7 +69,7 @@
 		E94F4F6F2ABCE3CB00836E7C /* ImageFeed-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ImageFeed-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4F712ABCE3CB00836E7C /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		E94F4F7D2ABCE7BF00836E7C /* WebViewPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenterSpy.swift; sourceTree = "<group>"; };
-		E94F4F7F2ABD60BF00836E7C /* WebViewVewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewVewControllerSpy.swift; sourceTree = "<group>"; };
+		E94F4F7F2ABD60BF00836E7C /* WebViewViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewViewControllerSpy.swift; sourceTree = "<group>"; };
 		E96D1DA52A83614800FDE082 /* OAuth2Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2Service.swift; sourceTree = "<group>"; };
 		E96D1DA72A8365FB00FDE082 /* OAuth2TokenStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OAuth2TokenStorage.swift; sourceTree = "<group>"; };
 		E97C68CF2A9C734F00163B77 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				E94F4F7D2ABCE7BF00836E7C /* WebViewPresenterSpy.swift */,
-				E94F4F7F2ABD60BF00836E7C /* WebViewVewControllerSpy.swift */,
+				E94F4F7F2ABD60BF00836E7C /* WebViewViewControllerSpy.swift */,
 			);
 			path = Spies;
 			sourceTree = "<group>";
@@ -487,7 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E94F4F722ABCE3CB00836E7C /* WebViewTests.swift in Sources */,
-				E94F4F802ABD60BF00836E7C /* WebViewVewControllerSpy.swift in Sources */,
+				E94F4F802ABD60BF00836E7C /* WebViewViewControllerSpy.swift in Sources */,
 				E94F4F7E2ABCE7BF00836E7C /* WebViewPresenterSpy.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

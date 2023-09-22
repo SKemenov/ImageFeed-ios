@@ -8,7 +8,7 @@
 import Foundation
 import ImageFeed_ios
 
-final class WebViewVewControllerSpy: WebViewViewControllerProtocol {
+final class WebViewViewControllerSpy: WebViewViewControllerProtocol {
   var presenter: ImageFeed_ios.WebViewPresenterProtocol?
   var viewDidLoadRequest = false
 
