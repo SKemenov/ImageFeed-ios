@@ -37,7 +37,12 @@ private extension AuthHelper {
     static let responseType = "response_type"
     static let scope = "scope"
   }
+}
 
+// MARK: - Public methods
+
+extension AuthHelper {
+  // non-private for unit tests
   func authURL() -> URL {
     guard var urlComponents = URLComponents(string: configuration.authURLString) else {
       preconditionFailure("AH 52 Incorrect string: \(configuration.authURLString)")
