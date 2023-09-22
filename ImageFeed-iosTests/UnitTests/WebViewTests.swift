@@ -1,5 +1,5 @@
 //
-//  ImageFeed_iosTests.swift
+//  WebViewTests.swift
 //  ImageFeed-iosTests
 //
 //  Created by Sergey Kemenov on 21.09.2023.

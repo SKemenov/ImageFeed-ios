@@ -1,5 +1,5 @@
 //
-//  WebViewVewControllerSpy.swift
+//  WebViewViewControllerSpy.swift
 //  ImageFeed-iosTests
 //
 //  Created by Sergey Kemenov on 22.09.2023.
