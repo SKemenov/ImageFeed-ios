@@ -29,7 +29,7 @@ final  class ProfileViewController: UIViewController {
   private var alertPresenter: AlertPresenting?
   private var profileImageServiceObserver: NSObjectProtocol?
 
-  private var placeholderImage = UIImage(named: "person.crop.circle.fill")
+  private let placeholderImage = UIImage(named: "person.crop.circle.fill")
 
   // MARK: - Public properties
 
