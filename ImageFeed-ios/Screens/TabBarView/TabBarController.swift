@@ -34,7 +34,10 @@ private extension TabBarController {
 
     let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
 
+    let profilePresenter = ProfilePresenter()
     let profileViewController = ProfileViewController()
+    profilePresenter.view = profileViewController
+    profileViewController.presenter = profilePresenter
     setupTabBarItem(for: profileViewController, image: "tab_profile_active")
 
     viewControllers = [imagesListViewController, profileViewController]

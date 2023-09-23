@@ -9,7 +9,8 @@ import Foundation
 
 // MARK: - Struct
 
-struct Profile {
+// It's public for unit tests
+public struct Profile {
   let username: String
   let name: String
   let loginName: String

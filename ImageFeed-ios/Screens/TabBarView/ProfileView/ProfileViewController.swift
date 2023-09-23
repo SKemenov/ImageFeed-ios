@@ -6,24 +6,34 @@
 //
 
 import UIKit
-import Kingfisher
-import WebKit
+
+// MARK: - Protocol
+
+public protocol ProfileViewControllerProtocol: AnyObject {
+  var presenter: ProfilePresenterProtocol? { get set }
+  func updateAvatar(url: URL)
+  func loadProfile(_ profile: Profile?)
+}
+
+// MARK: - Class
 
 final  class ProfileViewController: UIViewController {
-
   // MARK: - Private properties
+
   private var profilePhotoImage = UIImageView()
   private var profileFullNameLabel = UILabel()
   private var profileLoginNameLabel = UILabel()
   private var profileBioLabel = UILabel()
   private var exitButton = UIButton()
 
-  private let profileService = ProfileService.shared
-  private let profileImageService = ProfileImageService.shared
   private var alertPresenter: AlertPresenting?
   private var profileImageServiceObserver: NSObjectProtocol?
 
+  private var placeholderImage = UIImage(named: "person.crop.circle.fill")
+
   // MARK: - Public properties
+
+  var presenter: ProfilePresenterProtocol?
 
   override var preferredStatusBarStyle: UIStatusBarStyle {
     return .lightContent
@@ -34,25 +44,16 @@ final  class ProfileViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     alertPresenter = AlertPresenter(viewController: self)
-
-    checkAvatar()
-
+    presenter?.viewDidLoad()
     setupNotificationObserver()
-
-    makeProfilePhotoImage()
-    makeProfileFullNameLabel()
-    makeProfileLoginNameLabel()
-    makeProfileBioLabel()
-    makeProfileExitButton()
+    makeUI()
   }
+}
 
-  override func viewWillAppear(_ animated: Bool) {
-    super.viewWillAppear(animated)
-    loadProfile()
-  }
+// MARK: - public methods
 
-  // MARK: - public methods
-  // shake the device to logout
+// shake the device to logout
+extension ProfileViewController {
   override func becomeFirstResponder() -> Bool {
     true
   }
@@ -82,17 +83,6 @@ private extension ProfileViewController {
     updateAvatar(url: url)
   }
 
-  func checkAvatar() {
-    if let url = profileImageService.avatarURL {
-      updateAvatar(url: url)
-    }
-  }
-
-  func updateAvatar(url: URL) {
-    profilePhotoImage.kf.indicatorType = .activity
-    profilePhotoImage.kf.setImage(with: url, placeholder: UIImage(named: "person.crop.circle.fill"))
-  }
-
   func setupNotificationObserver() {
     profileImageServiceObserver = NotificationCenter.default
       .addObserver(
@@ -104,16 +94,6 @@ private extension ProfileViewController {
       }
   }
 
-  func loadProfile() {
-    guard let profile = profileService.profile else {
-      return
-    }
-
-    self.profileFullNameLabel.text = profile.name
-    self.profileLoginNameLabel.text = profile.loginName
-    self.profileBioLabel.text = profile.bio
-  }
-
   func showAlert() {
     DispatchQueue.main.async { [weak self] in
       guard let self else { return }
@@ -121,18 +101,12 @@ private extension ProfileViewController {
         title: "Пока, пока!",
         message: "Уверены, что хотите выйти?",
         buttonText: "Да",
-        completion: { self.resetAccount() },
+        completion: { self.presenter?.resetAccount() },
         secondButtonText: "Нет",
         secondCompletion: { self.dismiss(animated: true) }
       )
       self.alertPresenter?.showAlert(for: alertModel)
     }
-  }
-
-  func switchToSplashViewController() {
-    guard let window = UIApplication.shared.windows.first else { preconditionFailure("Invalid Configuration") }
-    let splashViewController = SplashViewController()
-    window.rootViewController = splashViewController
   }
 }
 
@@ -140,12 +114,21 @@ private extension ProfileViewController {
 
 private extension ProfileViewController {
 
+  func makeUI() {
+    makeProfilePhotoImage()
+    makeProfileFullNameLabel()
+    makeProfileLoginNameLabel()
+    makeProfileBioLabel()
+    makeProfileExitButton()
+  }
+
   func makeProfilePhotoImage() {
-    profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
     profilePhotoImage.layer.cornerRadius = 35
     profilePhotoImage.layer.masksToBounds = true
-    profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
+    profilePhotoImage.image = placeholderImage
+    profilePhotoImage.accessibilityIdentifier = "ProfilePhoto"
 
+    profilePhotoImage.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(profilePhotoImage)
 
     NSLayoutConstraint.activate([
@@ -161,6 +144,7 @@ private extension ProfileViewController {
     profileFullNameLabel.font = UIFont.systemFont(ofSize: 23, weight: .bold)
     profileFullNameLabel.lineBreakMode = .byWordWrapping
     profileFullNameLabel.numberOfLines = 2
+    profileFullNameLabel.accessibilityIdentifier = "ProfileName"
 
     profileFullNameLabel.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(profileFullNameLabel)
@@ -175,6 +159,7 @@ private extension ProfileViewController {
   func makeProfileLoginNameLabel() {
     profileLoginNameLabel.textColor = .ypGray
     profileLoginNameLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+    profileLoginNameLabel.accessibilityIdentifier = "ProfileLogin"
 
     profileLoginNameLabel.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(profileLoginNameLabel)
@@ -191,6 +176,7 @@ private extension ProfileViewController {
     profileBioLabel.font = UIFont.systemFont(ofSize: 13, weight: .medium)
     profileBioLabel.lineBreakMode = .byWordWrapping
     profileBioLabel.numberOfLines = 0
+    profileBioLabel.accessibilityIdentifier = "ProfileBio"
 
     profileBioLabel.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(profileBioLabel)
@@ -211,6 +197,7 @@ private extension ProfileViewController {
       action: #selector(self.didTapButton)
     )
     exitButton.tintColor = .ypRed
+    exitButton.accessibilityIdentifier = "ExitButton"
 
     exitButton.translatesAutoresizingMaskIntoConstraints = false
     view.addSubview(exitButton)
@@ -224,50 +211,24 @@ private extension ProfileViewController {
   }
 }
 
-// MARK: - Private methods to reset data before logout
+// MARK: - ProfileViewControllerProtocol
 
-private extension ProfileViewController {
-
-  func resetAccount() {
-    resetToken()
-    resetView()
-    resetImageCache()
-    resetPhotos()
-    // resetCookies()
-    switchToSplashViewController()
+extension ProfileViewController: ProfileViewControllerProtocol {
+  func updateAvatar(url: URL) {
+    profilePhotoImage.kf.indicatorType = .activity
+    profilePhotoImage.kf.setImage(with: url, placeholder: placeholderImage)
   }
 
-  func resetToken() {
-    guard OAuth2TokenStorage.shared.removeToken() else {
-      assertionFailure("Cannot remove token")
-      return
-    }
-  }
-
-  func resetView() {
-    profileFullNameLabel.text = ""
-    profileLoginNameLabel.text = ""
-    profileBioLabel.text = ""
-
-    profilePhotoImage.image = UIImage(named: "person.crop.circle.fill")
-  }
-
-  func resetImageCache() {
-    let cache = ImageCache.default
-    cache.clearMemoryCache()
-    cache.clearDiskCache()
-  }
-
-  func resetPhotos() {
-    ImageListService.shared.resetPhotos()
-  }
-
-  func resetCookies() {
-    HTTPCookieStorage.shared.removeCookies(since: Date.distantPast)
-    WKWebsiteDataStore.default().fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) { records in
-      records.forEach { record in
-        WKWebsiteDataStore.default().removeData(ofTypes: record.dataTypes, for: [record]) { }
-      }
+  func loadProfile(_ profile: Profile?) {
+    if let profile {
+      profileFullNameLabel.text = profile.name
+      profileLoginNameLabel.text = profile.loginName
+      profileBioLabel.text = profile.bio
+    } else {
+      profileFullNameLabel.text = ""
+      profileLoginNameLabel.text = ""
+      profileBioLabel.text = ""
+      profilePhotoImage.image = placeholderImage
     }
   }
 }
