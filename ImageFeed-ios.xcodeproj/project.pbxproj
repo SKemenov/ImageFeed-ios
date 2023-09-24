@@ -18,6 +18,7 @@
 		E94BCDE52ABF240200C9EA0E /* ProfilePresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCDE42ABF240200C9EA0E /* ProfilePresenterSpy.swift */; };
 		E94BCDE72ABF267A00C9EA0E /* ProfileViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCDE62ABF267A00C9EA0E /* ProfileViewControllerSpy.swift */; };
 		E94BCDE92ABF2E8400C9EA0E /* ProfileViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCDE82ABF2E8400C9EA0E /* ProfileViewTests.swift */; };
+		E94BCDEB2ABF422000C9EA0E /* ImageListPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94BCDEA2ABF422000C9EA0E /* ImageListPresenter.swift */; };
 		E94F4F722ABCE3CB00836E7C /* WebViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F712ABCE3CB00836E7C /* WebViewTests.swift */; };
 		E94F4F7E2ABCE7BF00836E7C /* WebViewPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F7D2ABCE7BF00836E7C /* WebViewPresenterSpy.swift */; };
 		E94F4F802ABD60BF00836E7C /* WebViewViewControllerSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94F4F7F2ABD60BF00836E7C /* WebViewViewControllerSpy.swift */; };
@@ -76,6 +77,7 @@
 		E94BCDE42ABF240200C9EA0E /* ProfilePresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenterSpy.swift; sourceTree = "<group>"; };
 		E94BCDE62ABF267A00C9EA0E /* ProfileViewControllerSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewControllerSpy.swift; sourceTree = "<group>"; };
 		E94BCDE82ABF2E8400C9EA0E /* ProfileViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewTests.swift; sourceTree = "<group>"; };
+		E94BCDEA2ABF422000C9EA0E /* ImageListPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListPresenter.swift; sourceTree = "<group>"; };
 		E94F4F6F2ABCE3CB00836E7C /* ImageFeed-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ImageFeed-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E94F4F712ABCE3CB00836E7C /* WebViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewTests.swift; sourceTree = "<group>"; };
 		E94F4F7D2ABCE7BF00836E7C /* WebViewPresenterSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewPresenterSpy.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 			children = (
 				E99EFE752A5F4200005BDB6A /* ImageListViewController.swift */,
 				E99EFE862A5F4B4C005BDB6A /* ImageListCell.swift */,
+				E94BCDEA2ABF422000C9EA0E /* ImageListPresenter.swift */,
 			);
 			path = ImageList;
 			sourceTree = "<group>";
@@ -529,6 +532,7 @@
 				E99C57CD2AA27F53002D3FA0 /* AlertModel.swift in Sources */,
 				E995541C2A9E3430006B2F35 /* AlertPresenter.swift in Sources */,
 				E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */,
+				E94BCDEB2ABF422000C9EA0E /* ImageListPresenter.swift in Sources */,
 				E99EFE722A5F4200005BDB6A /* AppDelegate.swift in Sources */,
 				E90EA1662A78DBA900EC34FD /* UIColor+Extensions.swift in Sources */,
 				E9FCE8D72A9E83C300CDCFC4 /* ProfileImageService.swift in Sources */,

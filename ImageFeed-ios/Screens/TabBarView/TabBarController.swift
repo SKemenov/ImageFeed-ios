@@ -31,8 +31,11 @@ private extension TabBarController {
     view.backgroundColor = .ypBackground
 
     let storyboard = UIStoryboard(name: "Main", bundle: .main)
-
+    let imageListPresenter = ImageListPresenter()
     let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
+    guard let imagesListViewController = imagesListViewController as? ImagesListViewController else { return }
+    imageListPresenter.view = imagesListViewController
+    imagesListViewController.presenter = imageListPresenter
 
     let profilePresenter = ProfilePresenter()
     let profileViewController = ProfileViewController()

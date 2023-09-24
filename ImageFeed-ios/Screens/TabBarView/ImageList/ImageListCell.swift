@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import Kingfisher
+
+// MARK: - Protocol
 
 protocol ImagesListCellDelegate: AnyObject {
   func imagesListCellDidTapLike(_ cell: ImagesListCell)
@@ -28,6 +29,7 @@ final class ImagesListCell: UITableViewCell {
 
   override func prepareForReuse() {
     super.prepareForReuse()
+    setIsLiked(false)
     imageCell.kf.cancelDownloadTask()
   }
 
@@ -47,21 +49,17 @@ extension ImagesListCell {
 
   func loadCell(from photo: Photo) -> Bool {
     var status = false
-
     if let photoDate = photo.createdAt {
       dateLabel.text = Constants.dateFormatter.string(from: photoDate)
     }
-
+    likeButton.accessibilityIdentifier = "LikeButton"
     setIsLiked(photo.isLiked)
-
     guard let photoURL = URL(string: photo.thumbImageURL) else { return status }
-
     imageCell.kf.indicatorType = .activity
     imageCell.kf.setImage(with: photoURL, placeholder: placeholderImage) { [weak self] result in
       guard let self else { return }
       switch result {
-        // swiftlint:disable:next empty_enum_arguments
-      case .success(_):
+      case .success:
         status = true
       case .failure(let error):
         imageCell.image = placeholderImage
