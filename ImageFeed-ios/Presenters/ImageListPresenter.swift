@@ -11,32 +11,43 @@ import Foundation
 
 public protocol ImageListPresenterProtocol {
   var view: ImagesListViewControllerProtocol? { get set }
-  var photos: [Photo] { get set }
   func viewDidLoad()
+  var photosTotalCount: Int { get }
   func updateTableViewAnimated()
   func calcHeightForRowAt(indexPath: IndexPath) -> CGFloat
   func checkNeedLoadNextPhotos (indexPath: IndexPath)
+  func returnPhotoModelAt (indexPath: IndexPath) -> Photo?
 }
 
 // MARK: - Class
 
 final class ImageListPresenter {
+  // MARK: - Private properties
+
+  private var imageListService = ImageListService.shared  // to presenter
+
+  // MARK: - Public properties
 
   weak var view: ImagesListViewControllerProtocol?
   var photos: [Photo] = []
-
-  private var imageListService = ImageListService.shared  // to presenter
+  var photosTotalCount: Int {
+    photos.count
+  }
 }
 
+// MARK: - ImageListPresenterProtocol
+
 extension ImageListPresenter: ImageListPresenterProtocol {
+
   func viewDidLoad() {
     setupImageListService()
+    view?.setupTableView()
   }
 
   func updateTableViewAnimated() {
-    let oldCount = photos.count
+    let oldCount = photosTotalCount
     photos = imageListService.photos
-    let newCount = photos.count
+    let newCount = photosTotalCount
 
     if oldCount != newCount {
       view?.tableView.performBatchUpdates {
@@ -49,10 +60,15 @@ extension ImageListPresenter: ImageListPresenterProtocol {
   }
 
   func checkNeedLoadNextPhotos (indexPath: IndexPath) {
-    if indexPath.row + 2 == photos.count {
+    if indexPath.row + 2 == photosTotalCount {
       imageListService.fetchPhotosNextPage()
     }
   }
+
+  func returnPhotoModelAt (indexPath: IndexPath) -> Photo? {
+    photos[indexPath.row]
+  }
+
 
   func calcHeightForRowAt(indexPath: IndexPath) -> CGFloat {
     guard let view else { return 0 }
@@ -66,7 +82,10 @@ extension ImageListPresenter: ImageListPresenterProtocol {
   }
 }
 
-private extension ImageListPresenter {
+// MARK: - Public methods
+
+// non-private for unit tests
+extension ImageListPresenter {
   func setupImageListService() {
     imageListService.fetchPhotosNextPage()
     updateTableViewAnimated()

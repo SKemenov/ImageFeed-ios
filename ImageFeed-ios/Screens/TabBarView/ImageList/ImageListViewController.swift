@@ -13,11 +13,12 @@ public protocol ImagesListViewControllerProtocol: AnyObject {
   var presenter: ImageListPresenterProtocol { get set }
   // swiftlint:disable:next implicitly_unwrapped_optional
   var tableView: UITableView! { get set }
+  func setupTableView()
 }
 
 // MARK: - Class
 
-final class ImagesListViewController: UIViewController, ImagesListViewControllerProtocol {
+final class ImagesListViewController: UIViewController {
   // MARK: - Outlets
 
   @IBOutlet var tableView: UITableView!
@@ -41,9 +42,8 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
   override func viewDidLoad() {
     super.viewDidLoad()
 
-    configure(presenter)
     presenter.viewDidLoad()
-    setupTableView()
+    // setupTableView()
     setupNotificationObserver()
   }
   // MARK: - public methods
@@ -58,21 +58,19 @@ final class ImagesListViewController: UIViewController, ImagesListViewController
         super.prepare(for: segue, sender: sender)
         return
       }
-      viewController.largeImageURL = URL(string: presenter.photos[indexPath.row].largeImageURL)
+      guard let photo = presenter.returnPhotoModelAt(indexPath: indexPath) else {
+        preconditionFailure("Cannot take photo from the array")
+      }
+      viewController.largeImageURL = URL(string: photo.largeImageURL)
     } else {
       super.prepare(for: segue, sender: sender)
     }
   }
 }
 
-// MARK: - private methods
+// MARK: - ImagesListViewControllerProtocol
 
-private extension ImagesListViewController {
-
-  func configure(_ presenter: ImageListPresenterProtocol) {
-    self.presenter = presenter
-    self.presenter.view = self
-  }
+extension ImagesListViewController: ImagesListViewControllerProtocol {
 
   func setupTableView() {
     tableView.dataSource = self
@@ -107,7 +105,7 @@ extension ImagesListViewController: UITableViewDelegate {
 extension ImagesListViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    presenter.photos.count
+    presenter.photosTotalCount
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -117,9 +115,12 @@ extension ImagesListViewController: UITableViewDataSource {
     ) as? ImagesListCell else {
       return UITableViewCell()
     }
-    cell.delegate = presenter as? any ImagesListCellDelegate
 
-    if cell.loadCell(from: presenter.photos[indexPath.row]) {
+    cell.delegate = presenter as? any ImagesListCellDelegate
+    guard let photo = presenter.returnPhotoModelAt(indexPath: indexPath) else {
+      preconditionFailure("Cannot take photo from the array")
+    }
+    if cell.loadCell(from: photo) {
       tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     return cell

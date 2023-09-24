@@ -1,5 +1,5 @@
 //
-//  ProfileTests.swift
+//  ProfileViewControllerTests.swift
 //  ImageFeed-iosTests
 //
 //  Created by Sergey Kemenov on 23.09.2023.
@@ -10,7 +10,7 @@
 @testable import ImageFeed_ios
 import XCTest
 
-final class ProfileTests: XCTestCase {
+final class ProfileViewControllerTests: XCTestCase {
 
   let viewController = ProfileViewControllerSpy()
   let presenter = ProfilePresenter()
