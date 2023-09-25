@@ -17,6 +17,7 @@ final class AuthViewController: UIViewController {
   // MARK: - Private properties
 
   private let showWebViewSegueIdentifier = "ShowWebView"
+  @IBOutlet private weak var authButton: UIButton!
 
   // MARK: - Public properties
 
@@ -30,6 +31,7 @@ final class AuthViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
+    authButton.accessibilityIdentifier = "Authenticate"
   }
 
   // MARK: - public methods

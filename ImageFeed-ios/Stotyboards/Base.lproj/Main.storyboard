@@ -41,6 +41,7 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-cl-6Wo" userLabel="Like Button">
                                                     <rect key="frame" x="333" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="LikeButton"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="9tk-E3-IWX"/>
                                                         <constraint firstAttribute="height" constant="44" id="kHV-Y8-jSa"/>
@@ -248,6 +249,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cct-sy-Hj8"/>
+                    <connections>
+                        <outlet property="authButton" destination="kCV-jM-mSD" id="njU-yf-1WY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayt-s1-FCW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

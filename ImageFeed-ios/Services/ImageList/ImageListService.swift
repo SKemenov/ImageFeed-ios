@@ -28,6 +28,7 @@ final class ImageListService {
 
   private var currentPhotosTask: URLSessionTask?
   private var currentLikeTask: URLSessionTask?
+  private var fetchPhotosCount = 0
   private var lastLoadedPage: Int?
   private (set) var photos: [Photo] = []
 
@@ -121,17 +122,22 @@ extension ImageListService: ImageListLoading {
   }
 
   func resetPhotos() {
+    lastLoadedPage = nil
     photos = []
   }
 
   func fetchPhotosNextPage() {
     assert(Thread.isMainThread)
+    print("ITS LIT ILS 131 Run fetchPhotosNextPage()")
 
     guard currentPhotosTask == nil else {
-      print("ITS LIT ILS 77 Race Condition - reject repeated photos request")
+      print("ITS LIT ILS 134 Race Condition - reject repeated photos request")
       return
     }
     let nextPage = makeNextPageNumber()
+    fetchPhotosCount += 1
+    print("ITS LIT ILS 139 fetchPhotosCount: \(fetchPhotosCount)")
+
 
     guard let request = makePhotosListRequest(page: nextPage) else {
       assertionFailure("Invalid request")
@@ -141,21 +147,25 @@ extension ImageListService: ImageListLoading {
 
     let task = session.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
       guard let self else { preconditionFailure("ITS LIT ILS Cannot make weak link") }
-      switch result {
-      case .success(let photoResults):
-        DispatchQueue.main.async {
-          var photos: [Photo] = []
+      DispatchQueue.main.async {
+        switch result {
+        case .success(let photoResults):
+          // var photos: [Photo] = []
           photoResults.forEach { photo in
-            photos.append(self.convert(result: photo))
+            self.photos.append(self.convert(result: photo))
           }
-          self.photos += photos
-          NotificationCenter.default.post(name: ImageListService.didChangeNotification, object: self)
+          // self.photos += photos
           self.lastLoadedPage = nextPage
+          NotificationCenter.default.post(
+            name: ImageListService.didChangeNotification,
+            object: self,
+            userInfo: ["Photos": self.photos]
+          )
+          self.currentPhotosTask = nil
+        case .failure(let error):
+          print("ITS LIT ILS 102 \(String(describing: error))")
         }
-      case .failure(let error):
-        print("ITS LIT ILS 102 \(String(describing: error))")
       }
-      self.currentPhotosTask = nil
     }
     currentPhotosTask = task
     task.resume()

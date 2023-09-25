@@ -25,6 +25,9 @@ final class ImageListPresenterSpy: ImageListPresenterProtocol {
   var returnPhotoModelAtCalled = false
   var returnPhotoModelAtGotIndex = false
 
+  var imagesListCellDidTapLikeCalled = false
+  var imagesListCellDidTapLikeGotIndex = false
+
   func viewDidLoad() {
     viewDidLoadCalled = true
   }
@@ -54,5 +57,12 @@ final class ImageListPresenterSpy: ImageListPresenterProtocol {
       returnPhotoModelAtGotIndex = true
     }
     return nil
+  }
+
+  func imagesListCellDidTapLike(_ cell: ImageFeed_ios.ImagesListCell, indexPath: IndexPath) {
+    imagesListCellDidTapLikeCalled = true
+    if indexPath == IndexPath(row: 1, section: 0) {
+      imagesListCellDidTapLikeGotIndex = true
+    }
   }
 }

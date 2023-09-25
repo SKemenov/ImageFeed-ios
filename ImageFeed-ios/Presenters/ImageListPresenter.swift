@@ -16,6 +16,7 @@ public protocol ImageListPresenterProtocol {
   func updateTableViewAnimated()
   func calcHeightForRowAt(indexPath: IndexPath) -> CGFloat
   func checkNeedLoadNextPhotos (indexPath: IndexPath)
+  func imagesListCellDidTapLike(_ cell: ImagesListCell, indexPath: IndexPath)
   func returnPhotoModelAt (indexPath: IndexPath) -> Photo?
 }
 
@@ -32,6 +33,16 @@ final class ImageListPresenter {
   var photos: [Photo] = []
   var photosTotalCount: Int {
     photos.count
+  }
+}
+
+// MARK: - Public methods
+
+// non-private for unit tests
+extension ImageListPresenter {
+  func setupImageListService() {
+    imageListService.fetchPhotosNextPage()
+    updateTableViewAnimated()
   }
 }
 
@@ -55,7 +66,7 @@ extension ImageListPresenter: ImageListPresenterProtocol {
           IndexPath(row: index, section: 0)
         }
         view?.tableView.insertRows(at: indexes, with: .automatic)
-      }
+      } completion: { _ in }
     }
   }
 
@@ -69,7 +80,6 @@ extension ImageListPresenter: ImageListPresenterProtocol {
     photos[indexPath.row]
   }
 
-
   func calcHeightForRowAt(indexPath: IndexPath) -> CGFloat {
     guard let view else { return 0 }
     let imageInsets = (top: CGFloat(4), left: CGFloat(16), bottom: CGFloat(4), right: CGFloat(16))
@@ -80,24 +90,8 @@ extension ImageListPresenter: ImageListPresenterProtocol {
     let cellHeight = thumbImageSize.height * scale + imageInsets.top + imageInsets.bottom
     return cellHeight
   }
-}
 
-// MARK: - Public methods
-
-// non-private for unit tests
-extension ImageListPresenter {
-  func setupImageListService() {
-    imageListService.fetchPhotosNextPage()
-    updateTableViewAnimated()
-  }
-}
-
-// MARK: - ImagesListCellDelegate
-
-extension ImageListPresenter: ImagesListCellDelegate {
-  // to presenter
-  func imagesListCellDidTapLike(_ cell: ImagesListCell) {
-    guard let indexPath = view?.tableView.indexPath(for: cell) else { return }
+  func imagesListCellDidTapLike(_ cell: ImagesListCell, indexPath: IndexPath) {
     let photo = photos[indexPath.row]
     UIBlockingProgressHUD.show()
     imageListService.changeLike(photoId: photo.id, indexPath: indexPath, isLike: !photo.isLiked) { [weak self ] result in

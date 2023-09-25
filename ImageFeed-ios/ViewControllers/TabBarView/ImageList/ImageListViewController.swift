@@ -43,7 +43,6 @@ final class ImagesListViewController: UIViewController {
     super.viewDidLoad()
 
     presenter.viewDidLoad()
-    // setupTableView()
     setupNotificationObserver()
   }
   // MARK: - public methods
@@ -87,6 +86,7 @@ extension ImagesListViewController: ImagesListViewControllerProtocol {
       ) { [weak self] _ in
         self?.presenter.updateTableViewAnimated()
       }
+    presenter.updateTableViewAnimated()
   }
 }
 
@@ -116,7 +116,8 @@ extension ImagesListViewController: UITableViewDataSource {
       return UITableViewCell()
     }
 
-    cell.delegate = presenter as? any ImagesListCellDelegate
+    cell.delegate = self
+
     guard let photo = presenter.returnPhotoModelAt(indexPath: indexPath) else {
       preconditionFailure("Cannot take photo from the array")
     }
@@ -132,5 +133,14 @@ extension ImagesListViewController: UITableViewDataSource {
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
     presenter.checkNeedLoadNextPhotos(indexPath: indexPath)
+  }
+}
+
+// MARK: - ImagesListCellDelegate
+
+extension ImagesListViewController: ImagesListCellDelegate {
+  func imagesListCellDidTapLike(_ cell: ImagesListCell) {
+    guard let indexPath = tableView.indexPath(for: cell) else { return }
+    presenter.imagesListCellDidTapLike(cell, indexPath: indexPath)
   }
 }

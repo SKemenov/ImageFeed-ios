@@ -67,4 +67,14 @@ final class ImageListTests: XCTestCase {
     XCTAssertTrue(presenter.returnPhotoModelAtCalled)
     XCTAssertTrue(presenter.returnPhotoModelAtGotIndex)
   }
+
+  func testImagesListCellDidTapLike() {
+    // when
+    _ = viewController.view
+    presenter.imagesListCellDidTapLike(ImagesListCell(), indexPath: indexPath)
+
+    // then
+    XCTAssertTrue(presenter.imagesListCellDidTapLikeCalled)
+    XCTAssertTrue(presenter.imagesListCellDidTapLikeGotIndex)
+  }
 }
