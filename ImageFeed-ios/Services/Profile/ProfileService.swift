@@ -47,6 +47,7 @@ extension ProfileService: ProfileLoading {
   func fetchProfile(completion: @escaping (Result<Profile, Error>) -> Void) {
 
     assert(Thread.isMainThread)
+    if currentTask != nil { return }
     currentTask?.cancel()
 
     guard let request = makeProfileRequest() else {
@@ -56,7 +57,7 @@ extension ProfileService: ProfileLoading {
     }
 
     let session = URLSession.shared
-    currentTask = session.objectTask(for: request) {
+    let task = session.objectTask(for: request) {
       [weak self] (result: Result<ProfileResult, Error>) in
 
       guard let self else { preconditionFailure("Cannot make weak link") }
@@ -72,5 +73,8 @@ extension ProfileService: ProfileLoading {
         completion(.failure(error))
       }
     }
+
+    self.currentTask = task
+    task.resume()
   }
 }

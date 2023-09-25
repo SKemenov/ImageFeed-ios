@@ -11,10 +11,10 @@ final class ImageFeediosUITests: XCTestCase {
   private let app = XCUIApplication()
 
   enum TestCredentials {
-    static let email =  "Your e-mail"
-    static let pwd =  "Your password"
-    static let name =  "Your Full Name"
-    static let login =  "Your Unsplash login"
+    static let email = "Your e-mail"
+    static let pwd = "Your password"
+    static let name = "Your Full Name in Unsplash"
+    static let login = "Your Unsplash login (start with @)"
   }
 
   override func setUpWithError() throws {
@@ -35,7 +35,6 @@ final class ImageFeediosUITests: XCTestCase {
     loginTextField.tap()
     loginTextField.typeText(TestCredentials.email)
     webView.tap()
-    // sleep(3)
 
     let passwordTextField = webView.descendants(matching: .secureTextField).element
     XCTAssertTrue(passwordTextField.waitForExistence(timeout: 3))
@@ -48,11 +47,10 @@ final class ImageFeediosUITests: XCTestCase {
     XCTAssertTrue(webView.buttons["Login"].waitForExistence(timeout: 3))
     webView.buttons["Login"].tap()
 
-    // sleep(3)
 
     let tableQuery = app.tables
     let cell = tableQuery.children(matching: .cell).element(boundBy: 0)
-    XCTAssertTrue(cell.waitForExistence(timeout: 3))
+    XCTAssertTrue(cell.waitForExistence(timeout: 5))
   }
 
   func testFeed() throws {
@@ -61,22 +59,25 @@ final class ImageFeediosUITests: XCTestCase {
     let tableQuery = app.tables
     print("passed tableQuery")
     let cell = tableQuery.children(matching: .cell).element(boundBy: 0)
-    print("passed cell")
-    XCTAssertTrue(cell.waitForExistence(timeout: 5))
+    XCTAssertTrue(cell.waitForExistence(timeout: 3))
     cell.swipeDown()
-    print("swipeDown")
-    sleep(15)
-    let cellTwo = tableQuery.children(matching: .cell).element(boundBy: 2)
-    XCTAssertTrue(cell.waitForExistence(timeout: 5))
-    XCTAssertTrue(cell.buttons["LikeButton"].waitForExistence(timeout: 2))
+    sleep(2)
+
+    let cellTwo = tableQuery.children(matching: .cell).element(boundBy: 1)
+    XCTAssertTrue(cell.waitForExistence(timeout: 3))
+    XCTAssertTrue(cell.buttons["LikeButton"].waitForExistence(timeout: 1))
     cellTwo.buttons["LikeButton"].tap()
-    print("tapped LikeButton")
-    sleep(5)
+    sleep(3)
     cellTwo.buttons["LikeButton"].tap()
-    print("tapped LikeButton again")
-    sleep(5)
+    sleep(3)
+
     cellTwo.tap()
-    print("tapped an image")
+    let image = app.scrollViews.images.element(boundBy: 0)
+    image.pinch(withScale: 3, velocity: 1)
+    image.pinch(withScale: 0.5, velocity: -1)
+
+    XCTAssertTrue(app.buttons["BackButton"].waitForExistence(timeout: 3))
+    app.buttons["BackButton"].tap()
   }
 
   func testProfile() throws {
@@ -90,9 +91,8 @@ final class ImageFeediosUITests: XCTestCase {
     app.buttons["ExitButton"].tap()
 
     XCTAssertTrue(app.alerts["Alert"].waitForExistence(timeout: 3))
-    app.alerts["Alert"].buttons["Нет"].tap()
-//    app.alerts["Alert"].buttons["Да"].tap()
-//
-//    XCTAssertTrue(app.buttons["Authenticate"].waitForExistence(timeout: 3))
+    app.alerts["Alert"].buttons["Да"].tap()
+
+    XCTAssertTrue(app.buttons["Authenticate"].waitForExistence(timeout: 3))
   }
 }

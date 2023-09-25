@@ -35,7 +35,6 @@
 		E995CEC62AC08E8000488EEC /* ImageListPresenterSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995CEC52AC08E8000488EEC /* ImageListPresenterSpy.swift */; };
 		E995CECA2AC090D900488EEC /* ImageListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995CEC92AC090D900488EEC /* ImageListTests.swift */; };
 		E995CED32AC0DA8900488EEC /* ImageFeed_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995CED22AC0DA8900488EEC /* ImageFeed_iosUITests.swift */; };
-		E995CED52AC0DA8900488EEC /* ImageFeed_iosUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E995CED42AC0DA8900488EEC /* ImageFeed_iosUITestsLaunchTests.swift */; };
 		E99BF46D2ABB294F009A54FF /* AuthConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99BF46C2ABB294F009A54FF /* AuthConfiguration.swift */; };
 		E99C57C92AA205D9002D3FA0 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57C82AA205D9002D3FA0 /* TabBarController.swift */; };
 		E99C57CD2AA27F53002D3FA0 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */; };
@@ -105,7 +104,6 @@
 		E995CEC92AC090D900488EEC /* ImageListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageListTests.swift; sourceTree = "<group>"; };
 		E995CED02AC0DA8900488EEC /* ImageFeed-iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ImageFeed-iosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E995CED22AC0DA8900488EEC /* ImageFeed_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeed_iosUITests.swift; sourceTree = "<group>"; };
-		E995CED42AC0DA8900488EEC /* ImageFeed_iosUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFeed_iosUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		E99BF46C2ABB294F009A54FF /* AuthConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthConfiguration.swift; sourceTree = "<group>"; };
 		E99C57C82AA205D9002D3FA0 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		E99C57CC2AA27F53002D3FA0 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
@@ -274,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				E995CED22AC0DA8900488EEC /* ImageFeed_iosUITests.swift */,
-				E995CED42AC0DA8900488EEC /* ImageFeed_iosUITestsLaunchTests.swift */,
 			);
 			path = "ImageFeed-iosUITests";
 			sourceTree = "<group>";
@@ -586,7 +583,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E995CED52AC0DA8900488EEC /* ImageFeed_iosUITestsLaunchTests.swift in Sources */,
 				E995CED32AC0DA8900488EEC /* ImageFeed_iosUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

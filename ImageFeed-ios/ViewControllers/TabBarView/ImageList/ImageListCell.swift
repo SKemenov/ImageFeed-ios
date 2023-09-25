@@ -33,12 +33,14 @@ public final class ImagesListCell: UITableViewCell {
     imageCell.kf.cancelDownloadTask()
   }
 
+  // MARK: - Action
+
   @IBAction func didTapLikeButton(_ sender: Any) {
     delegate?.imagesListCellDidTapLike(self)
   }
 }
 
-// MARK: - Methods
+// MARK: - Public methods
 
 extension ImagesListCell {
 

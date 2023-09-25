@@ -26,7 +26,6 @@ final class ImagesListViewController: UIViewController {
   // MARK: - Private properties
 
   private let showSingleImageSegueIdentifier = "ShowSingleImage"
-
   private var imageListServiceObserver: NSObjectProtocol?
 
   // MARK: - Public properties
@@ -41,14 +40,12 @@ final class ImagesListViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-
     presenter.viewDidLoad()
     setupNotificationObserver()
   }
   // MARK: - public methods
 
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
     if segue.identifier == showSingleImageSegueIdentifier {
       guard
         let viewController = segue.destination as? SingleImageViewController,
@@ -115,9 +112,7 @@ extension ImagesListViewController: UITableViewDataSource {
     ) as? ImagesListCell else {
       return UITableViewCell()
     }
-
     cell.delegate = self
-
     guard let photo = presenter.returnPhotoModelAt(indexPath: indexPath) else {
       preconditionFailure("Cannot take photo from the array")
     }
@@ -132,7 +127,9 @@ extension ImagesListViewController: UITableViewDataSource {
   }
 
   func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-    presenter.checkNeedLoadNextPhotos(indexPath: indexPath)
+    if let visibleRows = tableView.indexPathsForVisibleRows, indexPath == visibleRows.last {
+      presenter.checkNeedLoadNextPhotos(indexPath: indexPath)
+    }
   }
 }
 

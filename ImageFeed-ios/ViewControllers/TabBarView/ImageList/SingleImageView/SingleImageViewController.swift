@@ -42,6 +42,7 @@ final class SingleImageViewController: UIViewController {
     super.viewDidLoad()
     alertPresenter = AlertPresenter(viewController: self)
     imageView.image = image
+    backButton.accessibilityIdentifier = "BackButton"
     setupScrollView()
     setupGestureRecognizer()
     downloadImage()
@@ -123,6 +124,12 @@ private extension SingleImageViewController {
       self.alertPresenter?.showAlert(for: alertModel)
     }
   }
+}
+
+// MARK: - Private methods
+
+// for swipe down gesture
+private extension SingleImageViewController {
 
   func setupGestureRecognizer() {
     let swipeGestureRecognizerDown = UISwipeGestureRecognizer(

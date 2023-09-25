@@ -6,13 +6,14 @@
 //
 
 import Foundation
+import Kingfisher
 
 // MARK: - Protocol
 
 public protocol ImageListPresenterProtocol {
   var view: ImagesListViewControllerProtocol? { get set }
-  func viewDidLoad()
   var photosTotalCount: Int { get }
+  func viewDidLoad()
   func updateTableViewAnimated()
   func calcHeightForRowAt(indexPath: IndexPath) -> CGFloat
   func checkNeedLoadNextPhotos (indexPath: IndexPath)
@@ -25,7 +26,7 @@ public protocol ImageListPresenterProtocol {
 final class ImageListPresenter {
   // MARK: - Private properties
 
-  private var imageListService = ImageListService.shared  // to presenter
+  private var imageListService = ImageListService.shared
 
   // MARK: - Public properties
 
@@ -36,13 +37,27 @@ final class ImageListPresenter {
   }
 }
 
+// MARK: - Private methods
+
+private extension ImageListPresenter {
+
+  func setupKfCache() {
+    let cache = ImageCache.default
+    cache.memoryStorage.config.totalCostLimit = 300 * 1024 * 1024
+    cache.memoryStorage.config.countLimit = 150
+    cache.diskStorage.config.sizeLimit = 1024 * 1024 * 1024
+    cache.memoryStorage.config.expiration = .seconds(600)
+    cache.diskStorage.config.expiration = .days(10)
+    cache.memoryStorage.config.cleanInterval = 300
+  }
+}
+
 // MARK: - Public methods
 
 // non-private for unit tests
 extension ImageListPresenter {
   func setupImageListService() {
     imageListService.fetchPhotosNextPage()
-    updateTableViewAnimated()
   }
 }
 
@@ -51,22 +66,22 @@ extension ImageListPresenter {
 extension ImageListPresenter: ImageListPresenterProtocol {
 
   func viewDidLoad() {
-    setupImageListService()
     view?.setupTableView()
+    setupImageListService()
+    setupKfCache()
   }
 
   func updateTableViewAnimated() {
     let oldCount = photosTotalCount
     photos = imageListService.photos
     let newCount = photosTotalCount
-
     if oldCount != newCount {
       view?.tableView.performBatchUpdates {
         let indexes = (oldCount..<newCount).map { index in
           IndexPath(row: index, section: 0)
         }
         view?.tableView.insertRows(at: indexes, with: .automatic)
-      } completion: { _ in }
+      }
     }
   }
 
@@ -104,7 +119,6 @@ extension ImageListPresenter: ImageListPresenterProtocol {
       case .failure(let error):
         UIBlockingProgressHUD.dismiss()
         print("\(error.localizedDescription)")
-        // TODO: Make & show alert
       }
     }
   }

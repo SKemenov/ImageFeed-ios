@@ -79,7 +79,8 @@ extension ImageListService: ImageListLoading {
 
   func changeLike(photoId: String, indexPath: IndexPath, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
     assert(Thread.isMainThread)
-    guard currentLikeTask == nil else { return }
+    if currentLikeTask != nil { return }
+    currentLikeTask?.cancel()
     let method = isLike ? Constants.postMethodString : Constants.deleteMethodString
 
     guard let request = makeLikeRequest(for: photoId, with: method) else {
@@ -91,33 +92,19 @@ extension ImageListService: ImageListLoading {
     let task = session.objectTask(for: request) { [weak self] (result: Result<LikeResult, Error>) in
       DispatchQueue.main.async { [weak self] in
         guard let self else { return }
+        self.currentLikeTask = nil
         switch result {
         case .success(let photoLiked):
           let likedByUser = photoLiked.photo.likedByUser
-          // if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
-          //  let photo = self.photos[index]
-          //  let newPhoto = Photo(
-          //    id: photo.id,
-          //    size: photo.size,
-          //    createdAt: photo.createdAt,
-          //    welcomeDescription: photo.welcomeDescription,
-          //    thumbImageURL: photo.thumbImageURL,
-          //    largeImageURL: photo.largeImageURL,
-          //    isLiked: likedByUser,
-          //    thumbSize: photo.thumbSize
-          //  )
-          //  self.photos[index] = newPhoto
-          // }
           self.photos[indexPath.row].isLiked = likedByUser
           completion(.success(likedByUser))
-          self.currentLikeTask = nil
 
         case .failure(let error):
           completion(.failure(error))
         }
       }
     }
-    currentLikeTask = task
+    self.currentLikeTask = task
     task.resume()
   }
 
@@ -128,15 +115,11 @@ extension ImageListService: ImageListLoading {
 
   func fetchPhotosNextPage() {
     assert(Thread.isMainThread)
-    print("ITS LIT ILS 131 Run fetchPhotosNextPage()")
+    if currentPhotosTask != nil { return }
+    currentPhotosTask?.cancel()
 
-    guard currentPhotosTask == nil else {
-      print("ITS LIT ILS 134 Race Condition - reject repeated photos request")
-      return
-    }
     let nextPage = makeNextPageNumber()
     fetchPhotosCount += 1
-    print("ITS LIT ILS 139 fetchPhotosCount: \(fetchPhotosCount)")
 
 
     guard let request = makePhotosListRequest(page: nextPage) else {
@@ -148,20 +131,20 @@ extension ImageListService: ImageListLoading {
     let task = session.objectTask(for: request) { [weak self] (result: Result<[PhotoResult], Error>) in
       guard let self else { preconditionFailure("ITS LIT ILS Cannot make weak link") }
       DispatchQueue.main.async {
+        self.currentPhotosTask = nil
         switch result {
         case .success(let photoResults):
-          // var photos: [Photo] = []
+          var photos: [Photo] = []
           photoResults.forEach { photo in
-            self.photos.append(self.convert(result: photo))
+            photos.append(self.convert(result: photo))
           }
-          // self.photos += photos
+          self.photos += photos
           self.lastLoadedPage = nextPage
           NotificationCenter.default.post(
             name: ImageListService.didChangeNotification,
             object: self,
             userInfo: ["Photos": self.photos]
           )
-          self.currentPhotosTask = nil
         case .failure(let error):
           print("ITS LIT ILS 102 \(String(describing: error))")
         }

@@ -20,7 +20,6 @@ final class SplashViewController: UIViewController {
   private let oAuth2Service = OAuth2Service.shared
   private let profileService = ProfileService.shared
   private let profileImageService = ProfileImageService.shared
-
   private let imageListService = ImageListService.shared
 
   private var alertPresenter: AlertPresenting?
@@ -106,7 +105,6 @@ private extension SplashViewController {
 
   func setupSplashViewController() {
     view.backgroundColor = .ypBackground
-
     view.addSubview(unsplashLogoImage)
 
     NSLayoutConstraint.activate([
@@ -124,10 +122,8 @@ private extension SplashViewController {
 
   func fetchAuthToken(with code: String) {
     UIBlockingProgressHUD.show()
-
     oAuth2Service.fetchAuthToken(with: code) { [weak self] authResult in
       guard let self else { preconditionFailure("Cannot fetch auth token") }
-
       switch authResult {
       case .success:
         self.fetchProfile(completion: {
@@ -141,10 +137,8 @@ private extension SplashViewController {
   }
 
   func fetchProfile(completion: @escaping () -> Void) {
-
     profileService.fetchProfile { [weak self] profileResult in
       guard let self else { preconditionFailure("Cannot fetch profileResult") }
-
       switch profileResult {
       case .success(let profile):
         let userName = profile.username
@@ -157,11 +151,8 @@ private extension SplashViewController {
   }
 
   func fetchProfileImage(userName: String) {
-
     profileImageService.fetchProfileImageURL(userName: userName) { [weak self] profileImageUrl in
-
       guard let self else { return }
-
       switch profileImageUrl {
       case .success:
         self.switchToTabBarController()

@@ -24,7 +24,7 @@ private extension TabBarController {
   func setupTabBarView() {
     tabBar.barStyle = .black
     tabBar.tintColor = .ypWhite
-    tabBar.backgroundColor = .ypBlack // use this to make tabBar black, not translucent
+    tabBar.backgroundColor = .ypBlack
   }
 
   func setupTabBarViewController() {

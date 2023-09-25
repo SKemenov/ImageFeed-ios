@@ -16,16 +16,6 @@ struct AuthConfiguration {
   let authURLString: String
   let baseURLString: String
 
-//  init(accessKey: String, secretKey: String, redirectURI: String, accessSCope: String, apiURLString: String, authURLString: String, baseURLString: String) {
-//    self.accessKey = accessKey
-//    self.secretKey = secretKey
-//    self.redirectURI = redirectURI
-//    self.accessSCope = accessSCope
-//    self.apiURLString = apiURLString
-//    self.authURLString = authURLString
-//    self.baseURLString = baseURLString
-//  }
-
   static var standard: AuthConfiguration {
     AuthConfiguration(
       accessKey: Constants.accessKey,
