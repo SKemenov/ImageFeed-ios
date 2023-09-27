@@ -20,9 +20,9 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="AqL-sv-sOf">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                                <color key="backgroundColor" name="YP Background"/>
+                                <color key="backgroundColor" name="YP Black"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="224" id="Xo6-7m-CIh" customClass="ImagesListCell" customModule="ImageFeed_ios" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="ImagesListCell" rowHeight="224" id="Xo6-7m-CIh" customClass="ImagesListCell" customModule="ImageFeed_ios" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="50" width="393" height="224"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Xo6-7m-CIh" id="VUF-6e-Fzr">
@@ -41,6 +41,7 @@
                                                 </imageView>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q4A-cl-6Wo" userLabel="Like Button">
                                                     <rect key="frame" x="333" y="4" width="44" height="44"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="LikeButton"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="44" id="9tk-E3-IWX"/>
                                                         <constraint firstAttribute="height" constant="44" id="kHV-Y8-jSa"/>
@@ -68,7 +69,7 @@
                                                 <constraint firstItem="Q4A-cl-6Wo" firstAttribute="top" secondItem="eOz-qA-Vtd" secondAttribute="top" id="syk-G5-pZJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="YP Black"/>
                                         <constraints>
                                             <constraint firstItem="VUF-6e-Fzr" firstAttribute="bottom" secondItem="eOz-qA-Vtd" secondAttribute="bottom" constant="4" id="69s-zQ-90w"/>
                                             <constraint firstItem="eOz-qA-Vtd" firstAttribute="leading" secondItem="VUF-6e-Fzr" secondAttribute="leading" constant="16" id="8Wb-Mb-iYz"/>
@@ -248,6 +249,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Cct-sy-Hj8"/>
+                    <connections>
+                        <outlet property="authButton" destination="kCV-jM-mSD" id="njU-yf-1WY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ayt-s1-FCW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
