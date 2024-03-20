@@ -2,10 +2,18 @@ name: SwiftLint
 
 on:
   push:
-#  pull_request:
     paths:
       - '**/*.swift'
+#  pull_request:
 
+#on:
+#  push:
+#    branches: [ "main", "features/*" ]
+#  pull_request:
+#    branches: [ "main" ]
+#  workflow_dispatch:
+
+  
 jobs:
   SwiftLint:
     runs-on: ubuntu-latest
