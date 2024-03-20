@@ -12,7 +12,12 @@ import Foundation
 protocol ImageListLoading: AnyObject {
   func fetchPhotosNextPage()
   func resetPhotos()
-  func changeLike(photoId: String, indexPath: IndexPath, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void)
+  func changeLike(
+    photoId: String,
+    indexPath: IndexPath,
+    isLike: Bool,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+  )
 }
 
 // MARK: - Class
@@ -76,8 +81,12 @@ private extension ImageListService {
 // MARK: - ImageListLoading
 
 extension ImageListService: ImageListLoading {
-
-  func changeLike(photoId: String, indexPath: IndexPath, isLike: Bool, _ completion: @escaping (Result<Bool, Error>) -> Void) {
+  func changeLike(
+    photoId: String,
+    indexPath: IndexPath,
+    isLike: Bool,
+    _ completion: @escaping (Result<Bool, Error>) -> Void
+  ) {
     assert(Thread.isMainThread)
     if currentLikeTask != nil { return }
     currentLikeTask?.cancel()
